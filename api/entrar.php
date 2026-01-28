@@ -31,15 +31,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $senhaArmazenada = $user["user_pass"];
             $senhaValida = false;
 
-            // Verifica bcrypt (novas senhas)
-            if (password_verify($senha, $senhaArmazenada)) {
+            // Verifica MD5
+            if (md5($senha) === $senhaArmazenada) {
                 $senhaValida = true;
             }
-            // Verifica MD5 legado e migra para bcrypt
-            elseif (md5($senha) === $senhaArmazenada) {
+            // Fallback para bcrypt (contas antigas)
+            elseif (password_verify($senha, $senhaArmazenada)) {
                 $senhaValida = true;
-                // Migra senha para bcrypt
-                $novaSenhaHash = password_hash($senha, PASSWORD_DEFAULT);
+                // Migra para MD5 para compatibilidade com o jogo
+                $novaSenhaHash = md5($senha);
                 $stmtUpdate = $conn->prepare("UPDATE login SET user_pass = ? WHERE account_id = ?");
                 $stmtUpdate->bind_param("si", $novaSenhaHash, $user["account_id"]);
                 $stmtUpdate->execute();

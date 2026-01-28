@@ -24,6 +24,56 @@ $ymlFiles = [
 ];
 
 /**
+ * Verifica se um nome é válido (não é texto corrompido/Korean mal codificado)
+ * Nomes válidos contêm principalmente letras latinas e acentos portugueses
+ */
+function isValidName($name) {
+    if (empty($name)) return false;
+
+    // Caracteres válidos para português em Windows-1252:
+    // - Letras ASCII (a-z, A-Z)
+    // - Números (0-9)
+    // - Espaços e pontuação comum
+    // - Acentos portugueses: á à â ã é ê í ó ô õ ú ç (e maiúsculas)
+    // Bytes Windows-1252 para acentos: 0xE0-0xFC (à-ü)
+
+    // Conta caracteres "estranhos" que indicam encoding incorreto
+    $validChars = 0;
+    $totalChars = strlen($name);
+
+    for ($i = 0; $i < $totalChars; $i++) {
+        $ord = ord($name[$i]);
+
+        // ASCII imprimível (espaço até ~)
+        if ($ord >= 0x20 && $ord <= 0x7E) {
+            $validChars++;
+        }
+        // Acentos portugueses comuns em Windows-1252
+        elseif (in_array($ord, [
+            0xC0, 0xC1, 0xC2, 0xC3, // À Á Â Ã
+            0xC7, // Ç
+            0xC9, 0xCA, // É Ê
+            0xCD, // Í
+            0xD3, 0xD4, 0xD5, // Ó Ô Õ
+            0xDA, // Ú
+            0xE0, 0xE1, 0xE2, 0xE3, // à á â ã
+            0xE7, // ç
+            0xE9, 0xEA, // é ê
+            0xED, // í
+            0xF3, 0xF4, 0xF5, // ó ô õ
+            0xFA, // ú
+            0xAA, 0xBA, // ª º
+        ])) {
+            $validChars++;
+        }
+    }
+
+    // Se menos de 70% dos caracteres são válidos, provavelmente é texto corrompido
+    $ratio = $totalChars > 0 ? ($validChars / $totalChars) : 0;
+    return $ratio >= 0.7;
+}
+
+/**
  * Formata um valor para YAML, adicionando aspas se necessário
  */
 function formatYamlValue($value) {
@@ -98,16 +148,23 @@ function loadNamesFromLub($lubFiles, $convertToUtf8 = false, $removeAccents = fa
 
         $lines = preg_split('/\r?\n/', $content);
         $currentId = null;
+        $braceLevel = 0;  // Rastrear nível de aninhamento de chaves
 
         foreach ($lines as $line) {
+            // Contar chaves abertas e fechadas para rastrear nível
+            $opens = substr_count($line, '{');
+            $closes = substr_count($line, '}');
+
             // Detectar início de bloco [ID] = {
             if (preg_match('/^\s*\[(\d+)\]\s*=\s*\{/', $line, $match)) {
                 $currentId = intval($match[1]);
+                $braceLevel = 1;  // Estamos dentro do bloco do item
             }
             // Detectar identifiedDisplayName = "Nome" (não unidentifiedDisplayName)
-            elseif ($currentId !== null && preg_match('/(?<!un)identifiedDisplayName\s*=\s*"([^"]*)"/', $line, $match)) {
+            elseif ($currentId !== null && preg_match('/\bidentifiedDisplayName\s*=\s*"([^"]*)"/', $line, $match)) {
                 $name = $match[1];
-                if (!empty($name)) {
+                // Validar nome: ignorar nomes vazios ou corrompidos (Korean mal codificado)
+                if (!empty($name) && isValidName($name)) {
                     if ($removeAccents) {
                         // Converter para ASCII sem acentos (para arquivos .yml do rAthena)
                         $names[$currentId] = removeAccents($name);
@@ -123,11 +180,15 @@ function loadNamesFromLub($lubFiles, $convertToUtf8 = false, $removeAccents = fa
                         $names[$currentId] = $name;
                     }
                 }
-                // Não resetar currentId aqui para permitir múltiplas leituras no mesmo bloco
             }
-            // Detectar fim de bloco principal (linha com apenas } ou },)
-            elseif (preg_match('/^\s*\},?\s*$/', $line)) {
-                $currentId = null;
+            // Atualizar nível de chaves (para linhas que não iniciam um bloco)
+            elseif ($currentId !== null) {
+                $braceLevel += $opens - $closes;
+                // Se voltamos ao nível 0, fechamos o bloco do item
+                if ($braceLevel <= 0) {
+                    $currentId = null;
+                    $braceLevel = 0;
+                }
             }
         }
     }
@@ -139,11 +200,79 @@ function loadNamesFromLub($lubFiles, $convertToUtf8 = false, $removeAccents = fa
 if (isset($_GET['action'])) {
     header('Content-Type: application/json');
 
+    // Debug: verificar ID específico
+    if ($_GET['action'] === 'debug') {
+        $id = isset($_GET['id']) ? intval($_GET['id']) : 2103;
+
+        // Carregar nomes SEM validação para ver o que está no arquivo
+        $allNames = [];
+        foreach ($lubFiles as $file) {
+            if (!file_exists($file)) continue;
+            $content = file_get_contents($file);
+            if ($content === false) continue;
+            $lines = preg_split('/\r?\n/', $content);
+            $currentId = null;
+            $braceLevel = 0;
+            foreach ($lines as $line) {
+                $opens = substr_count($line, '{');
+                $closes = substr_count($line, '}');
+
+                if (preg_match('/^\s*\[(\d+)\]\s*=\s*\{/', $line, $match)) {
+                    $currentId = intval($match[1]);
+                    $braceLevel = 1;
+                }
+                elseif ($currentId !== null && preg_match('/\bidentifiedDisplayName\s*=\s*"([^"]*)"/', $line, $match)) {
+                    $name = $match[1];
+                    if (!empty($name)) {
+                        $nameUtf8 = @iconv('CP1252', 'UTF-8//TRANSLIT', $name) ?: $name;
+                        $allNames[$currentId] = [
+                            'raw' => $name,
+                            'utf8' => $nameUtf8,
+                            'valid' => isValidName($name)
+                        ];
+                    }
+                }
+                elseif ($currentId !== null) {
+                    $braceLevel += $opens - $closes;
+                    if ($braceLevel <= 0) {
+                        $currentId = null;
+                        $braceLevel = 0;
+                    }
+                }
+            }
+        }
+
+        // Nomes filtrados (válidos apenas)
+        $validNames = loadNamesFromLub($lubFiles, true);
+
+        $result = [
+            'id' => $id,
+            'found_raw' => isset($allNames[$id]),
+            'found_valid' => isset($validNames[$id]),
+            'raw_data' => $allNames[$id] ?? 'NOT FOUND IN LUB FILES',
+            'valid_name' => $validNames[$id] ?? 'NOT FOUND (invalid or missing)',
+            'total_raw' => count($allNames),
+            'total_valid' => count($validNames),
+        ];
+
+        // Mostrar itens próximos
+        $nearby = [];
+        for ($i = $id - 5; $i <= $id + 5; $i++) {
+            if (isset($allNames[$i])) {
+                $nearby[$i] = $allNames[$i];
+            }
+        }
+        $result['nearby_ids'] = $nearby;
+
+        echo json_encode($result, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        exit;
+    }
+
     if ($_GET['action'] === 'load_names') {
         // Para exibição na web, converter para UTF-8
         $names = loadNamesFromLub($lubFiles, true);
 
-        // Amostra para exibição
+        // Amostra para exibição - inclui usables e equips
         $sample = [];
         $i = 0;
         foreach ($names as $id => $name) {

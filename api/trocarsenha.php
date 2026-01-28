@@ -30,16 +30,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $senhaArmazenada = $linha["user_pass"];
         $senhaAtualValida = false;
 
-        // Verifica bcrypt (novas senhas)
-        if (password_verify($senhaAtual, $senhaArmazenada)) {
+        // Verifica MD5
+        if (md5($senhaAtual) === $senhaArmazenada) {
             $senhaAtualValida = true;
         }
-        // Verifica MD5 legado
-        elseif (md5($senhaAtual) === $senhaArmazenada) {
+        // Fallback para bcrypt (contas antigas)
+        elseif (password_verify($senhaAtual, $senhaArmazenada)) {
             $senhaAtualValida = true;
         }
 
-        $novaSenhaHash = password_hash($novaSenha, PASSWORD_DEFAULT);
+        $novaSenhaHash = md5($novaSenha);
 
         // Valida a senha atual
         if ($senhaAtualValida) {

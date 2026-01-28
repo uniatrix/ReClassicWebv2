@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "<div class='error'>Usuário já registrado.</div>";
             } else {  
 
-            	$senhaUser = password_hash($senha, PASSWORD_DEFAULT);
+            	$senhaUser = md5($senha);
 
                 $sql = "INSERT INTO login (userid, email, user_pass, sex, whatsapp, full_name) VALUES (?, ?, ?, ?, ?, ?)";
                 $stmt = $conn->prepare($sql);
