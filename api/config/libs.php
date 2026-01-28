@@ -363,6 +363,47 @@ public static function getMapName($idmapa) {
         return null;
     }
 
+    /**
+     * Busca o nome traduzido de um item na tabela itemdesc
+     */
+    public static function getItemName($itemId, $fallbackName = '') {
+        $sql = "SELECT itemname FROM itemdesc WHERE id = ?";
+        $stmt = self::getInstance()->prepare($sql);
+        $stmt->bind_param("i", $itemId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result && $result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            if (!empty($row['itemname'])) {
+                return $row['itemname'];
+            }
+        }
+        return $fallbackName;
+    }
+
+    /**
+     * Busca nomes traduzidos para múltiplos itens de uma vez (mais eficiente)
+     */
+    public static function getItemNames($itemIds) {
+        if (empty($itemIds)) return [];
+
+        $placeholders = implode(',', array_fill(0, count($itemIds), '?'));
+        $sql = "SELECT id, itemname FROM itemdesc WHERE id IN ($placeholders)";
+
+        $stmt = self::getInstance()->prepare($sql);
+        $types = str_repeat('i', count($itemIds));
+        $stmt->bind_param($types, ...$itemIds);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $names = [];
+        while ($row = $result->fetch_assoc()) {
+            $names[$row['id']] = $row['itemname'];
+        }
+        return $names;
+    }
+
 }// fecha a classe RECLASSIC
 
 
