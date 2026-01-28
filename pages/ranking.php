@@ -4,17 +4,12 @@
 
 <style type="text/css">
 
-  /* Container principal */
-  .infoblocks {
-    padding-bottom: 80px;
-  }
+  /* ========== DESKTOP STYLES (Original) ========== */
 
   h6 {
     font-size: 18px;
     font-weight: bold;
-    margin-bottom: 15px;
-    color: #333;
-    font-family: 'Pixelify Sans', sans-serif;
+    margin-bottom: 10px;
   }
 
   p.infoblocks {
@@ -22,63 +17,24 @@
     color: #555;
   }
 
-  /* Tabs de navegação */
-  #filter_ranking {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 20px;
-    justify-content: center;
-  }
-
-  #filter_ranking a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 20px;
-    background-color: #f5f5f5;
-    border: 2px solid var(--primary-color);
-    border-radius: 25px;
-    color: var(--primary-color);
-    font-family: 'Pixelify Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.2s ease;
-  }
-
-  #filter_ranking a:hover {
-    background-color: var(--primary-color);
-    color: white;
-  }
-
-  #filter_ranking a.disabled {
-    background-color: var(--primary-color);
-    color: white;
-    pointer-events: none;
-  }
-
   /* Tabela */
   .ranking {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    background: white;
   }
 
   .ranking th,
   .ranking td {
-    border: 1px solid #e0e0e0;
-    padding: 12px 10px;
+    border: 1px solid #ddd;
+    padding: 10px;
   }
 
   .ranking th {
-    background-color: var(--primary-color);
-    color: white;
+    background-color: #e7e7e7;
+    color: black;
     text-align: center;
     font-weight: bold;
-    font-family: 'Pixelify Sans', sans-serif;
-    font-size: 14px;
   }
 
   .ranking tr:nth-child(even) {
@@ -86,13 +42,12 @@
   }
 
   .ranking tr:hover {
-    background-color: rgba(52, 152, 219, 0.1);
+    background-color: #f1f1f1;
   }
 
   .ranking td {
     text-align: center;
     vertical-align: middle;
-    color: #333;
   }
 
   .ranking img {
@@ -110,10 +65,11 @@
   }
 
   .disabled {
-    color: #666;
+    color: black;
     pointer-events: none;
   }
 
+  /* ========== MOBILE STYLES (Modern) ========== */
   @media (max-width: 768px) {
     .infoblocks {
       width: auto;
@@ -123,15 +79,42 @@
       padding-bottom: 100px;
     }
 
+    h6 {
+      padding: 15px;
+      background: white;
+      color: #333;
+      font-family: 'Pixelify Sans', sans-serif;
+      border-bottom: 1px solid #e0e0e0;
+      margin: 0 0 15px 0;
+    }
+
     #filter_ranking {
+      display: flex;
+      flex-wrap: wrap;
       gap: 8px;
+      margin-bottom: 15px;
+      background-color: white;
+      padding: 10px;
     }
 
     #filter_ranking a {
-      padding: 8px 15px;
-      font-size: 12px;
       flex: 1;
       min-width: 80px;
+      text-align: center;
+      padding: 10px 15px;
+      background-color: #f5f5f5;
+      border: 2px solid var(--primary-color);
+      border-radius: 25px;
+      color: var(--primary-color);
+      font-family: 'Pixelify Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    #filter_ranking a.disabled {
+      background-color: var(--primary-color);
+      color: white;
     }
 
     .ranking {
@@ -144,7 +127,14 @@
     }
 
     .ranking th {
+      background-color: var(--primary-color);
+      color: white;
+      font-family: 'Pixelify Sans', sans-serif;
       font-size: 11px;
+    }
+
+    .ranking tr:hover {
+      background-color: rgba(52, 152, 219, 0.1);
     }
 
     h6 {
@@ -160,9 +150,9 @@
 <div class="infoblocks">
 
     <div id="filter_ranking">
-      <a href="?to=ranking&type=personagens">Personagens</a>
-      <a href="?to=ranking&type=guilds">Guildas</a>
-      <a href="?to=ranking&type=alquimistas">Alquimistas</a>
+      <a href="?to=ranking&type=personagens">Personagens</a> >
+      <a href="?to=ranking&type=guilds">Guildas</a> >
+      <a href="?to=ranking&type=alquimistas">Alquimistas</a> >
       <a href="?to=ranking&type=ferreiros">Ferreiros</a>
     </div>
 

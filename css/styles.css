@@ -1735,37 +1735,10 @@ section.container:first-of-type {
 }
 
 /* ===============================================
-   DATABASE & VER ITEM PAGES - WHITE BACKGROUND
+   DATABASE & VER ITEM PAGES - STYLES
    =============================================== */
 
-/* Remove background from hero section on database pages */
-body.database-page::before {
-    display: none;
-}
-
-body.database-page {
-    background: white;
-}
-
-body.database-page .hero-section {
-    background: white;
-    min-height: 0;
-    padding: 10px 0 !important;
-}
-
-/* Infoblocks container adjustments */
-body.database-page .infoblocks {
-    background: white;
-    margin-top: 0;
-    box-shadow: none;
-    max-width: 100%;
-    width: 100%;
-    margin-left: 0;
-    padding: 15px;
-    padding-bottom: 100px;
-}
-
-/* Breadcrumb with back arrow */
+/* Breadcrumb with back arrow - works on both desktop and mobile */
 .db-breadcrumb {
     display: flex;
     align-items: center;
@@ -1809,48 +1782,33 @@ body.database-page .infoblocks {
     color: #666;
 }
 
-/* Database action buttons - modern style */
-.db-action-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 25px;
-    background: var(--primary-color);
-    color: white;
-    font-family: 'Pixelify Sans', sans-serif;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-decoration: none;
-}
-
-.db-action-btn:hover {
-    background: var(--secondary-color);
-    transform: translateY(-2px);
-    color: white;
-    text-decoration: none;
-}
-
-.db-action-btn.secondary {
-    background: #6c757d;
-}
-
-.db-action-btn.secondary:hover {
-    background: #5a6268;
-}
-
-/* Mobile adjustments for database pages */
+/* Mobile-only adjustments for database pages */
 @media (max-width: 768px) {
-    body.database-page .infoblocks {
-        padding: 10px;
-        padding-bottom: 120px;
+    /* Remove background image on mobile */
+    body.database-page::before {
+        display: none;
+    }
+
+    body.database-page {
+        background: white;
     }
 
     body.database-page .hero-section {
+        background: white;
+        min-height: 0;
         padding: 5px 0 !important;
+    }
+
+    /* Infoblocks container adjustments - mobile only */
+    body.database-page .infoblocks {
+        background: white;
+        margin-top: 0;
+        box-shadow: none;
+        max-width: 100%;
+        width: 100%;
+        margin-left: 0;
+        padding: 10px;
+        padding-bottom: 120px;
     }
 
     .db-breadcrumb {
