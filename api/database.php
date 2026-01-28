@@ -244,6 +244,18 @@ if (isset($_GET["type"]) && $_GET["type"] == "monstros") {
     $start_index = ($page - 1) * $items_per_page;
     $end_index = min($start_index + $items_per_page - 1, $total_items - 1);
     $paginated_items = array_slice($itens, $start_index, $items_per_page);
+
+    // Buscar nomes traduzidos para os itens da página atual
+    $itemIds = array_column($paginated_items, 'id');
+    $translatedNames = RECLASSIC::getItemNames($itemIds);
+
+    // Substituir nomes em inglês pelos traduzidos
+    foreach ($paginated_items as &$item) {
+        if (isset($translatedNames[$item['id']]) && !empty($translatedNames[$item['id']])) {
+            $item['name_english'] = $translatedNames[$item['id']];
+        }
+    }
+    unset($item);
     $current_url = $_SERVER["REQUEST_URI"];
     $query_params = $_GET;
     $query_params["page"] = $page + 1;

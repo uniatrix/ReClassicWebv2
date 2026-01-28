@@ -104,55 +104,60 @@ if ($resultado->num_rows > 0) {
 
 
 
-    $sql = "SELECT itemdesc FROM itemdesc WHERE id = ?";
+    // Buscar nome traduzido e descrição da tabela itemdesc
+    $sql = "SELECT itemname, itemdesc FROM itemdesc WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $iditem);
     $stmt->execute();
 
     $resultado = $stmt->get_result();
 
-        // Se não houver resultados, execute a cURL para obter a descrição
-        $ch = curl_init();
-        $url = "https://www.divine-pride.net/api/database/Item/" . $iditem . "?apiKey=" . $config["KeyDivinePride"];
+    // Se não houver resultados no banco local, tenta a API Divine Pride
+    $ch = curl_init();
+    $url = "https://www.divine-pride.net/api/database/Item/" . $iditem . "?apiKey=" . $config["KeyDivinePride"];
 
-        $headers = [
-            "Content-Type: application/json",
-            "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-            "Accept-Language: pt,pt;q=0.9,en-US;q=0.8,en;q=0.7,ko;q=0.6",
-            "Cache-Control: max-age=0",
-            "Priority: u=0, i",
-            'Sec-Ch-Ua: "Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"',
-            "Sec-Ch-Ua-Mobile: ?1",
-            'Sec-Ch-Ua-Platform: "Android"',
-            "Sec-Fetch-Dest: document",
-            "Sec-Fetch-Mode: navigate",
-            "Sec-Fetch-Site: none",
-            "Sec-Fetch-User: ?1",
-            "Upgrade-Insecure-Requests: 1",
-            "User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36",
-        ];
+    $headers = [
+        "Content-Type: application/json",
+        "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+        "Accept-Language: pt,pt;q=0.9,en-US;q=0.8,en;q=0.7,ko;q=0.6",
+        "Cache-Control: max-age=0",
+        "Priority: u=0, i",
+        'Sec-Ch-Ua: "Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"',
+        "Sec-Ch-Ua-Mobile: ?1",
+        'Sec-Ch-Ua-Platform: "Android"',
+        "Sec-Fetch-Dest: document",
+        "Sec-Fetch-Mode: navigate",
+        "Sec-Fetch-Site: none",
+        "Sec-Fetch-User: ?1",
+        "Upgrade-Insecure-Requests: 1",
+        "User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36",
+    ];
 
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-        $jsonData = curl_exec($ch);
-        curl_close($ch); // Fechar o cURL após a execução
+    $jsonData = curl_exec($ch);
+    curl_close($ch);
 
-        $data = json_decode($jsonData, true);
+    $data = json_decode($jsonData, true);
 
     if ($resultado->num_rows > 0) {
-
         $linha = $resultado->fetch_assoc();
-        $descrip = $linha["itemdesc"];
-    } else {
-        // Verifique se a descrição foi retornada pela API
+        // Usar nome traduzido se existir, senão mantém o nome em inglês
+        if (!empty($linha["itemname"])) {
+            $nomeitem = $linha["itemname"];
+        }
+        $descrip = $linha["itemdesc"] ?? '';
+    }
+
+    // Se não tiver descrição no banco, tenta a API
+    if (empty($descrip)) {
         if (isset($data["description"]) && !empty($data["description"])) {
             $descrip = $data["description"];
         } else {
             $descrip = 'Sem Descrição';
         }
-        
     }
 
     $textoFormatado = converterCores($descrip);

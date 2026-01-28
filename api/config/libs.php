@@ -13,10 +13,10 @@ class RECLASSIC {
 
     private function __construct() {
         // Update these database connection settings
-        $this->host         = 'sql313.infinityfree.com';   // InfinityFree database server
-        $this->user         = 'if0_38596119';              // Your InfinityFree username
-        $this->senha        = 'KrqOYxCErskmzZ';            // Your database password
-        $this->bd           = 'if0_38596119_ragdb';        // Your InfinityFree database name
+        $this->host         = 'localhost';                 // Local XAMPP MySQL
+        $this->user         = 'root';                      // XAMPP default user
+        $this->senha        = '';                          // XAMPP default (no password)
+        $this->bd           = 'ragdb';                     // Your local database name
         
         // Keep these game server ports unchanged
         $this->PortMap      = 5121;    // Porta do Map-Server (Padrão = 5121)
@@ -335,6 +335,47 @@ public static function getMapName($idmapa) {
         } else {
             return null;
         }
+    }
+
+    /**
+     * Busca o nome traduzido de um item na tabela itemdesc
+     */
+    public static function getItemName($itemId, $fallbackName = '') {
+        $sql = "SELECT itemname FROM itemdesc WHERE id = ?";
+        $stmt = self::getInstance()->prepare($sql);
+        $stmt->bind_param("i", $itemId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result && $result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            if (!empty($row['itemname'])) {
+                return $row['itemname'];
+            }
+        }
+        return $fallbackName;
+    }
+
+    /**
+     * Busca nomes traduzidos para múltiplos itens de uma vez (mais eficiente)
+     */
+    public static function getItemNames($itemIds) {
+        if (empty($itemIds)) return [];
+
+        $placeholders = implode(',', array_fill(0, count($itemIds), '?'));
+        $sql = "SELECT id, itemname FROM itemdesc WHERE id IN ($placeholders)";
+
+        $stmt = self::getInstance()->prepare($sql);
+        $types = str_repeat('i', count($itemIds));
+        $stmt->bind_param($types, ...$itemIds);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $names = [];
+        while ($row = $result->fetch_assoc()) {
+            $names[$row['id']] = $row['itemname'];
+        }
+        return $names;
     }
 
 }// fecha a classe RECLASSIC
