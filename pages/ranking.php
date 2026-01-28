@@ -3,12 +3,18 @@
 
 
 <style type="text/css">
-    
+
+  /* Container principal */
+  .infoblocks {
+    padding-bottom: 80px;
+  }
 
   h6 {
     font-size: 18px;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    color: #333;
+    font-family: 'Pixelify Sans', sans-serif;
   }
 
   p.infoblocks {
@@ -16,24 +22,63 @@
     color: #555;
   }
 
+  /* Tabs de navegação */
+  #filter_ranking {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    justify-content: center;
+  }
+
+  #filter_ranking a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    background-color: #f5f5f5;
+    border: 2px solid var(--primary-color);
+    border-radius: 25px;
+    color: var(--primary-color);
+    font-family: 'Pixelify Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  #filter_ranking a:hover {
+    background-color: var(--primary-color);
+    color: white;
+  }
+
+  #filter_ranking a.disabled {
+    background-color: var(--primary-color);
+    color: white;
+    pointer-events: none;
+  }
+
   /* Tabela */
   .ranking {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    background: white;
   }
 
-  .ranking th, 
+  .ranking th,
   .ranking td {
-    border: 1px solid #ddd;
-    padding: 10px;
+    border: 1px solid #e0e0e0;
+    padding: 12px 10px;
   }
 
   .ranking th {
-  background-color: #e7e7e7;
-  color: black;
+    background-color: var(--primary-color);
+    color: white;
     text-align: center;
     font-weight: bold;
+    font-family: 'Pixelify Sans', sans-serif;
+    font-size: 14px;
   }
 
   .ranking tr:nth-child(even) {
@@ -41,12 +86,13 @@
   }
 
   .ranking tr:hover {
-    background-color: #f1f1f1;
+    background-color: rgba(52, 152, 219, 0.1);
   }
 
   .ranking td {
     text-align: center;
     vertical-align: middle;
+    color: #333;
   }
 
   .ranking img {
@@ -54,7 +100,6 @@
     height: auto;
     border-radius: 5px;
   }
-
 
   /* Estilização para a mensagem de espera */
   td p {
@@ -64,34 +109,61 @@
     text-shadow: none;
   }
 
-.disabled {
-    color: black;
-    pointer-events:none;
-}
+  .disabled {
+    color: #666;
+    pointer-events: none;
+  }
 
-        @media (max-width: 768px) {
-
-        .infoblocks{
-            zoom: 0.80;
-            width: auto;
-            margin: 125px 0 0 0;
-        } 
-        .ranking {
-            zoom: 0.80;
-            width: auto;
-            margin: 0px!important;
-        } 
-
+  @media (max-width: 768px) {
+    .infoblocks {
+      width: auto;
+      margin: 0;
+      margin-top: 0;
+      padding: 10px;
+      padding-bottom: 100px;
     }
+
+    #filter_ranking {
+      gap: 8px;
+    }
+
+    #filter_ranking a {
+      padding: 8px 15px;
+      font-size: 12px;
+      flex: 1;
+      min-width: 80px;
+    }
+
+    .ranking {
+      font-size: 12px;
+    }
+
+    .ranking th,
+    .ranking td {
+      padding: 8px 5px;
+    }
+
+    .ranking th {
+      font-size: 11px;
+    }
+
+    h6 {
+      text-align: center;
+      padding: 10px;
+      margin: 0 0 15px 0;
+      background-color: #f5f5f5;
+      border-radius: 8px;
+    }
+  }
 </style>
 
 <div class="infoblocks">
-    
-    <div id="filter_ranking">  
-      <a href="?to=ranking&type=personagens">Personagens</a> >
-      <a href="?to=ranking&type=guilds" >Guildas</a> >
-      <a href="?to=ranking&type=alquimistas" >Alquimistas</a> >
-      <a href="?to=ranking&type=ferreiros" >Ferreiros</a>
+
+    <div id="filter_ranking">
+      <a href="?to=ranking&type=personagens">Personagens</a>
+      <a href="?to=ranking&type=guilds">Guildas</a>
+      <a href="?to=ranking&type=alquimistas">Alquimistas</a>
+      <a href="?to=ranking&type=ferreiros">Ferreiros</a>
     </div>
 
 <?php if($_GET['type'] == 'personagens'):?>

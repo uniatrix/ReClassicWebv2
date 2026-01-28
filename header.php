@@ -875,7 +875,7 @@
     <?php endif; ?>
 </head>
 
-<body class="<?php echo (isset($_GET['to']) && in_array($_GET['to'], ['database', 'veritem', 'vermonstro', 'vermapa'])) ? 'database-page' : ''; ?>">
+<body class="<?php echo (isset($_GET['to']) && in_array($_GET['to'], ['database', 'veritem', 'vermonstro', 'vermapa', 'ranking', 'comercio', 'verloja'])) ? 'database-page' : ''; ?>">
     <!-- Google Tag Manager scripts from original site -->
     <script>(function (w, d, s, l, i) {
             w[l] = w[l] || []; w[l].push({

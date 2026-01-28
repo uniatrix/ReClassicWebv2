@@ -1,37 +1,21 @@
 <style type="text/css">
 
+/* Container principal */
+.infoblocks {
+  padding-bottom: 80px;
+}
+
 /* Título */
 h6 {
   font-size: 1.25rem;
-  color: black;
+  color: #333;
   margin-bottom: 1rem;
   text-align: center;
+  font-family: 'Pixelify Sans', sans-serif;
 }
 
-/* Center the commerce content */
-.infoblocks {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  min-height: calc(100vh - 400px); /* Ensure content takes enough space to push footer down */
-}
-
+/* Tabs de navegação */
 #filter_ranking {
-  text-align: center;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-}
-
-#filter_ranking a {
-  color: #000;
-  text-decoration: none;
-}
-
-/* Container for search and filter buttons */
-.controls-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -39,407 +23,383 @@ h6 {
   margin-bottom: 20px;
 }
 
-/* Adjust search box position */
-.search-box {
-  float: none;
-  display: inline-block;
+#filter_ranking a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 25px;
+  background-color: #f5f5f5;
+  border: 2px solid var(--primary-color);
+  border-radius: 25px;
+  color: var(--primary-color);
+  font-family: 'Pixelify Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+#filter_ranking a:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+#filter_ranking a.disabled {
+  background-color: var(--primary-color);
+  color: white;
+  pointer-events: none;
+}
+
+/* Container de controles */
+.controls-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
 /* Caixa de busca */
+.search-box {
+  float: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .search-box form {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 10px;
 }
 
-
-/* Filtro */
-.filterdb {
-  display: none; /* Define um layout em grade */
-  grid-template-columns: repeat(4, 1fr); 
-  gap: 0rem; /* Espaçamento entre os itens */
-  margin-bottom: 20px; /* Espaçamento inferior */
+.search-box input[type="text"] {
+  padding: 10px 15px;
+  border: 2px solid var(--primary-color);
+  border-radius: 25px;
+  font-size: 14px;
+  width: 200px;
+  background-color: white;
 }
 
 .search-box input[type="submit"] {
+  padding: 10px 20px;
+  background: var(--primary-color);
+  color: white;
   border: none;
-  appearance: none;
-  -webkit-appearance: none;
-  background: none; /* Remove qualquer fundo */
-  background-image: url('assets/btn_search_out.png'); /* Defina a imagem */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  border-radius: 25px;
+  font-family: 'Pixelify Sans', sans-serif;
+  font-size: 14px;
   cursor: pointer;
-  width: 37px !important;
-  height: 32px;
-  text-indent: -9999px; /* Move o texto para fora da tela */
-  transition: none;
+  transition: all 0.2s ease;
+  text-indent: 0;
+  width: auto !important;
+  height: auto;
+  background-image: none;
 }
 
 .search-box input[type="submit"]:hover {
-
-  background-image: url('assets/btn_search_over.png');
- transition: none;
+  background: var(--secondary-color);
+  transform: translateY(-2px);
+  background-image: none;
 }
-.search-box input[type="submit"]:active {
 
-  background-image: url('assets/btn_search_press.png');
- transition: none;
+/* Botões de ação modernos */
+button.filter-button,
+button.reset-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  font-family: 'Pixelify Sans', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-image: none;
+  width: auto;
+  height: auto;
+  text-indent: 0;
+  color: white;
+}
+
+button.filter-button {
+  background: var(--primary-color);
+}
+
+button.filter-button:hover {
+  background: var(--secondary-color);
+  transform: translateY(-2px);
+  background-image: none;
+}
+
+button.reset-button {
+  background: #6c757d;
+}
+
+button.reset-button:hover {
+  background: #5a6268;
+  transform: translateY(-2px);
+  background-image: none;
+}
+
+/* Filtro */
+.filterdb {
+  display: none;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
 }
 
 .radio-item {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: white;
+  border-radius: 8px;
+  border-left: 3px solid var(--primary-color);
 }
-
-button.reset-disabled{
-   background-color: transparent;
-  appearance: none;
-  -webkit-appearance: none;
-  background-image: url('assets/reset-b.png');
-  background-repeat: no-repeat;
-  pointer-events: none;
-  border: none;
-  padding: 0;
-  text-indent: -9999px;
-  width: 50px;  /* Defina uma largura */
-  height: 21px; /* Defina uma altura */
-}
-
-button.filter-button {
-  appearance: none;
- transition: transform 0.3s ease;
-   background-color: transparent;
-  -webkit-appearance: none;
-  background-image: url('assets/btn_filter.png');
-  background-repeat: no-repeat;
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  background-position: center;
-  color: transparent;
-  width: 21px;  /* Defina uma largura */
-  height: 21px; /* Defina uma altura */
-}
-
-button.filter-button:hover {
-transition: none;
-outline: none;
-transform: none; transition: transform 0.3s ease;
-  background-image: url('assets/btn_filter_a.png');
-
-}
-button.filter-button:active {
-   transition: none;
-   outline: none;
-   transform: none; transition: transform 0.3s ease;
-  background-image: url('assets/btn_filter_b.png');
-
-}
-button.filter-button:focus {
-   transition: none;
-   outline: none;
-   transform: none; transition: transform 0.3s ease;
-}
-button.reset-button {
-  appearance: none;
-
-   background-color: transparent;
-  -webkit-appearance: none;
-  background-image: url('assets/reset-a.png');
-  background-repeat: no-repeat;
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  color: transparent;
-
-  width: 50px;  /* Defina uma largura */
-  height: 21px; /* Defina uma altura */
-}
-button.reset-button:hover {
-transition: none;
-outline: none;
-transform: none;
-  background-image: url('assets/reset-b.png');
-
-}
-button.reset-button:active {
-   transition: none;
-   outline: none;
-   transform: none;
-  background-image: url('assets/reset-c.png');
-
-}
-button.reset-button:focus {
-   transition: none;
-   outline: none;
-   transform: none;
-}
-
-
-button.btn-ir {
-  appearance: none;
-
-   background-color: transparent;
-  -webkit-appearance: none;
-  background-image: url('assets/btn_ir.png');
-  background-repeat: no-repeat;
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  color: black;
-
-  width: 42px;  /* Defina uma largura */
-  height: 20px; /* Defina uma altura */
-}
-
-button.btn-ir:hover {
-transition: none;
-outline: none;
-transform: none;
-  background-image: url('assets/btn_ir_a.png');
-
-}
-button.btn-ir:active {
-   transition: none;
-   outline: none;
-   transform: none;
-  background-image: url('assets/btn_ir_b.png');
-
-}
-button.btn-ir:focus {
-   transition: none;
-   outline: none;
-   transform: none;
-}
-
-
-button.btn-footer-anterior {
-  appearance: none;
-
-   background-color: transparent;
-  -webkit-appearance: none;
-  background-image: url('assets/btn_anterior.png');
-  background-repeat: no-repeat;
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  color: black;
-
-  width: 100px;  /* Defina uma largura */
-  height: 20px; /* Defina uma altura */
-}
-
-button.btn-footer-anterior:hover {
-transition: none;
-outline: none;
-transform: none;
-  background-image: url('assets/btn_anterior_a.png');
-
-}
-button.btn-footer-anterior:active {
-   transition: none;
-   outline: none;
-   transform: none;
-  background-image: url('assets/btn_anterior_b.png');
-
-}
-button.btn-footer-anterior:focus {
-   transition: none;
-   outline: none;
-   transform: none;
-}
-
-button.btn-footer-proximo {
-  appearance: none;
-
-   background-color: transparent;
-  -webkit-appearance: none;
-  background-image: url('assets/btn_proximo.png');
-  background-repeat: no-repeat;
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  color: black;
-
-  width: 100px;  /* Defina uma largura */
-  height: 20px; /* Defina uma altura */
-}
-
-button.btn-footer-proximo:hover {
-transition: none;
-outline: none;
-transform: none;
-  background-image: url('assets/btn_proximo_a.png');
-
-}
-button.btn-footer-proximo:active {
-   transition: none;
-   outline: none;
-   transform: none;
-  background-image: url('assets/btn_proximo_b.png');
-
-}
-button.btn-footer-proximo:focus {
-   transition: none;
-   outline: none;
-   transform: none;
-}
-
 
 .radio-item input[type="radio"] {
-  width: 12px; 
-  height: 12px; 
-  appearance: none; 
-  -webkit-appearance: none; 
-  background-image: url('assets/btn_radio_off.png'); 
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--primary-color);
   cursor: pointer;
-}
-
-.radio-item input[type="radio"]:checked {
-  width: 12px; 
-  height: 12px; 
-  appearance: none; 
-  -webkit-appearance: none; 
-  background-image: url('assets/btn_radio_on.png'); 
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  pointer-events: none; 
-}
-
-
-.radio-item input[type="radio"]:checked + label {
-  pointer-events: none; 
+  appearance: auto;
+  -webkit-appearance: auto;
+  background-image: none;
 }
 
 .radio-item label {
-   margin-top: 10px;
-  font-size: 1rem;
-  color: black;
+  margin-top: 0;
+  font-size: 14px;
+  color: #333;
   cursor: pointer;
 }
 
-/* Tabela de itens */
+/* Tabela */
 .database {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 1rem;
-  color: black;
+  color: #333;
+  background: white;
 }
 
-.database th, .database td {
-  padding: 0.5rem;
-  border: 1px solid #ddd;
- 
+.database th,
+.database td {
+  padding: 12px 10px;
+  border: 1px solid #e0e0e0;
 }
 
 .database th {
-  background-color: #e7e7e7;
-  color: black;
+  background-color: var(--primary-color);
+  color: white;
+  font-family: 'Pixelify Sans', sans-serif;
+  font-size: 14px;
 }
-
 
 .database tr:hover {
-  background-color: #c1c1c1;
+  background-color: rgba(52, 152, 219, 0.1);
 }
 
-/* Rodapé da tabela */
-.footer-table {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 1rem;
-  gap: 1rem;
-}
-
-.footer-table a {
-  padding: 0.5rem 1rem;
-  text-decoration: none;
-  border-radius: 5px;
-  text-align: center;
-}
-
-
+/* Botão Visualizar */
 button.button-view {
-  appearance: none;
-
-   background-color: transparent;
-  -webkit-appearance: none;
-  background-image: url('assets/btn_view.png');
-  background-repeat: no-repeat;
-  cursor: pointer;
+  padding: 8px 16px;
+  background: var(--primary-color);
+  color: white;
   border: none;
-  padding: 0;
-  color: transparent;
-
-  width: 42px;  /* Defina uma largura */
-  height: 20px; /* Defina uma altura */
+  border-radius: 20px;
+  font-family: 'Pixelify Sans', sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-image: none;
+  width: auto;
+  height: auto;
+  text-indent: 0;
 }
 
 button.button-view:hover {
-transition: none;
-outline: none;
-transform: none;
-  background-image: url('assets/btn_view_a.png');
-
-}
-button.button-view:active {
-   transition: none;
-   outline: none;
-   transform: none;
-  background-image: url('assets/btn_view_b.png');
-
-}
-button.button-view:focus {
-   transition: none;
-   outline: none;
-   transform: none;
-}
-.footer-table a.disable {
-  pointer-events: none;
-  opacity: 0.6;
+  background: var(--secondary-color);
+  transform: translateY(-2px);
+  background-image: none;
 }
 
-/* Ir para página */
+/* Rodapé da tabela / Paginação */
+.footer-table {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  gap: 15px;
+}
+
+.footer-table a {
+  text-decoration: none;
+}
+
+#paginas {
+  padding: 10px 20px;
+  background-color: #f5f5f5;
+  border-radius: 25px;
+  color: #333;
+  font-weight: 600;
+  font-family: 'Pixelify Sans', sans-serif;
+  border: 2px solid var(--primary-color);
+}
+
+button.btn-footer-anterior,
+button.btn-footer-proximo {
+  padding: 10px 25px;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-family: 'Pixelify Sans', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-image: none;
+  width: auto;
+  height: auto;
+}
+
+button.btn-footer-anterior:hover,
+button.btn-footer-proximo:hover {
+  background: var(--secondary-color);
+  transform: translateY(-2px);
+  background-image: none;
+}
+
+.footer-table a.disabled button {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* Botão Ir */
+button.btn-ir {
+  padding: 10px 20px;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-family: 'Pixelify Sans', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-image: none;
+  width: auto;
+  height: auto;
+}
+
+button.btn-ir:hover {
+  background: var(--secondary-color);
+  transform: translateY(-2px);
+  background-image: none;
+}
+
+#page-form {
+  margin-top: 15px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+}
+
+#page-form label {
+  color: #333;
+  font-family: 'Pixelify Sans', sans-serif;
+}
+
+#page-form input[type="number"] {
+  padding: 8px 15px;
+  border: 2px solid var(--primary-color);
+  border-radius: 20px;
+  width: 80px;
+  text-align: center;
+}
 
 .disabled {
-    color: black;
-    pointer-events:none;
+  color: #666;
+  pointer-events: none;
 }
+
 @media (max-width: 768px) {
+  .infoblocks {
+    width: auto;
+    margin: 0;
+    margin-top: 0;
+    padding: 10px;
+    padding-bottom: 100px;
+  }
 
-    .btn-footer-anterior {
-        width: 100%; 
-    }
-    .btn-footer-proximo {
-        width: 100%; 
-    }
-    .btn-filter{
-        width: 49.1%;
-    }
-    .database, #filterForm,.footer-table span#paginas {
-        zoom: 0.30; 
-    }    
-    .infoblocks{
-       width: auto;
-       margin: 0;
-       margin-top: 125px;
-    }
- }
+  #filter_ranking {
+    flex-wrap: wrap;
+  }
 
+  #filter_ranking a {
+    flex: 1;
+    min-width: 120px;
+    padding: 10px 15px;
+  }
 
+  .search-box {
+    width: 100%;
+  }
+
+  .search-box form {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .search-box input[type="text"] {
+    flex: 1;
+    width: auto;
+  }
+
+  .filterdb {
+    grid-template-columns: 1fr;
+  }
+
+  .database {
+    font-size: 12px;
+  }
+
+  .database th,
+  .database td {
+    padding: 8px 5px;
+  }
+
+  .footer-table {
+    flex-wrap: wrap;
+  }
+
+  button.btn-footer-anterior,
+  button.btn-footer-proximo {
+    flex: 1;
+    min-width: 100px;
+  }
+
+  #page-form {
+    text-align: center;
+  }
+
+  h6 {
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    margin: 0 0 15px 0;
+  }
+}
 
 </style>
 
 <div class="infoblocks">
-    <div id="filter_ranking">  
-        <a href="?to=comercio&type=vendedores">Vendedores</a> >
+    <div id="filter_ranking">
+        <a href="?to=comercio&type=vendedores">Vendedores</a>
         <a href="?to=comercio&type=compradores">Compradores</a>
     </div>
     <?php if($_GET['type'] == 'vendedores'):?>
@@ -454,9 +414,9 @@ button.button-view:focus {
             <input type="submit" class="button-search-db" >
          </form>
       </div>
-      <a href="javascript:toggleSearchForm()"><button class="filter-button"></button></a>
+      <a href="javascript:toggleSearchForm()"><button class="filter-button">Filtros</button></a>
       <a href="?to=comercio&type=vendedores&page=1" id="reset-link">
-      <button class="reset-button"></button>
+      <button class="reset-button">Limpar</button>
       </a><br><br>
       <form id="filterForm" method="get" action="">
          <div id="filter" class="filterdb">
@@ -498,12 +458,12 @@ button.button-view:focus {
             <td><?php echo $vendedor['x']; ?></td>
             <td><?php echo $vendedor['y']; ?></td>
             <td><?php echo $vendedor['sex']; ?></td>
-            <td><a href="?to=verloja&type=vendedores&id=<?php echo $vendedor['id']; ?>"  ><button class="button-view">Ver</button></a></td>
+            <td><a href="?to=verloja&type=vendedores&id=<?php echo $vendedor['id']; ?>"  ><button class="button-view">Ver Loja</button></a></td>
          </tr>
          <?php endforeach; ?>
       </table>
       <div class="footer-table">
-         <a href="<?php echo $prev_page_url; ?>" align="center"<?php if ($page <= 1) echo 'class="disabled"'; ?>><button class="btn-footer-anterior" >Anterior</button></a>
+         <a href="<?php echo $prev_page_url; ?>" align="center"<?php if ($page <= 1) echo 'class="disabled"'; ?>><button class="btn-footer-anterior">Anterior</button></a>
          <span id="paginas"><?php echo $page . ' de ' . $total_pages; ?></span>
          <a  href="<?php echo $next_page_url; ?>" align="center"<?php if ($page == $total_pages) echo 'class="disabled"'; ?>><button class="btn-footer-proximo">Próximo</button></a>
       </div>
@@ -537,9 +497,9 @@ button.button-view:focus {
             <input type="submit" class="button-search-db" >
          </form>
       </div>
-      <a href="javascript:toggleSearchForm()"><button class="filter-button"></button></a>
+      <a href="javascript:toggleSearchForm()"><button class="filter-button">Filtros</button></a>
       <a href="?to=comercio&type=compradores&page=1" id="reset-link">
-      <button class="reset-button"></button>
+      <button class="reset-button">Limpar</button>
       </a><br><br>
       <form id="filterForm" method="get" action="">
          <div id="filter" class="filterdb">
@@ -580,12 +540,12 @@ button.button-view:focus {
             <td><?php echo $comprador['x']; ?></td>
             <td><?php echo $comprador['y']; ?></td>
             <td><?php echo $comprador['sex']; ?></td>
-            <td><a href="?to=verloja&type=compradores&id=<?php echo $comprador['id']; ?>"  ><button class="button-view">Ver</button></a></td>
+            <td><a href="?to=verloja&type=compradores&id=<?php echo $comprador['id']; ?>"  ><button class="button-view">Ver Loja</button></a></td>
          </tr>
          <?php endforeach; ?>
       </table>
       <div class="footer-table">
-         <a href="<?php echo $prev_page_url; ?>" align="center"<?php if ($page <= 1) echo 'class="disabled"'; ?>><button class="btn-footer-anterior" >Anterior</button></a>
+         <a href="<?php echo $prev_page_url; ?>" align="center"<?php if ($page <= 1) echo 'class="disabled"'; ?>><button class="btn-footer-anterior">Anterior</button></a>
          <span id="paginas"><?php echo $page . ' de ' . $total_pages; ?></span>
          <a  href="<?php echo $next_page_url; ?>" align="center"<?php if ($page == $total_pages) echo 'class="disabled"'; ?>><button class="btn-footer-proximo">Próximo</button></a>
       </div>

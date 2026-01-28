@@ -1,80 +1,95 @@
 <style>
-    /* Tabela de itens */
+/* Container principal */
+.infoblocks {
+  padding-bottom: 80px;
+}
+
+/* Tabela de itens */
 .comercio {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 1rem;
-  color: black;
+  color: #333;
+  background: white;
 }
 
-.comercio th, .comercio td {
-  padding: 0.5rem;
-  border: 1px solid #ddd;
- 
+.comercio th,
+.comercio td {
+  padding: 12px 10px;
+  border: 1px solid #e0e0e0;
 }
 
 .comercio th {
-  background-color: #e7e7e7;
-  color: black;
+  background-color: var(--primary-color);
+  color: white;
+  font-family: 'Pixelify Sans', sans-serif;
+  font-size: 14px;
 }
 
+.comercio tr:hover {
+  background-color: rgba(52, 152, 219, 0.1);
+}
+
+.comercio a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.comercio a:hover {
+  text-decoration: underline;
+}
+
+/* Botão Copiar */
 button.btn-copy {
-  appearance: none;
-
-   background-color: transparent;
-  -webkit-appearance: none;
-  background-image: url('assets/btn_ir.png');
-  background-repeat: no-repeat;
-  cursor: pointer;
+  padding: 10px 20px;
+  background: var(--primary-color);
+  color: white;
   border: none;
-  padding: 0;
-  color: black;
-
-  width: 42px;  /* Defina uma largura */
-  height: 20px; /* Defina uma altura */
+  border-radius: 25px;
+  font-family: 'Pixelify Sans', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-image: none;
+  width: auto;
+  height: auto;
 }
 
 button.btn-copy:hover {
-transition: none;
-outline: none;
-transform: none;
-  background-image: url('assets/btn_ir_a.png');
-
+  background: var(--secondary-color);
+  transform: translateY(-2px);
+  background-image: none;
 }
-button.btn-copy:active {
-   transition: none;
-   outline: none;
-   transform: none;
-  background-image: url('assets/btn_ir_b.png');
 
+h1 {
+  font-family: 'Pixelify Sans', sans-serif;
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 15px;
 }
-button.btn-copy:focus {
-   transition: none;
-   outline: none;
-   transform: none;
+
+@media (max-width: 768px) {
+  .infoblocks {
+    width: auto;
+    margin: 0;
+    margin-top: 0;
+    padding: 10px;
+    padding-bottom: 100px;
+  }
+
+  .comercio {
+    font-size: 12px;
+  }
+
+  .comercio th,
+  .comercio td {
+    padding: 8px 5px;
+  }
+
+  h1 {
+    font-size: 18px;
+  }
 }
-    @media (max-width: 768px) {
-
-        .infoblocks{
-            zoom: 0.70;
-            width: 100%;
-            margin: 0;
-            margin-top: 125px;
-        } 
-        <?php if($_GET['type'] == "vendedores"):?>
-        .comercio{
-            
-            width: 100%;
-            zoom: 0.30;
-        }
-        
-        <?php endif?>
-        h1{
-            
-            zoom: 0.80;
-        }
-
- }
 </style>
 
 <div id="popup" style="display: none; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background-color: #000; color: white; padding: 10px; border-radius: 5px; box-shadow: 0px 4px 6px rgba(0,0,0,0.1);">
@@ -87,7 +102,7 @@ button.btn-copy:focus {
     <center>
       <h1><img src="<?php echo iconImage($vending->extended_vending_item); ?>" /> <?php echo $title?> <img src="<?php echo iconImage($vending->extended_vending_item); ?>"/></h1>
 <?php echo $mapa?>
-      <a href="#"><button class="btn-copy">Copiar</button></a>
+      <a href="#"><button class="btn-copy">📋 Copiar Localização</button></a>
     </center><br>
     <?php if($items): ?>
     <table class="comercio">
@@ -146,7 +161,7 @@ button.btn-copy:focus {
     <center>
       <h1> <?php echo $title?> </h1>
 <?php echo $mapa?>
-      <a href="#"><button class="btn-copy">Copiar</button></a>
+      <a href="#"><button class="btn-copy">📋 Copiar Localização</button></a>
     </center><br>
     <?php if($items): ?>
     <table class="comercio">
