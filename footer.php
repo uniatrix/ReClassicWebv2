@@ -117,6 +117,177 @@
             }
         });
     </script>
+
+    <!-- Mobile Footer Navigation Bar -->
+    <nav class="mobile-footer-nav" id="mobileFooterNav">
+        <div class="mobile-footer-nav-container">
+            <!-- Menu Button -->
+            <a href="javascript:void(0);" class="mobile-nav-item" id="mobileMenuToggle">
+                <i class="fas fa-bars"></i>
+                <span>Menu</span>
+            </a>
+
+            <!-- Lojas Button -->
+            <a href="?to=comercio&type=vendedores" class="mobile-nav-item">
+                <i class="fas fa-store"></i>
+                <span>Lojas</span>
+            </a>
+
+            <!-- RMT Button (Center - Prominent) -->
+            <a href="?to=rmt" class="mobile-nav-item mobile-nav-balance">
+                <div class="mobile-nav-balance-icon">
+                    <i class="fas fa-hand-holding-usd"></i>
+                </div>
+                <span>RMT</span>
+            </a>
+
+            <!-- Account Button -->
+            <?php if(isset($_SESSION["conta"]) && !empty($_SESSION["conta"])): ?>
+                <a href="?to=conta" class="mobile-nav-item">
+                    <i class="fas fa-user"></i>
+                    <span>Conta</span>
+                </a>
+            <?php else: ?>
+                <a href="?to=entrar" class="mobile-nav-item">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>Entrar</span>
+                </a>
+            <?php endif; ?>
+
+            <!-- Discord Button -->
+            <a href="https://discord.gg/JG6vTMbT58" target="_blank" class="mobile-nav-item">
+                <i class="fab fa-discord"></i>
+                <span>Discord</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Mobile Sliding Drawer Menu -->
+    <div class="mobile-drawer-overlay" id="mobileDrawerOverlay"></div>
+    <div class="mobile-drawer" id="mobileDrawer">
+        <div class="mobile-drawer-header">
+            <img src="assets/logo.png" alt="ReClassic Logo" class="mobile-drawer-logo">
+            <button class="mobile-drawer-close" id="mobileDrawerClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-drawer-content">
+            <a href="?to=inicio" class="mobile-drawer-item">
+                <i class="fas fa-home"></i>
+                <span>Inicio</span>
+            </a>
+            <a href="?to=database&type=itens" class="mobile-drawer-item">
+                <i class="fas fa-database"></i>
+                <span>Database</span>
+            </a>
+            <a href="?to=comercio&type=vendedores" class="mobile-drawer-item">
+                <i class="fas fa-store"></i>
+                <span>Mercadores</span>
+            </a>
+            <a href="?to=ranking&type=personagens" class="mobile-drawer-item">
+                <i class="fas fa-trophy"></i>
+                <span>Ranking</span>
+            </a>
+            <a href="wiki/index.php/P%C3%A1gina_principal" class="mobile-drawer-item">
+                <i class="fas fa-book"></i>
+                <span>Wiki</span>
+            </a>
+            <a href="?to=vote" class="mobile-drawer-item">
+                <i class="fas fa-vote-yea"></i>
+                <span>Votar</span>
+            </a>
+
+            <div class="mobile-drawer-divider"></div>
+
+            <?php if(isset($_SESSION["conta"]) && !empty($_SESSION["conta"])): ?>
+                <a href="?to=conta" class="mobile-drawer-item">
+                    <i class="fas fa-user"></i>
+                    <span>Minha Conta</span>
+                </a>
+                <a href="api/sair.php" class="mobile-drawer-item mobile-drawer-item-danger">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Sair</span>
+                </a>
+            <?php else: ?>
+                <a href="?to=entrar" class="mobile-drawer-item">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>Login</span>
+                </a>
+                <a href="?to=registro" class="mobile-drawer-item">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Criar Conta</span>
+                </a>
+            <?php endif; ?>
+
+            <div class="mobile-drawer-divider"></div>
+
+            <a href="https://drive.google.com/file/d/1ROEqhrWH4mnp40ULfnM0wul84jp6knn4/view?usp=sharing" target="_blank" class="mobile-drawer-item mobile-drawer-item-primary">
+                <i class="fas fa-download"></i>
+                <span>Download</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Mobile Drawer JavaScript -->
+    <script>
+    $(document).ready(function() {
+        const $menuToggle = $('#mobileMenuToggle');
+        const $drawer = $('#mobileDrawer');
+        const $overlay = $('#mobileDrawerOverlay');
+        const $closeBtn = $('#mobileDrawerClose');
+
+        // Open drawer
+        $menuToggle.on('click', function(e) {
+            e.preventDefault();
+            $drawer.addClass('active');
+            $overlay.addClass('active');
+            $('body').css('overflow', 'hidden');
+        });
+
+        // Close drawer function
+        function closeDrawer() {
+            $drawer.removeClass('active');
+            $overlay.removeClass('active');
+            $('body').css('overflow', '');
+        }
+
+        // Close on close button click
+        $closeBtn.on('click', closeDrawer);
+
+        // Close on overlay click
+        $overlay.on('click', closeDrawer);
+
+        // Close on escape key
+        $(document).on('keydown', function(e) {
+            if (e.key === 'Escape' && $drawer.hasClass('active')) {
+                closeDrawer();
+            }
+        });
+
+        // Close drawer when clicking a link inside
+        $('.mobile-drawer-item').on('click', function() {
+            closeDrawer();
+        });
+
+        // Handle swipe to close (touch devices)
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        const drawerEl = $drawer[0];
+        if (drawerEl) {
+            drawerEl.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            drawerEl.addEventListener('touchend', function(e) {
+                touchEndX = e.changedTouches[0].screenX;
+                if (touchStartX - touchEndX > 50) {
+                    closeDrawer();
+                }
+            }, { passive: true });
+        }
+    });
+    </script>
 </body>
 
 </html>

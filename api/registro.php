@@ -15,6 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome_completo = $_POST['FullName'];
     $email = $_POST['Email'];
     $sexo = isset($_POST['sex']) ? $_POST['sex'] : '';
+    $whatsapp = isset($_POST['whatsapp']) ? $_POST['whatsapp'] : '';
       
     if (empty($sexo) || empty($usuario) || empty($email) || empty($senha) || empty($confirmarSenha)) {
         echo "<div class='error'>Preencha todos os campos</div>";
@@ -49,12 +50,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "<div class='error'>Usuário já registrado.</div>";
             } else {  
 
-            	$senhaUser = md5($senha);
-                //$senhaUser = $senha;
-             
-                $sql = "INSERT INTO login (userid, email, user_pass, sex) VALUES (?, ?, ?, ?)";
+            	$senhaUser = password_hash($senha, PASSWORD_DEFAULT);
+
+                $sql = "INSERT INTO login (userid, email, user_pass, sex, whatsapp, full_name) VALUES (?, ?, ?, ?, ?, ?)";
                 $stmt = $conn->prepare($sql);
-                $stmt->bind_param("ssss", $usuario, $email, $senhaUser, $sexo, );
+                $stmt->bind_param("ssssss", $usuario, $email, $senhaUser, $sexo, $whatsapp, $nome_completo);
 
                 if ($stmt->execute()) {
                     echo "<div class='success-message'>Conta criada com sucesso</div>";echo "<script>

@@ -398,23 +398,450 @@ button.button-view:focus {
     pointer-events:none;
 }
 @media (max-width: 768px) {
-
-    .btn-footer-anterior {
-        width: 100%; 
-    }
-    .btn-footer-proximo {
-        width: 100%; 
-    }
-    .btn-filter{
-        width: 49.1%;
-    }
-    .database, #filterForm,.footer-table span#paginas {
-        zoom: 0.30; 
-    }    
+    /* Container sem padding lateral */
     .infoblocks{
-       width: auto;
+       width: 100%;
        margin: 0;
-       margin-top: 125px;
+       padding: 0;
+       margin-top: 0;
+    }
+
+    /* Cabeçalho da database */
+    h6 {
+        font-size: 1.2rem;
+        margin: 0;
+        padding: 15px;
+        background: white;
+        color: #333;
+        font-family: 'Pixelify Sans', sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    /* Barra de filtros e tabs */
+    #filter_ranking {
+        display: flex;
+        background-color: white;
+        padding: 10px 15px;
+        gap: 10px;
+        border-bottom: none;
+    }
+
+    #filter_ranking a {
+        flex: 1;
+        text-align: center;
+        padding: 12px 15px;
+        background-color: #f5f5f5;
+        border: 2px solid var(--primary-color);
+        border-radius: 25px;
+        color: var(--primary-color);
+        font-family: 'Pixelify Sans', sans-serif;
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+
+    #filter_ranking a.disabled {
+        background-color: var(--primary-color);
+        color: white;
+    }
+
+    /* Área de busca e filtros */
+    .search-box {
+        float: none;
+        width: 100%;
+        margin: 0;
+        padding: 15px;
+        background-color: white;
+    }
+
+    .search-box form {
+        display: flex;
+        gap: 8px;
+    }
+
+    .search-box input[type="text"] {
+        flex: 1;
+        padding: 12px 15px;
+        font-size: 16px;
+        border: 2px solid var(--primary-color);
+        border-radius: 25px;
+        background-color: rgba(255, 255, 255, 0.95);
+        color: #333;
+        font-weight: 500;
+    }
+
+    .search-box input[type="text"]::placeholder {
+        color: #999;
+    }
+
+    .search-box input[type="submit"] {
+        width: 90px !important;
+        height: 44px !important;
+        flex-shrink: 0;
+        background-image: none !important;
+        background: linear-gradient(135deg, var(--primary-color) 0%, #2980b9 100%) !important;
+        border-radius: 25px;
+        text-indent: 0 !important;
+        border: none;
+        cursor: pointer;
+        color: white;
+        font-family: 'Pixelify Sans', sans-serif;
+        font-size: 0.9rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+        transition: all 0.2s ease;
+    }
+
+    .search-box input[type="submit"]:active {
+        transform: scale(0.95);
+        box-shadow: 0 2px 6px rgba(52, 152, 219, 0.5);
+    }
+
+    /* Botões de filtro */
+    .filter-button, .reset-button {
+        width: auto !important;
+        height: 40px !important;
+        margin: 0 5px 0 0;
+        background-image: none !important;
+        border: 2px solid var(--primary-color);
+        border-radius: 20px;
+        padding: 0 20px;
+        font-family: 'Pixelify Sans', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-indent: 0 !important;
+        transition: all 0.2s ease;
+    }
+
+    .filter-button {
+        color: var(--accent-color) !important;
+        background-color: rgba(52, 152, 219, 0.1) !important;
+    }
+
+    .reset-button {
+        background: linear-gradient(135deg, var(--primary-color) 0%, #2980b9 100%) !important;
+        color: white !important;
+        border: none;
+    }
+
+    .filter-button:active,
+    .reset-button:active {
+        transform: scale(0.95);
+    }
+
+    /* Área de filtros */
+    .filterdb {
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+        padding: 15px;
+        background-color: white;
+        margin: 0;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .radio-item {
+        padding: 12px 15px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        border-left: 3px solid var(--primary-color);
+        transition: all 0.2s ease;
+    }
+
+    .radio-item:active {
+        background-color: rgba(52, 152, 219, 0.15);
+        transform: scale(0.98);
+    }
+
+    .radio-item label {
+        font-size: 0.95rem;
+        margin-top: 0;
+        color: #333;
+        font-weight: 500;
+    }
+
+    .radio-item input[type="radio"]:checked + label {
+        color: var(--primary-color);
+        font-weight: 700;
+    }
+
+    /* ESCONDER TABELA DESKTOP NO MOBILE */
+    .database {
+        display: none;
+    }
+
+    /* CRIAR CARDS PARA MOBILE */
+    .database-mobile-cards {
+        display: block;
+        padding: 10px;
+        background-color: white;
+    }
+
+    .database-mobile-cards > a {
+        transition: transform 0.2s ease;
+    }
+
+    .database-mobile-cards > a:active .database-card {
+        transform: scale(0.97);
+        box-shadow: 0 2px 10px rgba(52, 152, 219, 0.5);
+    }
+
+    .database-card {
+        background: rgba(255, 255, 255, 0.98);
+        border: none;
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        transition: all 0.2s ease;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .database-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary-color) 0%, #2980b9 100%);
+    }
+
+    .database-card-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 15px;
+    }
+
+    .database-card-header img {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+        filter: drop-shadow(0 2px 8px rgba(79, 195, 247, 0.3));
+    }
+
+    .database-card-title {
+        width: 100%;
+        text-align: center;
+    }
+
+    .database-card-title strong {
+        display: block;
+        font-size: 1.3rem;
+        color: #333;
+        font-family: 'Pixelify Sans', sans-serif;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+        letter-spacing: 1px;
+    }
+
+    .database-card-title .card-id {
+        display: inline-block;
+        font-size: 0.85rem;
+        color: #666;
+        background-color: rgba(52, 152, 219, 0.15);
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-weight: 600;
+    }
+
+    .database-card-body {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin: 15px 0;
+        text-align: left;
+    }
+
+    .database-card-field {
+        font-size: 0.95rem;
+        color: #333;
+        background-color: rgba(52, 152, 219, 0.08);
+        padding: 10px;
+        border-radius: 8px;
+        border-left: 3px solid var(--primary-color);
+    }
+
+    .database-card-field-label {
+        font-weight: 700;
+        color: var(--primary-color);
+        display: block;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+        letter-spacing: 0.5px;
+    }
+
+    .database-card-footer {
+        text-align: center;
+        margin-top: 15px;
+    }
+
+    .database-card-footer .button-view {
+        width: 100%;
+        min-height: 44px;
+        background-size: contain;
+    }
+
+    /* Card simplificado para itens */
+    .database-card-simple {
+        padding: 15px 20px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .database-card-simple:active {
+        transform: scale(0.97);
+        box-shadow: 0 2px 10px rgba(52, 152, 219, 0.5);
+    }
+
+    .database-card-simple .database-card-header {
+        margin-bottom: 0;
+        flex-direction: row;
+        gap: 15px;
+        text-align: left;
+    }
+
+    .database-card-simple .database-card-header img {
+        width: 56px;
+        height: 56px;
+        flex-shrink: 0;
+    }
+
+    .database-card-simple .database-card-title {
+        text-align: left;
+    }
+
+    .database-card-simple .database-card-title strong {
+        color: #333;
+        font-size: 1.1rem;
+        text-transform: none;
+    }
+
+    .database-card-simple .database-card-title p {
+        margin: 4px 0 0 0 !important;
+        font-size: 0.85rem !important;
+        color: #999 !important;
+    }
+
+    /* Paginação mobile */
+    .footer-table {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin: 0;
+        padding: 15px;
+        background-color: white;
+        border-top: 1px solid #e0e0e0;
+    }
+
+    .footer-table a {
+        flex: 1;
+    }
+
+    .btn-footer-anterior,
+    .btn-footer-proximo {
+        width: 100% !important;
+        min-height: 44px !important;
+        background-image: none !important;
+        background: linear-gradient(135deg, var(--primary-color) 0%, #2980b9 100%) !important;
+        color: white !important;
+        border: none;
+        border-radius: 25px;
+        font-family: 'Pixelify Sans', sans-serif;
+        font-size: 0.85rem;
+        text-indent: 0 !important;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+        transition: all 0.2s ease;
+    }
+
+    .btn-footer-anterior:active,
+    .btn-footer-proximo:active {
+        transform: scale(0.95);
+        box-shadow: 0 2px 6px rgba(52, 152, 219, 0.4);
+    }
+
+    .footer-table a.disabled .btn-footer-anterior,
+    .footer-table a.disabled .btn-footer-proximo {
+        background: #4a5568 !important;
+        opacity: 0.5;
+        box-shadow: none;
+    }
+
+    .footer-table span#paginas {
+        font-size: 0.9rem;
+        padding: 10px 20px;
+        background-color: #f5f5f5;
+        border-radius: 25px;
+        color: #333;
+        font-weight: 700;
+        font-family: 'Pixelify Sans', sans-serif;
+        border: 2px solid var(--primary-color);
+        white-space: nowrap;
+    }
+
+    /* Formulário "Ir para página" */
+    #page-form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin: 0;
+        background-color: white;
+        padding: 15px;
+        border-top: 1px solid #e0e0e0;
+    }
+
+    #page-form label {
+        width: 100%;
+        text-align: center;
+        color: #333;
+        font-weight: 600;
+        font-family: 'Pixelify Sans', sans-serif;
+        font-size: 0.9rem;
+    }
+
+    #page-form input[type="number"] {
+        width: 100%;
+        padding: 12px 15px;
+        font-size: 16px;
+        border: 2px solid var(--primary-color);
+        border-radius: 25px;
+        text-align: center;
+        font-weight: 600;
+        background-color: rgba(255, 255, 255, 0.95);
+        color: #333;
+    }
+
+    .btn-ir {
+        width: 100% !important;
+        min-height: 44px !important;
+        background-image: none !important;
+        background: linear-gradient(135deg, var(--primary-color) 0%, #2980b9 100%) !important;
+        color: white !important;
+        border: none;
+        border-radius: 25px;
+        font-family: 'Pixelify Sans', sans-serif;
+        font-size: 0.9rem;
+        text-indent: 0 !important;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+    }
+
+    .btn-ir:active {
+        transform: scale(0.95);
     }
  }
 
@@ -435,12 +862,12 @@ button.button-view:focus {
             <input name="type" type="hidden" value="monstros" />
             <input name="page" type="hidden" value="1" />
             <input name="busca" type="text" placeholder="Buscar ID ou Nome" value="<?php if(isset($_GET['busca'])) echo $_GET['busca'];?>" />
-            <input type="submit" class="button-search-db" >
+            <input type="submit" class="button-search-db" value="Buscar">
          </form>
       </div>
-      <a href="javascript:toggleSearchForm()"><button class="filter-button"></button></a>
+      <a href="javascript:toggleSearchForm()"><button class="filter-button">Filtros</button></a>
       <a href="?to=database&type=monstros&page=1" id="reset-link">
-      <button class="reset-button"></button>
+      <button class="reset-button">Limpar</button>
       </a><br><br>
       <form id="filterForm" method="get" action="">
          <div id="filter" class="filterdb">
@@ -522,6 +949,45 @@ button.button-view:focus {
          </tr>
          <?php endforeach; ?>
       </table>
+
+      <!-- CARDS MOBILE PARA MONSTROS -->
+      <div class="database-mobile-cards">
+         <?php foreach ($paginated_monsters as $monstro): ?>
+         <a href="?to=vermonstro&id=<?php echo $monstro['id']; ?>" style="text-decoration: none; display: block;">
+            <div class="database-card">
+               <div class="database-card-header">
+                  <img src="<?php echo monsterImageIndex($monstro['id']); ?>" alt="<?php echo $monstro['name_english']; ?>">
+                  <div class="database-card-title">
+                     <strong>
+                        <?php echo $monstro['name_english']; ?>
+                        <?php if($monstro['mvp_exp']): ?><span style="color: #ff6b6b; font-weight: 800;"> MVP</span><?php endif; ?>
+                     </strong>
+                     <span class="card-id">ID: <?php echo $monstro['id']; ?></span>
+                  </div>
+               </div>
+               <div class="database-card-body">
+                  <div class="database-card-field">
+                     <span class="database-card-field-label">HP</span>
+                     ❤️ <?php echo formatarNumero($monstro['hp']); ?>
+                  </div>
+                  <div class="database-card-field">
+                     <span class="database-card-field-label">Tamanho</span>
+                     <?php echo strtolower(sizeMonsterIcon($monstro['size']))?> <?php echo sizeMonster()[$monstro['size']]; ?>
+                  </div>
+                  <div class="database-card-field">
+                     <span class="database-card-field-label">Raça</span>
+                     <?php echo strtolower(raceMonsterIcon($monstro['race']))?> <?php echo raceMonster()[$monstro['race']]; ?>
+                  </div>
+                  <div class="database-card-field">
+                     <span class="database-card-field-label">Elemento</span>
+                     <?php echo strtolower(elementMonsterIcon($monstro['element']))?> <?php echo elementMonster()[$monstro['element']]; ?>
+                  </div>
+               </div>
+            </div>
+         </a>
+         <?php endforeach; ?>
+      </div>
+
       <div class="footer-table">
          <a href="<?php echo $prev_page_url; ?>" align="center"<?php if ($page <= 1) echo 'class="disabled"'; ?>><button class="btn-footer-anterior " >Anterior</button></a>
          <span id="paginas"><?php echo $page . ' de ' . $total_pages; ?></span>
@@ -555,12 +1021,12 @@ button.button-view:focus {
             <input name="type" type="hidden" value="itens" />
             <input name="page" type="hidden" value="1" />
             <input name="busca" type="text" placeholder="Buscar ID ou Nome" value="<?php if(isset($_GET['busca'])) echo $_GET['busca'];?>" />
-            <input type="submit" class="button-search-db" >
+            <input type="submit" class="button-search-db" value="Buscar">
          </form>
       </div>
-      <a href="javascript:toggleSearchForm()"><button class="filter-button"></button></a>
+      <a href="javascript:toggleSearchForm()"><button class="filter-button">Filtros</button></a>
       <a href="?to=database&type=itens&page=1" id="reset-link">
-      <button class="reset-button"></button>
+      <button class="reset-button">Limpar</button>
       </a><br><br>
       <form id="filterForm" method="get" action="">
          <div id="filter" class="filterdb">
@@ -611,6 +1077,26 @@ button.button-view:focus {
          </tr>
          <?php endforeach; ?>
       </table>
+
+      <!-- CARDS MOBILE PARA ITENS -->
+      <div class="database-mobile-cards">
+         <?php foreach ($paginated_items as $item): ?>
+         <a href="?to=veritem&id=<?php echo $item['id']; ?>" style="text-decoration: none; display: block;">
+            <div class="database-card database-card-simple">
+               <div class="database-card-header">
+                  <img src="<?php echo iconImage($item['id']); ?>" alt="<?php echo $item['name_english']; ?>">
+                  <div class="database-card-title">
+                     <strong><?php echo $item['name_english']; ?></strong>
+                     <p style="margin: 8px 0 0 0; font-size: 0.9rem; color: #666;">
+                        <?php echo itemType()[$item['type']]; ?>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </a>
+         <?php endforeach; ?>
+      </div>
+
       <div class="footer-table">
          <a href="<?php echo $prev_page_url; ?>" align="center"<?php if ($page <= 1) echo 'class="disabled"'; ?>><button class="btn-footer-anterior " >Anterior</button></a>
          <span id="paginas"><?php echo $page . ' de ' . $total_pages; ?></span>
@@ -643,12 +1129,12 @@ button.button-view:focus {
             <input name="type" type="hidden" value="mapas" />
             <input name="page" type="hidden" value="1" />
             <input name="busca" type="text" placeholder="Buscar ID ou Nome" value="<?php if(isset($_GET['busca'])) echo $_GET['busca'];?>" />
-            <input type="submit" class="button-search-db" >
+            <input type="submit" class="button-search-db" value="Buscar">
          </form>
       </div>
-      <a href="javascript:toggleSearchForm()"><button class="filter-button"></button></a>
+      <a href="javascript:toggleSearchForm()"><button class="filter-button">Filtros</button></a>
       <a href="?to=database&type=mapas&page=1" id="reset-link">
-      <button class="reset-button"></button>
+      <button class="reset-button">Limpar</button>
       </a><br><br>
       <form id="filterForm" method="get" action="">
          <div id="filter" class="filterdb">
@@ -685,6 +1171,30 @@ button.button-view:focus {
          </tr>
          <?php endforeach; ?>
       </table>
+
+      <!-- CARDS MOBILE PARA MAPAS -->
+      <div class="database-mobile-cards">
+         <?php foreach ($paginated_maps as $map): ?>
+         <a href="?to=vermapa&mapa=<?php echo $map['map']; ?>" style="text-decoration: none; display: block;">
+            <div class="database-card">
+               <div class="database-card-header">
+                  <img src="<?php echo iconMapa($map['map'], 1) ?>" alt="<?php echo $map['map']; ?>">
+                  <div class="database-card-title">
+                     <strong><?php echo ($map['map_name']) ?: RECLASSIC::getMapName($map['map']); ?></strong>
+                     <span class="card-id"><?php echo $map['map']; ?></span>
+                  </div>
+               </div>
+               <div class="database-card-body">
+                  <div class="database-card-field" style="grid-column: 1 / -1; text-align: center;">
+                     <span class="database-card-field-label">Tipo</span>
+                     <?php echo mapTypeIcon($map['type']) ?> <?php echo mapType()[$map['type']]?>
+                  </div>
+               </div>
+            </div>
+         </a>
+         <?php endforeach; ?>
+      </div>
+
       <div class="footer-table">
          <a href="<?php echo $prev_page_url; ?>" align="center"<?php if ($page <= 1) echo 'class="disabled"'; ?>><button class="btn-footer-anterior " >Anterior</button></a>
          <span id="paginas"><?php echo $page . ' de ' . $total_pages; ?></span>

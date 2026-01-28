@@ -236,6 +236,22 @@
               <table width="90%" border="0" cellspacing="5" cellpadding="0" align="center">
                 <tr>
                   <td width="120" class="arial9_b" valign="baseline">
+                    <font color="#003366">WhatsApp</font>
+                  </td>
+                  <td>
+                    <input type="text" name="whatsapp" id="whatsapp" class="input" size="30" value="" maxlength="20" placeholder="(opcional)">
+                    <br>
+                  </td>
+                </tr>
+              </table>
+              <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+                <tr>
+                  <td><img src="assets/gray_dot.gif" width="100%" height="1"></td>
+                </tr>
+              </table>
+              <table width="90%" border="0" cellspacing="5" cellpadding="0" align="center">
+                <tr>
+                  <td width="120" class="arial9_b" valign="baseline">
                     <font color="#003366">Sexo *</font>
                   </td>
                   <td>

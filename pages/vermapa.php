@@ -1,6 +1,11 @@
 
 <style>
 
+    /* Container principal */
+    .infoblocks {
+      padding-bottom: 80px;
+    }
+
     /* Estilo da descrição dos itens */
     .db-container-view {
       display: flex;
@@ -185,28 +190,31 @@
       .items-emphasis {
         flex-direction: column;
         align-items: center;
-    }
+      }
 
-    .table-info {
+      .table-info {
         flex-direction: column;
-    }
+      }
 
-    ul {
+      ul {
         justify-content: center;
-    }
-    .infoblocks{
-        zoom: 0.80;
+      }
+
+      .infoblocks {
+        zoom: 0.85;
         width: auto;
-        margin: 125px 0 0 0;
-    } 
+        margin: 0;
+        margin-top: 0;
+        padding-bottom: 100px;
+      }
 
-    #id_mapa_media{
+      #id_mapa_media {
         display: none;
+      }
     }
 
-    }
-    .disabled{
-        color: black;
+    .disabled {
+        color: #666;
         pointer-events: none;
     }
 </style>
@@ -215,8 +223,12 @@
 </div>
 <div class="infoblocks">
 
-      <a href="?to=database&type=mapas">Mapas</a> >
-      <a href="" class="disabled">(<?php echo $data['mapname'];?>) <?php echo $data['name'];?></a> 
+      <div class="db-breadcrumb">
+        <a href="?to=database&type=mapas" class="back-arrow">&larr;</a>
+        <a href="?to=database&type=mapas">Mapas</a>
+        <span class="separator">&rsaquo;</span>
+        <span class="current"><?php echo $data['name']; ?></span>
+      </div>
 
       <div class="db-container-view">
       <div id="itemDescription">

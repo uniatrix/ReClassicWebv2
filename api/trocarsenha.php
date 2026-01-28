@@ -27,11 +27,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $linha = $result->fetch_assoc();
 
 
-        $senhaAtualHash = md5($senhaAtual);
-        $novaSenhaHash = md5($novaSenha);
+        $senhaArmazenada = $linha["user_pass"];
+        $senhaAtualValida = false;
+
+        // Verifica bcrypt (novas senhas)
+        if (password_verify($senhaAtual, $senhaArmazenada)) {
+            $senhaAtualValida = true;
+        }
+        // Verifica MD5 legado
+        elseif (md5($senhaAtual) === $senhaArmazenada) {
+            $senhaAtualValida = true;
+        }
+
+        $novaSenhaHash = password_hash($novaSenha, PASSWORD_DEFAULT);
 
         // Valida a senha atual
-        if ($senhaAtualHash === $linha["user_pass"]) {
+        if ($senhaAtualValida) {
             // Atualiza a senha
             $sql_update = "UPDATE login SET user_pass = ? WHERE userid = ?";
             $stmt_update = $conn->prepare($sql_update);

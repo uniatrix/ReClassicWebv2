@@ -1,6 +1,11 @@
 
 <style>
 
+/* Container principal */
+.infoblocks {
+  padding-bottom: 80px;
+}
+
 /* Estilo da descrição dos itens */
 .db-container-view {
   display: flex;
@@ -195,22 +200,29 @@ li.itens label {
   ul {
     justify-content: center;
   }
-        .infoblocks{
-            zoom: 0.80;
-            width: auto;
-             margin: 125px 0 0 0;
-        } 
 
+  .infoblocks {
+    zoom: 0.85;
+    width: auto;
+    margin: 0;
+    margin-top: 0;
+    padding-bottom: 100px;
+  }
 }
-.disabled{
-    color: black;
+
+.disabled {
+    color: #666;
     pointer-events: none;
 }
 </style>
 <div class="infoblocks">
 
-      <a href="?to=database&type=monstros">Monstros</a> >
-      <a href="" class="disabled">(<?php echo $idmonstro;?>) <?php echo $nomeMonstro;?></a> 
+      <div class="db-breadcrumb">
+        <a href="?to=database&type=monstros" class="back-arrow">&larr;</a>
+        <a href="?to=database&type=monstros">Monstros</a>
+        <span class="separator">&rsaquo;</span>
+        <span class="current"><?php echo $nomeMonstro; ?></span>
+      </div>
 
       <div class="db-container-view">
       <div id="itemDescription">
