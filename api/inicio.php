@@ -1,0 +1,6 @@
+<?php 
+
+
+$title = 'Início';
+
+?>

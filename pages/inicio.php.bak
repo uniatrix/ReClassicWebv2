@@ -1,0 +1,308 @@
+<style>
+
+      .infoblocks {
+            display:grid;
+            margin:0 0px 0 85px;
+            width:600px
+        } 
+        @media (max-width: 768px) {
+
+        .infoblocks {
+            zoom: 0.61;
+            width: auto;
+            margin: 175px 0 0 0!important;
+        } 
+
+    }
+</style>
+<!-- Corpo de notícias -->
+<div class="infoblocks">
+    <!-- Tabela de notícias -->
+    <table border="0" cellspacing="0" cellpadding="0" align="center" height="50"
+        background="https://reclassicro.com/assets/coluna_noticia.webp">
+        <tbody>
+            <!-- News content -->
+            <!-- Include the same table structure for news -->
+            <tr>
+                <td height="6">
+                    <img src="https://reclassicro.com/assets/news_t_t_n.gif" width="550" height="6" class="imgevent"
+                        style="margin-top: -15px;">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="5" align="center">
+                        <tbody>
+                            <!-- Lista de notícias -->
+                            <tr>
+                                <td width="100$">
+                                    <img src="https://reclassicro.com/assets/news_npc2.gif" border="0">
+                                </td>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="2" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <a href="?to=news4">
+                                                        <font size="2" color="#002859"> Desenvolvimento e Expectativas
+                                                            para o Futuro.</font>
+                                                    </a>
+                                                </td>
+                                                <td width="50">
+                                                    <font size="2" color="#333333">26/11</font>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <a href="?to=news2">
+                                                        <font size="2" color="#002859">Estreia confirmada: 11 de Outubro
+                                                            as 20h!</font>
+                                                    </a>
+                                                </td>
+                                                <td width="50">
+                                                    <font size="2" color="#333333">29/08</font>
+                                                </td>
+                                            </tr>
+                                            <tr>
+
+                                            <tr>
+                                                <td>
+                                                    <a href="?to=news">
+                                                        <font size="2" color="#002859">Faça parte da equipe do Ragnarok
+                                                            ReClassic.</font>
+                                                    </a>
+                                                </td>
+                                                <td width="50">
+                                                    <font size="2" color="#333333">28/08</font>
+                                                </td>
+                                            </tr>
+                                            <!-- Repetição de estrutura para cada notícia -->
+                                            <td>
+                                                <a href="?to=news3">
+                                                    <font size="2" color="#002859">Conheça a história por trás do
+                                                        Ragnarok ReClassic.</font>
+                                                </a>
+                                            </td>
+                                            <td width="50">
+                                                <font size="2" color="#333333">27/08</font>
+                                            </td>
+                            </tr>
+                            <tr height="20" valign="bottom">
+                                <td>
+                                    <a href="#">
+                                        <img src="https://reclassicro.com/assets/btn_more.gif" width="43" height="11"
+                                            border="0">
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </td>
+    </tr>
+    <tr>
+        <td height="6">
+            <img src="https://reclassicro.com/assets/news_t_b_n.gif" width="550px" height="6" class="imgeventbaixo"
+                style="margin-bottom: -15px;">
+        </td>
+    </tr>
+    </tbody>
+    </table>
+    <br>
+
+    <!-- Tabela de eventos -->
+    <table border="0" cellspacing="0" cellpadding="0" align="center" height="150"
+        background="https://reclassicro.com/assets/coluna_noticia2.webp">
+        <tr>
+            <td height="6">
+                <img src="https://reclassicro.com/assets/event_t_t_n.gif" width="550" height="5" class="imgevent"
+                    style="margin-top: -15px;">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="5" align="center">
+                    <tr>
+                        <td width="105">
+                            <img src="https://reclassicro.com/assets/event_npc2.gif" width="105" height="120"
+                                border="0">
+                        </td>
+                        <td>
+                            <table width="100%" border="0" cellspacing="2" cellpadding="0">
+                                <!-- Lista de eventos -->
+                                <tr>
+                                    <td>
+                                        <a href="https://reclassicro.com/wiki/index.php/Evento_de_Natal_2024">
+                                            <font size="2" color="#CC0000">O Natal chegou no Ragnarok ReClassic</font>
+                                        </a>
+                                    </td>
+                                    <td width="50">
+                                        <font size="2" color="#333333">19/12</font>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="?to=event">
+                                            <font size="2" color="#CC0000">[Encerrado] Os primeiros a chegar ao level
+                                                99.</font>
+                                        </a>
+                                    </td>
+                                    <td width="50">
+                                        <font size="2" color="#333333">29/08</font>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="?to=event2">
+                                            <font size="2" color="#CC0000">[Encerrado] 200 Caixas de equipamentos
+                                                experientes.</font>
+                                        </a>
+                                    </td>
+                                    <td width="50">
+                                        <font size="2" color="#333333">28/08</font>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="?to=event3">
+                                            <font size="2" color="#CC0000">[Encerrado] Participantes do beta ganham um
+                                                visual exclusivo.</font>
+                                        </a>
+                                    </td>
+                                    <td width="50">
+                                        <font size="2" color="#333333">27/08</font>
+                                    </td>
+                                </tr>
+                                <tr height="10" valign="bottom">
+                                    <td>
+                                        <a href="#">
+                                            <img src="https://reclassicro.com/assets/btn_more.gif" width="43"
+                                                height="11" border="0">
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td height="6">
+                <img src="https://reclassicro.com/assets/event_t_b_n.gif" width="550" height="6" class="imgeventbaixo"
+                    style="margin-bottom: -15px;">
+            </td>
+        </tr>
+    </table>
+</div>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-11498041750">
+</script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'AW-11498041750');
+</script>
+
+<!-- Estatísticas do Servidor -->
+<section class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-center mb-4">Estatísticas do Servidor</h2>
+            <div class="game-stats p-4">
+                <div class="row g-4">
+                    <div class="col-md-3 col-6">
+                        <div class="stat-item">
+                            <div class="stat-number">1500+</div>
+                            <div class="stat-label">Jogadores Ativos</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="stat-item">
+                            <div class="stat-number">250+</div>
+                            <div class="stat-label">Guildas</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="stat-item">
+                            <div class="stat-number">99.9%</div>
+                            <div class="stat-label">Uptime</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="stat-item">
+                            <div class="stat-number">24/7</div>
+                            <div class="stat-label">Suporte</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Seção de Características -->
+<section class="container my-5">
+    <div class="row">
+        <div class="col-12 text-center mb-5">
+            <h2>Características do Servidor</h2>
+            <p class="text-light-50 mt-3">Experimente o Ragnarok Online com recursos e melhorias únicas</p>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center p-4">
+                    <i class="fas fa-balance-scale feature-icon mb-3"></i>
+                    <h4 class="card-title">Gameplay Balanceado</h4>
+                    <p class="card-text text-light">Classes e habilidades cuidadosamente balanceadas para uma experiência justa e divertida para todos os jogadores.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center p-4">
+                    <i class="fas fa-gem feature-icon mb-3"></i>
+                    <h4 class="card-title">Itens Exclusivos</h4>
+                    <p class="card-text text-light">Descubra equipamentos e itens exclusivos disponíveis apenas em nosso servidor.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center p-4">
+                    <i class="fas fa-map-marked-alt feature-icon mb-3"></i>
+                    <h4 class="card-title">Dungeons Customizadas</h4>
+                    <p class="card-text text-light">Explore dungeons únicas e desafiadoras com recompensas especiais.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Chamada para Ação -->
+<section class="container my-5">
+    <div class="card bg-gradient-primary">
+        <div class="card-body p-5 text-center">
+            <h2 class="card-title mb-4">Pronto para Iniciar sua Aventura?</h2>
+            <p class="card-text text-light mb-4">Crie sua conta agora e mergulhe no mundo de ReClassic Ragnarok Online!</p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="?to=registro" class="btn btn-custom">Criar Conta</a>
+                <a href="https://drive.google.com/file/d/1ROEqhrWH4mnp40ULfnM0wul84jp6knn4/view?usp=sharing" target="_blank" class="btn btn-custom">Baixar Jogo</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .bg-gradient-primary {
+        background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    }
+</style>
