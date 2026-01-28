@@ -28,9 +28,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($resultado && $resultado->num_rows == 1) {
             $user = $resultado->fetch_assoc();
-                //$senhaUser = md5($senha);
-                $senhaUser = $senha;
-            if ($senhaUser == $user["user_pass"]) {
+            $senhaArmazenada = $user["user_pass"];
+            $senhaValida = false;
+
+            // Verifica bcrypt (novas senhas)
+            if (password_verify($senha, $senhaArmazenada)) {
+                $senhaValida = true;
+            }
+            // Verifica MD5 legado e migra para bcrypt
+            elseif (md5($senha) === $senhaArmazenada) {
+                $senhaValida = true;
+                // Migra senha para bcrypt
+                $novaSenhaHash = password_hash($senha, PASSWORD_DEFAULT);
+                $stmtUpdate = $conn->prepare("UPDATE login SET user_pass = ? WHERE account_id = ?");
+                $stmtUpdate->bind_param("si", $novaSenhaHash, $user["account_id"]);
+                $stmtUpdate->execute();
+            }
+
+            if ($senhaValida) {
                 $_SESSION["user"] = $user["userid"];
                 $_SESSION["conta"] = $user["account_id"];
                 $_SESSION["grupo"] = $user["group_id"];

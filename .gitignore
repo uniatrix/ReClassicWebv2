@@ -1,0 +1,20 @@
+# Database dump
+ragdb.sql
+
+# Environment and credentials
+.env
+*.env
+
+# IDE
+.idea/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# PHP
+*.log
+
+# NPC Examples - Arquivos de referencia do servidor
+/npc_examples/

@@ -10,8 +10,12 @@ $account_id = $_SESSION["conta"];
 // ==================  DADOS CONTA  ================ 
 
 try{
-	$sql = "SELECT * FROM `char` WHERE account_id = $account_id";
-	$result = $conn->query($sql);
+	// Busca personagens da conta
+	$sql = "SELECT * FROM `char` WHERE account_id = ?";
+	$stmt = $conn->prepare($sql);
+	$stmt->bind_param("i", $account_id);
+	$stmt->execute();
+	$result = $stmt->get_result();
 	$personagens = array();
 
 	if ($result->num_rows > 0) {
@@ -20,14 +24,22 @@ try{
 	    }
 	}
 
-	$sql = "SELECT SUM(zeny) as total_zeny FROM `char` WHERE account_id = $account_id";
-	$result = $conn->query($sql);
+	// Soma total de zeny
+	$sql = "SELECT SUM(zeny) as total_zeny FROM `char` WHERE account_id = ?";
+	$stmt = $conn->prepare($sql);
+	$stmt->bind_param("i", $account_id);
+	$stmt->execute();
+	$result = $stmt->get_result();
 	$zeny_query = $result->fetch_assoc();
 
 	$zeny = $zeny_query['total_zeny'];
 
-	$sql = "SELECT * FROM `login` WHERE account_id = $account_id";
-	$result = $conn->query($sql);
+	// Dados da conta
+	$sql = "SELECT * FROM `login` WHERE account_id = ?";
+	$stmt = $conn->prepare($sql);
+	$stmt->bind_param("i", $account_id);
+	$stmt->execute();
+	$result = $stmt->get_result();
 	$conta_query = $result->fetch_assoc();
 
 
@@ -66,11 +78,22 @@ try{
 
 if (isset($_GET['resetar'])) {
     $type = isset($_GET['type']) ? $_GET['type'] : '';
-    $id = isset($_GET['id']) ? $_GET['id'] : '';
+    $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-    $sql = "SELECT online, sex, name FROM `char` WHERE char_id = $id";
-    $result = $conn->query($sql);
+    // Busca personagem com prepared statement
+    $sql = "SELECT online, sex, name, account_id FROM `char` WHERE char_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
     $online_query = $result->fetch_assoc();
+
+    // Verificação de propriedade - garante que o personagem pertence ao usuário logado
+    if (!$online_query || $online_query['account_id'] != $account_id) {
+        header("Location: ?to=conta");
+        RECLASSIC::defineMessageSession("<p class='error'>Personagem não encontrado ou não pertence à sua conta.</p>");
+        exit();
+    }
 
     if(!RECLASSIC::getChar($id)){
     	header("Location: ?to=conta");

@@ -8,15 +8,25 @@ class RECLASSIC {
     private $bd;
 
     private $mysqli;
+    private $PortMap;
+    private $PortChar;
+    private $PortLogin;
 
     private static $instance = null;
 
     private function __construct() {
         // Update these database connection settings
-        $this->host         = 'sql313.infinityfree.com';   // InfinityFree database server
-        $this->user         = 'if0_38596119';              // Your InfinityFree username
-        $this->senha        = 'KrqOYxCErskmzZ';            // Your database password
-        $this->bd           = 'if0_38596119_ragdb';        // Your InfinityFree database name
+        // LOCAL DEVELOPMENT (comment out for production)
+        $this->host         = 'localhost';                 // Local MySQL server
+        $this->user         = 'root';                      // MySQL root user
+        $this->senha        = '';                          // No password for local root
+        $this->bd           = 'ragdb';                     // Local database name
+
+        // PRODUCTION (uncomment for InfinityFree hosting)
+        // $this->host         = 'sql313.infinityfree.com';
+        // $this->user         = 'if0_38596119';
+        // $this->senha        = 'KrqOYxCErskmzZ';
+        // $this->bd           = 'if0_38596119_ragdb';
         
         // Keep these game server ports unchanged
         $this->PortMap      = 5121;    // Porta do Map-Server (Padrão = 5121)
@@ -109,29 +119,28 @@ class RECLASSIC {
 
 
     public static function getGuildName($guildID){
-
-
-    $sql = "SELECT name FROM guild WHERE guild_id = $guildID";
-    $result = self::getInstance()->query($sql);
-     if ($result) {
+        $sql = "SELECT name FROM guild WHERE guild_id = ?";
+        $stmt = self::getInstance()->prepare($sql);
+        $stmt->bind_param("i", $guildID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result) {
             $row = $result->fetch_assoc();
-            return $row['name'] ?? 'N/A'; 
-        } else {
-            return 'N/A';
+            return $row['name'] ?? 'N/A';
         }
+        return 'N/A';
     }
 
     public static function getAccountinfo($accountID){
-
-
-        $sql = "SELECT * FROM login WHERE account_id = $accountID";
-        $result = self::getInstance()->query($sql);
+        $sql = "SELECT * FROM login WHERE account_id = ?";
+        $stmt = self::getInstance()->prepare($sql);
+        $stmt->bind_param("i", $accountID);
+        $stmt->execute();
+        $result = $stmt->get_result();
         if ($result && $result->num_rows > 0) {
             return $result->fetch_assoc();
-        } else {
-            return null;
         }
-       
+        return null;
     }
 
 public static function getMapName($idmapa) {
@@ -298,43 +307,60 @@ public static function getMapName($idmapa) {
     }
 
     public static function checkAdmin() {
-  
+
         if (isset($_SESSION["grupo"]) && $_SESSION["grupo"] == 99) {
             return true;
-           
+
         }else{
-            
+
             return false;
         }
     }
 
+    public static function getCashBalance($account_id) {
+        $sql = "SELECT `value` FROM `acc_reg_num`
+                WHERE `account_id` = ? AND `key` = '#CASHPOINTS' AND `index` = 0";
+        $stmt = self::getInstance()->prepare($sql);
+        $stmt->bind_param("i", $account_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result && $result->num_rows > 0) {
+            return (int) $result->fetch_assoc()['value'];
+        }
+        return 0;
+    }
+
+    public static function formatCashToBRL($cash_points) {
+        return 'R$ ' . number_format($cash_points / 1000, 2, ',', '.');
+    }
+
 
     public static function getInfoItem($itemID) {
-        $sql = "SELECT * FROM item_db WHERE id = '$itemID'
-                UNION ALL 
-                SELECT * FROM item_db2 WHERE id = '$itemID'";
-        
-        $result = self::getInstance()->query($sql);
-
+        $sql = "SELECT * FROM item_db WHERE id = ?
+                UNION ALL
+                SELECT * FROM item_db2 WHERE id = ?";
+        $stmt = self::getInstance()->prepare($sql);
+        $stmt->bind_param("ii", $itemID, $itemID);
+        $stmt->execute();
+        $result = $stmt->get_result();
         if ($result && $result->num_rows > 0) {
             return $result->fetch_assoc();
-        } else {
-            return null;
         }
+        return null;
     }
 
     public static function getMobInfom($mobid) {
-        $sql = "SELECT * FROM mob_db WHERE id = '$mobid'
-                UNION ALL 
-                SELECT * FROM mob_db2 WHERE id = '$mobid'";
-        
-        $result = self::getInstance()->query($sql);
-
+        $sql = "SELECT * FROM mob_db WHERE id = ?
+                UNION ALL
+                SELECT * FROM mob_db2 WHERE id = ?";
+        $stmt = self::getInstance()->prepare($sql);
+        $stmt->bind_param("ii", $mobid, $mobid);
+        $stmt->execute();
+        $result = $stmt->get_result();
         if ($result && $result->num_rows > 0) {
             return $result->fetch_assoc();
-        } else {
-            return null;
         }
+        return null;
     }
 
 }// fecha a classe RECLASSIC

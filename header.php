@@ -875,7 +875,7 @@
     <?php endif; ?>
 </head>
 
-<body>
+<body class="<?php echo (isset($_GET['to']) && in_array($_GET['to'], ['database', 'veritem', 'vermonstro', 'vermapa'])) ? 'database-page' : ''; ?>">
     <!-- Google Tag Manager scripts from original site -->
     <script>(function (w, d, s, l, i) {
             w[l] = w[l] || []; w[l].push({
@@ -895,20 +895,41 @@
         gtag('config', 'AW-11498041750');
     </script>
 
+    <!-- Sticky Header -->
+    <header class="sticky-header">
+        <div class="sticky-header-container">
+            <a href="./" class="sticky-logo">
+                <img src="assets/logo.png" alt="ReClassic">
+            </a>
+            <div class="sticky-actions">
+                <?php if(isset($_SESSION["conta"]) && !empty($_SESSION["conta"])): ?>
+                    <div class="sticky-balance">
+                        <i class="fas fa-coins"></i>
+                        <span><?php echo RECLASSIC::formatCashToBRL(RECLASSIC::getCashBalance($_SESSION["conta"])); ?></span>
+                    </div>
+                <?php else: ?>
+                    <a href="?to=entrar" class="sticky-login-btn">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </a>
+                <?php endif; ?>
+            </div>
+        </div>
+    </header>
+
     <!-- Hero Section with Game Elements -->
-    <section class="hero-section pt-5 mt-4 <?php echo (isset($_GET['to']) && ($_GET['to'] === 'database' || $_GET['to'] === 'comercio' || $_GET['to'] === 'ranking' || $_GET['to'] === 'registro' || $_GET['to'] === 'entrar' || $_GET['to'] === 'conta' || $_GET['to'] === 'veritem' || $_GET['to'] === 'vermonstro')) ? 'compact-page' : ''; ?>" 
-            style="padding-top: <?php echo (isset($_GET['to']) && ($_GET['to'] === 'database' || $_GET['to'] === 'comercio' || $_GET['to'] === 'ranking' || $_GET['to'] === 'registro' || $_GET['to'] === 'entrar' || $_GET['to'] === 'conta' || $_GET['to'] === 'veritem' || $_GET['to'] === 'vermonstro')) ? '20px' : '100px'; ?> !important;">
+    <section class="hero-section pt-5 mt-4 <?php echo (isset($_GET['to']) && ($_GET['to'] === 'database' || $_GET['to'] === 'comercio' || $_GET['to'] === 'ranking' || $_GET['to'] === 'registro' || $_GET['to'] === 'entrar' || $_GET['to'] === 'conta' || $_GET['to'] === 'veritem' || $_GET['to'] === 'vermonstro' || $_GET['to'] === 'rmt')) ? 'compact-page' : ''; ?>" 
+            style="padding-top: <?php echo (isset($_GET['to']) && ($_GET['to'] === 'database' || $_GET['to'] === 'comercio' || $_GET['to'] === 'ranking' || $_GET['to'] === 'registro' || $_GET['to'] === 'entrar' || $_GET['to'] === 'conta' || $_GET['to'] === 'veritem' || $_GET['to'] === 'vermonstro' || $_GET['to'] === 'rmt')) ? '20px' : '100px'; ?> !important;">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-10 text-center">
                     <a href="./">
                         <div class="logo-wrapper">
-                            <img src="assets/newreclassiclogo.png" alt="ReClassic Ragnarok Online" class="main-logo logo-pulse <?php echo (isset($_GET['to']) && ($_GET['to'] === 'database' || $_GET['to'] === 'comercio' || $_GET['to'] === 'ranking' || $_GET['to'] === 'registro' || $_GET['to'] === 'entrar' || $_GET['to'] === 'conta' || $_GET['to'] === 'veritem' || $_GET['to'] === 'vermonstro')) ? 'mb-0' : 'mb-4'; ?>">
+                            <img src="assets/newreclassiclogo.png" alt="ReClassic Ragnarok Online" class="main-logo logo-pulse <?php echo (isset($_GET['to']) && ($_GET['to'] === 'database' || $_GET['to'] === 'comercio' || $_GET['to'] === 'ranking' || $_GET['to'] === 'registro' || $_GET['to'] === 'entrar' || $_GET['to'] === 'conta' || $_GET['to'] === 'veritem' || $_GET['to'] === 'vermonstro' || $_GET['to'] === 'rmt')) ? 'mb-0' : 'mb-4'; ?>">
                             <div class="logo-glow"></div>
                         </div>
                     </a>
                     
-                    <?php if (!isset($_GET['to']) || ($_GET['to'] !== 'database' && $_GET['to'] !== 'comercio' && $_GET['to'] !== 'ranking' && $_GET['to'] !== 'registro' && $_GET['to'] !== 'entrar' && $_GET['to'] !== 'conta' && $_GET['to'] !== 'veritem' && $_GET['to'] !== 'vermonstro')): ?>
+                    <?php if (!isset($_GET['to']) || ($_GET['to'] !== 'database' && $_GET['to'] !== 'comercio' && $_GET['to'] !== 'ranking' && $_GET['to'] !== 'registro' && $_GET['to'] !== 'entrar' && $_GET['to'] !== 'conta' && $_GET['to'] !== 'veritem' && $_GET['to'] !== 'vermonstro' && $_GET['to'] !== 'rmt')): ?>
                     <!-- SWF Placeholder -->
                     <div id="swf-placeholder" class="swf-desktop-only" style="width: 100%; max-width: 760px; height: 404px; margin: 0 auto 30px; display: flex; justify-content: center; align-items: center; pointer-events: none;">
                         <div class="spinner"></div>
@@ -938,7 +959,7 @@
     </section>
 
     <!-- Main Content Container -->
-    <?php if (!isset($_GET['to']) || ($_GET['to'] !== 'database' && $_GET['to'] !== 'comercio' && $_GET['to'] !== 'ranking' && $_GET['to'] !== 'registro' && $_GET['to'] !== 'entrar' && $_GET['to'] !== 'conta' && $_GET['to'] !== 'veritem' && $_GET['to'] !== 'vermonstro')): ?>
+    <?php if (!isset($_GET['to']) || ($_GET['to'] !== 'database' && $_GET['to'] !== 'comercio' && $_GET['to'] !== 'ranking' && $_GET['to'] !== 'registro' && $_GET['to'] !== 'entrar' && $_GET['to'] !== 'conta' && $_GET['to'] !== 'veritem' && $_GET['to'] !== 'vermonstro' && $_GET['to'] !== 'rmt')): ?>
     <div class="container mb-5 mt-3" style="margin-top: 2rem !important;">
         <!-- Community Section -->
         <div class="row g-3 mb-4">
@@ -1024,6 +1045,11 @@
         
         // Custom animated cursor
         document.addEventListener('DOMContentLoaded', function() {
+            // Pular cursor customizado em dispositivos touch (mobile)
+            if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+                return;
+            }
+
             const cursorFrames = [
                 'assets/main-cursor-frame-0.gif',
                 'assets/main-cursor-frame-1.gif',
