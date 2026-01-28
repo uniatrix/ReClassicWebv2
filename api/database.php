@@ -15,7 +15,7 @@ if (isset($_GET["type"]) && $_GET["type"] == "monstros") {
         try {
 
             $sql = "SELECT * FROM mob_db WHERE name_english LIKE ? OR id LIKE ? ";
-            $sql .= "UNION ALL ";
+            $sql .= "UNION ";
             $sql .= "SELECT * FROM mob_db2 WHERE name_english LIKE ? OR id LIKE ? ";
 
             $sql .= "ORDER BY id";
@@ -36,7 +36,7 @@ if (isset($_GET["type"]) && $_GET["type"] == "monstros") {
             try {
                 
                 $sql = "SELECT * FROM mob_db WHERE mvp_exp > 1 ";
-                $sql .= "UNION ALL ";
+                $sql .= "UNION ";
                 $sql .= "SELECT * FROM mob_db2 WHERE mvp_exp > 1 ";
                 $sql .= "ORDER BY id";
     
@@ -52,7 +52,7 @@ if (isset($_GET["type"]) && $_GET["type"] == "monstros") {
             try {
                
                 $sql = "SELECT * FROM mob_db WHERE size LIKE ? OR race LIKE ? OR element LIKE ? ";
-                $sql .= "UNION ALL ";
+                $sql .= "UNION ";
                 $sql .= "SELECT * FROM mob_db2 WHERE size LIKE ? OR race LIKE ? OR element LIKE ? ";
 
 
@@ -74,7 +74,7 @@ if (isset($_GET["type"]) && $_GET["type"] == "monstros") {
         try {
             
             $sql = "SELECT * FROM mob_db ";
-            $sql .= "UNION ALL ";
+            $sql .= "UNION ";
             $sql .= "SELECT * FROM mob_db2 ";
             $sql .= "ORDER BY id";
     
@@ -132,7 +132,7 @@ if (isset($_GET["type"]) && $_GET["type"] == "monstros") {
         try {
 
             $sql = "SELECT * FROM item_db WHERE name_english LIKE ? OR id LIKE ? ";
-            $sql .= "UNION ALL ";
+            $sql .= "UNION ";
             $sql .= "SELECT * FROM item_db2 WHERE name_english LIKE ? OR id LIKE ? ";
 
             $sql .= "ORDER BY id";
@@ -170,7 +170,7 @@ if (isset($_GET["type"]) && $_GET["type"] == "monstros") {
         try {
 
             $sql = "SELECT * FROM item_db WHERE type LIKE ? ";
-            $sql .= "UNION ALL ";
+            $sql .= "UNION ";
             $sql .= "SELECT * FROM item_db2 WHERE type LIKE ? ";
 
             $sql .= "ORDER BY id";
@@ -206,7 +206,7 @@ if (isset($_GET["type"]) && $_GET["type"] == "monstros") {
         try {
 
             $sql = "SELECT * FROM item_db ";
-            $sql .= "UNION ALL ";
+            $sql .= "UNION ";
             $sql .= "SELECT * FROM item_db2 ";
 
             $sql .= "ORDER BY id";

@@ -397,6 +397,12 @@ button.button-view:focus {
     color: black;
     pointer-events:none;
 }
+
+/* ESCONDER CARDS MOBILE NO DESKTOP */
+.database-mobile-cards {
+    display: none;
+}
+
 @media (max-width: 768px) {
     /* Container sem padding lateral */
     .infoblocks{

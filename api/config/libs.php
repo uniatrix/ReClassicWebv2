@@ -337,8 +337,9 @@ public static function getMapName($idmapa) {
 
     public static function getInfoItem($itemID) {
         $sql = "SELECT * FROM item_db WHERE id = ?
-                UNION ALL
-                SELECT * FROM item_db2 WHERE id = ?";
+                UNION
+                SELECT * FROM item_db2 WHERE id = ?
+                LIMIT 1";
         $stmt = self::getInstance()->prepare($sql);
         $stmt->bind_param("ii", $itemID, $itemID);
         $stmt->execute();
@@ -351,8 +352,9 @@ public static function getMapName($idmapa) {
 
     public static function getMobInfom($mobid) {
         $sql = "SELECT * FROM mob_db WHERE id = ?
-                UNION ALL
-                SELECT * FROM mob_db2 WHERE id = ?";
+                UNION
+                SELECT * FROM mob_db2 WHERE id = ?
+                LIMIT 1";
         $stmt = self::getInstance()->prepare($sql);
         $stmt->bind_param("ii", $mobid, $mobid);
         $stmt->execute();
