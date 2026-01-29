@@ -55,20 +55,21 @@ foreach ($normal_drops as $key => $drops) {
     $item = $drops["item"];
 
 
-        $sql = "(SELECT name_english, id FROM item_db WHERE name_aegis = ?)
+        $sql = "(SELECT name_english, id, slots FROM item_db WHERE name_aegis = ?)
             UNION
-            (SELECT name_english, id FROM item_db2 WHERE name_aegis = ?)";
-     
+            (SELECT name_english, id, slots FROM item_db2 WHERE name_aegis = ?)";
+
     $stmt = mysqli_prepare($conn, $sql);
     mysqli_stmt_bind_param($stmt, "ss", $item, $item);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_store_result($stmt);
-    mysqli_stmt_bind_result($stmt, $nomeItem, $idItem);
+    mysqli_stmt_bind_result($stmt, $nomeItem, $idItem, $slots);
     $nomesItem = [];
     while (mysqli_stmt_fetch($stmt)) {
         $nomesItem[] = [
             "name_english" => $nomeItem,
             "id" => $idItem,
+            "slots" => $slots,
         ];
     }
     mysqli_stmt_close($stmt);
@@ -79,21 +80,22 @@ foreach ($normal_drops as $key => $drops) {
 foreach ($mvp_drops as $key => $dropsMVP) {
     $item = $dropsMVP["item"];
 
-    
-        $sql = "(SELECT name_english, id FROM item_db WHERE name_aegis = ?)
+
+        $sql = "(SELECT name_english, id, slots FROM item_db WHERE name_aegis = ?)
             UNION
-            (SELECT name_english, id FROM item_db2 WHERE name_aegis = ?)";
-    
+            (SELECT name_english, id, slots FROM item_db2 WHERE name_aegis = ?)";
+
     $stmt = mysqli_prepare($conn, $sql);
     mysqli_stmt_bind_param($stmt, "ss", $item, $item);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_store_result($stmt);
-    mysqli_stmt_bind_result($stmt, $nomeItemMVP, $idItemMVP);
+    mysqli_stmt_bind_result($stmt, $nomeItemMVP, $idItemMVP, $slotsMVP);
     $nomesItemMVP = [];
     while (mysqli_stmt_fetch($stmt)) {
         $nomesItemMVP[] = [
             "name_english" => $nomeItemMVP,
             "id" => $idItemMVP,
+            "slots" => $slotsMVP,
         ];
     }
     mysqli_stmt_close($stmt);

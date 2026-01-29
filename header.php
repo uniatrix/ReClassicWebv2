@@ -973,7 +973,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: rgba(0, 0, 0, 0.85);
+            background-color: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             z-index: 100000;
@@ -989,17 +989,16 @@
         }
 
         .login-popup {
-            background: linear-gradient(145deg, rgba(20, 25, 35, 0.98), rgba(15, 20, 30, 0.98));
-            border: 1px solid rgba(52, 152, 219, 0.3);
+            background: rgba(30, 41, 59, 0.65);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
             border-radius: 16px;
             width: 100%;
             max-width: 420px;
             margin: 20px;
             position: relative;
-            box-shadow:
-                0 0 0 1px rgba(52, 152, 219, 0.1),
-                0 25px 80px rgba(0, 0, 0, 0.5),
-                0 0 40px rgba(52, 152, 219, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             animation: popupSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -1041,13 +1040,14 @@
         }
 
         .login-popup-title {
-            font-family: 'Silkscreen', cursive;
+            font-family: 'Montserrat', sans-serif;
             font-size: 1.8rem;
-            font-style: italic;
+            font-weight: 700;
             color: var(--accent-color);
             margin-bottom: 35px;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             text-shadow: 0 0 20px rgba(79, 195, 247, 0.3);
+            text-transform: uppercase;
         }
 
         .login-popup-field {
@@ -1130,10 +1130,10 @@
             color: white;
             border: none;
             border-radius: 12px;
-            font-family: 'Pixelify Sans', sans-serif;
-            font-size: 1.15rem;
-            font-weight: 600;
-            letter-spacing: 2px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
             cursor: pointer;
             transition: all 0.3s ease;
             margin-top: 15px;
@@ -1520,42 +1520,22 @@
             ];
 
             let currentFrame = 0;
-            let lastFrameTime = 0;
-            let animationId = null;
-            let isPageVisible = !document.hidden;
 
-            function updateCursor(timestamp) {
-                if (!isPageVisible) {
-                    animationId = null;
-                    return;
-                }
+            function updateCursor() {
+                document.documentElement.style.cursor = `url('${cursorFrames[currentFrame]}'), auto`;
 
+                // Set the delay - normal 100ms, but 300ms pause after showing frame 0
                 const delay = (currentFrame === 0) ? 300 : 100;
 
-                if (timestamp - lastFrameTime >= delay) {
-                    document.documentElement.style.cursor = `url('${cursorFrames[currentFrame]}'), auto`;
-                    currentFrame = (currentFrame + 1) % cursorFrames.length;
-                    lastFrameTime = timestamp;
-                }
+                // Determine the next frame
+                currentFrame = (currentFrame + 1) % cursorFrames.length;
 
-                animationId = requestAnimationFrame(updateCursor);
+                // Schedule the next update
+                setTimeout(updateCursor, delay);
             }
 
-            // Pause animation when page is hidden
-            document.addEventListener('visibilitychange', function() {
-                isPageVisible = !document.hidden;
-
-                if (isPageVisible && !animationId) {
-                    lastFrameTime = performance.now();
-                    animationId = requestAnimationFrame(updateCursor);
-                } else if (!isPageVisible && animationId) {
-                    cancelAnimationFrame(animationId);
-                    animationId = null;
-                }
-            });
-
             // Start the animation
-            animationId = requestAnimationFrame(updateCursor);
+            updateCursor();
         });
     </script>
 

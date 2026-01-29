@@ -507,6 +507,16 @@
             </div>
         </div>
 
+        <!-- Description Section -->
+        <h3 class="tab-section-title">
+            <i class="fas fa-file-alt"></i>
+            Descrição
+        </h3>
+
+        <div class="item-description-container">
+            <div class="item-description-text"><?php echo $textoFormatado; ?></div>
+        </div>
+
         <!-- Informations Section -->
         <h3 class="tab-section-title">
             <i class="fas fa-info-circle"></i>
@@ -591,16 +601,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Description Section -->
-        <h3 class="tab-section-title">
-            <i class="fas fa-file-alt"></i>
-            Descrição
-        </h3>
-
-        <div class="item-description-container">
-            <div class="item-description-text"><?php echo $textoFormatado; ?></div>
         </div>
 
         <!-- Obtained From Section -->

@@ -639,13 +639,18 @@ function monsterImageIndex($monsterID)
 
 function iconImage($itemID)
 {
-    $localPngPath = sprintf("assets/img/item/icons/%d.png", $itemID);
-    $localBmpPath = sprintf("assets/img/item/icons/%d.bmp", $itemID);
+    // Use document root relative paths for web display
+    $webPngPath = "assets/img/item/icons/$itemID.png";
+    $webBmpPath = "assets/img/item/icons/$itemID.bmp";
+
+    // Use absolute paths for file existence check
+    $localPngPath = __DIR__ . "/../../assets/img/item/icons/$itemID.png";
+    $localBmpPath = __DIR__ . "/../../assets/img/item/icons/$itemID.bmp";
 
     if (file_exists($localPngPath)) {
-        return preg_replace('&/{2,}&', '/', $localPngPath);
-    } elseif (file_exists($localBmpPath)) {  
-        return preg_replace('&/{2,}&', '/', $localBmpPath);
+        return $webPngPath;
+    } elseif (file_exists($localBmpPath)) {
+        return $webBmpPath;
     } else {
         $remote_link = "https://static.divine-pride.net/images/items/item/$itemID.png";
         return $remote_link;

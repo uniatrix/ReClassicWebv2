@@ -574,6 +574,21 @@
     margin-top: 5px;
 }
 
+.drop-slots-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(79, 195, 247, 0.15);
+    border: 1px solid rgba(79, 195, 247, 0.4);
+    color: var(--accent-color);
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 6px;
+    font-family: 'Montserrat', sans-serif;
+}
+
 /* Empty State */
 .empty-section {
     text-align: center;
@@ -1433,7 +1448,12 @@
                                 <img src="<?php echo iconImage($nomeItemMVP['id']); ?>" alt="<?php echo $nomeItemMVP['name_english']; ?>">
                             </div>
                             <div class="drop-info">
-                                <div class="drop-name"><?php echo $nomeItemMVP['name_english']; ?></div>
+                                <div class="drop-name">
+                                    <?php echo $nomeItemMVP['name_english']; ?>
+                                    <?php if (isset($nomeItemMVP['slots']) && $nomeItemMVP['slots'] > 0): ?>
+                                        <span class="drop-slots-badge">[<?php echo $nomeItemMVP['slots']; ?>]</span>
+                                    <?php endif; ?>
+                                </div>
                                 <div class="drop-rate"><?php echo number_format(min(100, $dropsMVP['rate'] / 100 * ($config['DropMVP'] / 100)), 2); ?>%</div>
                                 <div class="mvp-label">MVP</div>
                             </div>
@@ -1451,7 +1471,12 @@
                                 <img src="<?php echo iconImage($nomeItemNormal['id']); ?>" alt="<?php echo $nomeItemNormal['name_english']; ?>">
                             </div>
                             <div class="drop-info">
-                                <div class="drop-name"><?php echo $nomeItemNormal['name_english']; ?></div>
+                                <div class="drop-name">
+                                    <?php echo $nomeItemNormal['name_english']; ?>
+                                    <?php if (isset($nomeItemNormal['slots']) && $nomeItemNormal['slots'] > 0): ?>
+                                        <span class="drop-slots-badge">[<?php echo $nomeItemNormal['slots']; ?>]</span>
+                                    <?php endif; ?>
+                                </div>
                                 <div class="drop-rate"><?php echo number_format(min(100, $dropsNormal['rate'] / 100 * ($config['DropNormal'] / 100)), 2); ?>%</div>
                             </div>
                         </a>

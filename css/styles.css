@@ -1186,10 +1186,11 @@ section.container:first-of-type {
         left: 0;
         right: 0;
         z-index: 9999;
-        background-color: rgba(15, 23, 42, 0.98);
-        border-top: 3px solid var(--primary-color);
+        background: var(--glass-bg);
+        border-top: 1px solid var(--glass-border);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
+        box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.3);
     }
 
     .mobile-footer-nav-container {
@@ -1208,8 +1209,9 @@ section.container:first-of-type {
         justify-content: center;
         text-decoration: none;
         color: var(--light-color);
-        font-family: 'Pixelify Sans', sans-serif;
+        font-family: 'Montserrat', sans-serif;
         font-size: 0.7rem;
+        font-weight: 600;
         padding: 8px 5px;
         transition: all 0.2s ease;
         flex: 1;
@@ -1319,10 +1321,13 @@ section.container:first-of-type {
         left: -280px;
         width: 280px;
         height: 100%;
-        background-color: rgba(15, 23, 42, 0.98);
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
         z-index: 10001;
         transition: left 0.3s ease;
-        border-right: 3px solid var(--primary-color);
+        border-right: 1px solid var(--glass-border);
+        box-shadow: 4px 0 30px rgba(0, 0, 0, 0.3);
         overflow-y: auto;
     }
 
@@ -1335,8 +1340,8 @@ section.container:first-of-type {
         justify-content: space-between;
         align-items: center;
         padding: 20px 15px;
-        border-bottom: 2px solid rgba(79, 195, 247, 0.3);
-        background-color: rgba(31, 41, 55, 0.5);
+        border-bottom: 1px solid var(--glass-border);
+        background: rgba(31, 41, 55, 0.3);
     }
 
     .mobile-drawer-logo {
@@ -1373,8 +1378,9 @@ section.container:first-of-type {
         padding: 15px 20px;
         text-decoration: none;
         color: var(--light-color);
-        font-family: 'Pixelify Sans', sans-serif;
-        font-size: 1.1rem;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 1rem;
+        font-weight: 500;
         transition: all 0.2s ease;
         border-left: 3px solid transparent;
     }

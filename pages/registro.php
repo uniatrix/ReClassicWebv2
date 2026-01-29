@@ -16,22 +16,22 @@
                 </div>
                 <div class="rewards-grid">
                     <div class="reward-item">
-                        <img src="assets/items/5381.png" alt="Item" onerror="this.src='assets/items/default.png'">
+                        <img src="<?php echo iconImage(5381); ?>" alt="Item" onerror="this.src='assets/img/noimage.png'">
                         <span>[Visual] Faixa de Ragnarok</span>
                     </div>
                     <div class="reward-item">
                         <div class="reward-quantity">20</div>
-                        <img src="assets/items/501.png" alt="Item" onerror="this.src='assets/items/default.png'">
+                        <img src="<?php echo iconImage(501); ?>" alt="Item" onerror="this.src='assets/img/noimage.png'">
                         <span>Pocao Menor de Vida</span>
                     </div>
                     <div class="reward-item">
                         <div class="reward-quantity">2</div>
-                        <img src="assets/items/12208.png" alt="Item" onerror="this.src='assets/items/default.png'">
+                        <img src="<?php echo iconImage(12208); ?>" alt="Item" onerror="this.src='assets/img/noimage.png'">
                         <span>Manual de Combate</span>
                     </div>
                     <div class="reward-item">
                         <div class="reward-quantity">2</div>
-                        <img src="assets/items/12210.png" alt="Item" onerror="this.src='assets/items/default.png'">
+                        <img src="<?php echo iconImage(12210); ?>" alt="Item" onerror="this.src='assets/img/noimage.png'">
                         <span>Goma de Mascar</span>
                     </div>
                 </div>
@@ -60,6 +60,14 @@
                     <div class="input-wrapper">
                         <i class="fas fa-envelope"></i>
                         <input type="email" name="Email" id="Email" placeholder="seu@email.com" maxlength="35" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="whatsapp">Telefone / WhatsApp</label>
+                    <div class="input-wrapper">
+                        <i class="fab fa-whatsapp"></i>
+                        <input type="tel" name="whatsapp" id="whatsapp" placeholder="(00) 00000-0000" maxlength="15" required>
                     </div>
                 </div>
 
@@ -300,13 +308,23 @@
 
 .input-wrapper input {
     width: 100%;
+    height: 48px;
     background: rgba(0, 0, 0, 0.3);
     border: 1px solid var(--dark-border);
     border-radius: var(--header-radius);
-    padding: 14px 15px 14px 45px;
+    padding: 0 15px 0 45px;
     color: var(--text-primary);
     font-size: 0.95rem;
     transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.input-wrapper input[type="text"],
+.input-wrapper input[type="email"],
+.input-wrapper input[type="tel"],
+.input-wrapper input[type="password"] {
+    height: 48px;
+    line-height: 48px;
 }
 
 .input-wrapper input::placeholder {
