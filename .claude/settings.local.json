@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "Bash(git commit:*)",
-      "WebFetch(domain:pbroreload.com.br)"
+      "WebFetch(domain:pbroreload.com.br)",
+      "Bash(git pull:*)",
+      "Bash(git stash:*)",
+      "Bash(git stash pop:*)",
+      "Bash(git push:*)"
     ]
   }
 }
