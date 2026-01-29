@@ -6,7 +6,10 @@
 
     <div class="founder-packages-row">
         <?php foreach($founderPackages as $tier => $package): ?>
-        <div class="founder-card">
+        <div class="founder-card <?php echo $tier === 3 ? 'featured-card' : ''; ?>">
+            <?php if($tier === 3): ?>
+            <div class="featured-badge">MAIS VENDIDO</div>
+            <?php endif; ?>
             <div class="card-header">
                 <h2>Pacote <?php echo htmlspecialchars($package['name']); ?></h2>
                 <div class="card-price" style="color: <?php echo $package['color']; ?>">
@@ -38,8 +41,8 @@
 
 <style>
 .founder-page {
-    padding: 40px 20px;
-    min-height: 80vh;
+    padding: 40px 20px 150px;
+    min-height: 100vh;
 }
 
 .founder-hero {
@@ -62,7 +65,7 @@
 }
 
 .founder-hero .text-highlight {
-    color: #ff7f32;
+    color: #3498db;
 }
 
 .founder-hero p {
@@ -79,29 +82,63 @@
     gap: 25px;
     flex-wrap: wrap;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 0 auto 80px;
 }
 
 .founder-card {
-    background: rgba(20, 20, 30, 0.92);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 16px;
     width: 320px;
     display: flex;
     flex-direction: column;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    position: relative;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 .founder-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.founder-card.featured-card {
+    border: 2px solid rgba(52, 152, 219, 0.6);
+    box-shadow: 0 8px 32px rgba(52, 152, 219, 0.25);
+    background: rgba(52, 152, 219, 0.1);
+}
+
+.founder-card.featured-card:hover {
+    box-shadow: 0 15px 50px rgba(52, 152, 219, 0.35);
+    background: rgba(52, 152, 219, 0.15);
+}
+
+.featured-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    padding: 6px 20px;
+    font-family: 'Silkscreen', cursive;
+    font-size: 0.75rem;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.5);
+    z-index: 10;
+    white-space: nowrap;
 }
 
 .card-header {
     text-align: center;
     padding: 25px 20px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 16px 16px 0 0;
 }
 
 .card-header h2 {
@@ -128,7 +165,7 @@
     display: flex;
     align-items: center;
     padding: 8px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     gap: 12px;
 }
 
@@ -144,13 +181,13 @@
 }
 
 .item-row .item-name {
-    color: #ddd;
+    color: rgba(255, 255, 255, 0.85);
     font-size: 0.85rem;
     flex-grow: 1;
 }
 
 .item-row .item-plus {
-    color: #ff7f32;
+    color: #3498db;
     font-weight: bold;
     font-size: 1.2rem;
 }
@@ -158,22 +195,25 @@
 .btn-adquirir {
     display: block;
     margin: 15px 20px 20px;
-    padding: 12px 20px;
+    padding: 14px 20px;
     text-align: center;
     border: 2px solid;
-    border-radius: 5px;
-    background: transparent;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
     font-family: 'Silkscreen', cursive;
     font-size: 0.9rem;
     text-decoration: none;
     transition: all 0.3s ease;
     letter-spacing: 1px;
+    position: relative;
+    z-index: 5;
 }
 
 .btn-adquirir:hover {
-    background: rgba(255, 127, 50, 0.15);
+    background: rgba(52, 152, 219, 0.2);
     text-decoration: none;
     transform: scale(1.02);
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
 }
 
 @media (max-width: 1024px) {
@@ -194,7 +234,11 @@
     }
 
     .founder-page {
-        padding: 20px 10px;
+        padding: 20px 10px 200px;
+    }
+
+    .founder-packages-row {
+        margin-bottom: 100px;
     }
 
     .card-price {
