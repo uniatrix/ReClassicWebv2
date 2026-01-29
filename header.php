@@ -1291,8 +1291,16 @@
 
                     // If login successful (check for redirect or success indicator)
                     if (response.includes('sucesso') || response.includes('Sucesso') || response.includes('window.location')) {
+                        // Verificar se há redirect pendente no sessionStorage
+                        var redirectUrl = sessionStorage.getItem('redirectAfterLogin');
+                        sessionStorage.removeItem('redirectAfterLogin');
+
                         setTimeout(function() {
-                            window.location.reload();
+                            if (redirectUrl) {
+                                window.location.href = redirectUrl;
+                            } else {
+                                window.location.reload();
+                            }
                         }, 1000);
                     }
                 },

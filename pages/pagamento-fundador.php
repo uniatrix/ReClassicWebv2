@@ -1,3 +1,107 @@
+<?php if(!$isLoggedIn): ?>
+<div class="login-required-container">
+    <div class="login-required-box">
+        <i class="fas fa-lock"></i>
+        <h2>Login Necessario</h2>
+        <p>Para continuar com a compra do <strong>Pacote <?php echo htmlspecialchars($selectedPackage['name']); ?></strong>, voce precisa estar logado.</p>
+        <button onclick="loginParaComprar(<?php echo $pacoteTier; ?>);" class="btn-login-required">
+            <i class="fas fa-sign-in-alt"></i> Fazer Login
+        </button>
+        <a href="?to=pacote-fundador" class="btn-voltar-pacotes">
+            <i class="fas fa-arrow-left"></i> Voltar para pacotes
+        </a>
+    </div>
+</div>
+
+<style>
+.login-required-container {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.login-required-box {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 50px 40px;
+    text-align: center;
+    max-width: 450px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.login-required-box i.fa-lock {
+    font-size: 4rem;
+    color: #3498db;
+    margin-bottom: 20px;
+}
+
+.login-required-box h2 {
+    font-family: 'Silkscreen', cursive;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.login-required-box p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.login-required-box strong {
+    color: #3498db;
+}
+
+.btn-login-required {
+    display: block;
+    width: 100%;
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Silkscreen', cursive;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 15px;
+}
+
+.btn-login-required:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+}
+
+.btn-voltar-pacotes {
+    display: block;
+    padding: 12px 20px;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-voltar-pacotes:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    text-decoration: none;
+}
+</style>
+
+<script>
+function loginParaComprar(pacote) {
+    sessionStorage.setItem('redirectAfterLogin', '?to=pagamento-fundador&pacote=' + pacote);
+    openLoginPopup();
+}
+</script>
+
+<?php else: ?>
+
 <div class="payment-founder-container">
     <div class="payment-header">
         <h2><i class="fas fa-credit-card"></i> Pagamento - Pacote <?php echo htmlspecialchars($selectedPackage['name']); ?></h2>
@@ -16,7 +120,7 @@
                 <ul class="items-list">
                     <?php foreach($selectedPackage['items'] as $item): ?>
                     <li>
-                        <img src="<?php echo itemImage($item['id']); ?>"
+                        <img src="<?php echo iconImage($item['id']); ?>"
                              alt="<?php echo htmlspecialchars($item['name']); ?>"
                              onerror="this.src='assets/img/noimage.png'">
                         <span class="item-info">
@@ -87,10 +191,11 @@
     max-width: 900px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
-    margin-top: -40px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+    margin-bottom: 100px;
 }
 
 .payment-header {
@@ -372,8 +477,9 @@
     }
 
     .payment-founder-container {
-        margin-top: 0;
-        border-radius: 0;
+        margin: 10px;
+        margin-bottom: 150px;
+        border-radius: 10px;
     }
 
     .summary-items {
@@ -417,3 +523,5 @@ $(document).ready(function() {
     });
 });
 </script>
+
+<?php endif; ?>

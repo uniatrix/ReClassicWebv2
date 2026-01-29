@@ -2,8 +2,8 @@
 
 $title = 'Pagamento - Pacote Fundador';
 
-// Verificar login obrigatorio
-RECLASSIC::LoginRequired();
+// Verificar se usuario esta logado (sem redirecionar)
+$isLoggedIn = isset($_SESSION['conta']) && !empty($_SESSION['conta']);
 
 // Validar pacote selecionado
 $pacoteTier = isset($_GET['pacote']) ? (int)$_GET['pacote'] : 0;

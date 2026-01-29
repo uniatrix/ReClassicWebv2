@@ -31,9 +31,15 @@
                 <?php endforeach; ?>
             </div>
 
+            <?php if(isset($_SESSION["conta"]) && !empty($_SESSION["conta"])): ?>
             <a href="?to=pagamento-fundador&pacote=<?php echo $tier; ?>" class="btn-adquirir" style="color: <?php echo $package['color']; ?>; border-color: <?php echo $package['color']; ?>">
                 ADQUIRIR
             </a>
+            <?php else: ?>
+            <a href="#" class="btn-adquirir" style="color: <?php echo $package['color']; ?>; border-color: <?php echo $package['color']; ?>" onclick="loginParaComprar(<?php echo $tier; ?>); return false;">
+                ADQUIRIR
+            </a>
+            <?php endif; ?>
         </div>
         <?php endforeach; ?>
     </div>
@@ -246,3 +252,50 @@
     }
 }
 </style>
+
+<script>
+function loginParaComprar(pacote) {
+    // Salva o destino para redirecionar após login
+    sessionStorage.setItem('redirectAfterLogin', '?to=pagamento-fundador&pacote=' + pacote);
+    openLoginPopup();
+}
+
+// Verifica após login se há redirect pendente
+$(document).ready(function() {
+    // Intercepta o sucesso do login para redirecionar
+    var originalSubmitHandler = $('#loginPopupForm').data('events');
+
+    $('#loginPopupForm').off('submit').on('submit', function(e) {
+        e.preventDefault();
+        var $btn = $(this).find('button[type="submit"]');
+        $btn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> ENTRANDO...');
+
+        $.ajax({
+            type: 'POST',
+            url: 'api/entrar.php',
+            data: $(this).serialize(),
+            success: function(response) {
+                $('#loginPopupMessage').html(response);
+                $btn.prop('disabled', false).html('ENTRAR');
+
+                if (response.includes('sucesso') || response.includes('Sucesso') || response.includes('window.location')) {
+                    var redirectUrl = sessionStorage.getItem('redirectAfterLogin');
+                    sessionStorage.removeItem('redirectAfterLogin');
+
+                    setTimeout(function() {
+                        if (redirectUrl) {
+                            window.location.href = redirectUrl;
+                        } else {
+                            window.location.reload();
+                        }
+                    }, 1000);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Erro na requisição', status, error);
+                $btn.prop('disabled', false).html('ENTRAR');
+            }
+        });
+    });
+});
+</script>
