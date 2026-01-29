@@ -829,17 +829,308 @@
             display: none !important;
         }
         
-        /* Hide mobile buttons now that we have the floating action button */
-        @media (max-width: 768px) {
-            .pixel-account-float {
-                right: 15px;
-                bottom: 15px;
+        /* ===============================================
+           STICKY NAV MENU
+           =============================================== */
+        .sticky-nav {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-left: 20px;
+        }
+
+        .sticky-nav-link {
+            color: var(--light-color);
+            text-decoration: none;
+            font-family: 'Pixelify Sans', sans-serif;
+            font-size: 0.95rem;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .sticky-nav-link:hover {
+            background-color: rgba(79, 195, 247, 0.15);
+            color: var(--accent-color);
+        }
+
+        .sticky-nav-link i {
+            font-size: 0.9rem;
+        }
+
+        .sticky-nav-download {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .sticky-nav-download:hover {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .sticky-account-btn {
+            background: rgba(79, 195, 247, 0.2);
+            padding: 8px 16px;
+            color: var(--accent-color);
+            text-decoration: none;
+            border-radius: 4px;
+            font-family: 'Pixelify Sans', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+        }
+
+        .sticky-account-btn:hover {
+            background: rgba(79, 195, 247, 0.3);
+            color: white;
+        }
+
+        .sticky-account-btn i {
+            margin-right: 6px;
+        }
+
+        /* Mobile adjustments for sticky nav */
+        @media (max-width: 992px) {
+            .sticky-nav {
+                display: none;
             }
-            
-            .pixel-float-button {
-                width: 55px;
-                height: 55px;
-                font-size: 1.3rem;
+        }
+
+        /* ===============================================
+           LOGIN POPUP MODAL - REFINED DESIGN
+           =============================================== */
+        .login-popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 100000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .login-popup-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .login-popup {
+            background: linear-gradient(145deg, rgba(20, 25, 35, 0.98), rgba(15, 20, 30, 0.98));
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 420px;
+            margin: 20px;
+            position: relative;
+            box-shadow:
+                0 0 0 1px rgba(52, 152, 219, 0.1),
+                0 25px 80px rgba(0, 0, 0, 0.5),
+                0 0 40px rgba(52, 152, 219, 0.1);
+            animation: popupSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes popupSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-40px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .login-popup-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            padding: 8px;
+            line-height: 1;
+            transition: all 0.2s ease;
+            z-index: 10;
+            border-radius: 8px;
+        }
+
+        .login-popup-close:hover {
+            color: var(--accent-color);
+            background: rgba(79, 195, 247, 0.1);
+        }
+
+        .login-popup-content {
+            padding: 50px 40px 40px;
+            text-align: center;
+        }
+
+        .login-popup-title {
+            font-family: 'Silkscreen', cursive;
+            font-size: 1.8rem;
+            font-style: italic;
+            color: var(--accent-color);
+            margin-bottom: 35px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(79, 195, 247, 0.3);
+        }
+
+        .login-popup-field {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .login-popup-field label {
+            display: block;
+            color: rgba(255, 255, 255, 0.9);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            letter-spacing: 0.3px;
+        }
+
+        .login-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .login-input-wrapper i {
+            position: absolute;
+            left: 18px;
+            color: var(--accent-color);
+            font-size: 1rem;
+            transition: color 0.2s ease;
+            z-index: 2;
+        }
+
+        .login-popup-field input {
+            width: 100%;
+            padding: 16px 18px 16px 50px;
+            border: 2px solid rgba(52, 152, 219, 0.4);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+            background: rgba(15, 20, 30, 0.6);
+            color: white;
+            height: auto;
+            background-image: none !important;
+        }
+
+        .login-popup-field input::placeholder {
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .login-popup-field input:focus {
+            border-color: var(--accent-color);
+            outline: none;
+            background: rgba(20, 25, 40, 0.8);
+            box-shadow: 0 0 0 4px rgba(79, 195, 247, 0.1);
+        }
+
+        .login-popup-field input:focus + i,
+        .login-input-wrapper:focus-within i {
+            color: var(--accent-color);
+        }
+
+        #loginPopupMessage {
+            margin: 20px 0;
+        }
+
+        #loginPopupMessage .error {
+            background: rgba(220, 53, 69, 0.15);
+            color: #ff6b6b;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(220, 53, 69, 0.3);
+        }
+
+        .login-popup-submit {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Pixelify Sans', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 20px rgba(52, 152, 219, 0.3);
+        }
+
+        .login-popup-submit:hover {
+            background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(79, 195, 247, 0.4);
+        }
+
+        .login-popup-submit:active {
+            transform: translateY(0);
+        }
+
+        .login-popup-submit:disabled {
+            background: rgba(100, 100, 100, 0.5);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .login-popup-links {
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .login-popup-links a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            padding: 5px 10px;
+            border-radius: 6px;
+        }
+
+        .login-popup-links a:hover {
+            color: white;
+            background: rgba(79, 195, 247, 0.15);
+        }
+
+        /* Mobile adjustments for login popup */
+        @media (max-width: 480px) {
+            .login-popup-content {
+                padding: 40px 25px 30px;
+            }
+
+            .login-popup-title {
+                font-size: 1.5rem;
+            }
+
+            .login-popup-field input {
+                padding: 14px 14px 14px 45px;
+            }
+
+            .login-input-wrapper i {
+                left: 14px;
             }
         }
     </style>
@@ -901,14 +1192,27 @@
             <a href="./" class="sticky-logo">
                 <img src="assets/logo.png" alt="ReClassic">
             </a>
+            <nav class="sticky-nav">
+                <a href="./" class="sticky-nav-link"><i class="fas fa-home"></i> Início</a>
+                <a href="?to=database&type=itens" class="sticky-nav-link"><i class="fas fa-database"></i> Database</a>
+                <a href="?to=comercio&type=vendedores" class="sticky-nav-link"><i class="fas fa-store"></i> Mercadores</a>
+                <a href="?to=ranking&type=personagens" class="sticky-nav-link"><i class="fas fa-trophy"></i> Ranking</a>
+                <a href="wiki/index.php/P%C3%A1gina_principal" class="sticky-nav-link"><i class="fas fa-book"></i> Wiki</a>
+                <a href="?to=rmt" class="sticky-nav-link"><i class="fas fa-hand-holding-usd"></i> RMT</a>
+                <a href="?to=vote" class="sticky-nav-link"><i class="fas fa-vote-yea"></i> Votar</a>
+                <a href="https://drive.google.com/file/d/1ROEqhrWH4mnp40ULfnM0wul84jp6knn4/view?usp=sharing" target="_blank" class="sticky-nav-link sticky-nav-download"><i class="fas fa-download"></i> Download</a>
+            </nav>
             <div class="sticky-actions">
                 <?php if(isset($_SESSION["conta"]) && !empty($_SESSION["conta"])): ?>
+                    <a href="?to=conta" class="sticky-account-btn">
+                        <i class="fas fa-user"></i> Conta
+                    </a>
                     <div class="sticky-balance">
                         <i class="fas fa-coins"></i>
                         <span><?php echo RECLASSIC::formatCashToBRL(RECLASSIC::getCashBalance($_SESSION["conta"])); ?></span>
                     </div>
                 <?php else: ?>
-                    <a href="?to=entrar" class="sticky-login-btn">
+                    <a href="#" class="sticky-login-btn" onclick="openLoginPopup(); return false;">
                         <i class="fas fa-sign-in-alt"></i> Login
                     </a>
                 <?php endif; ?>
@@ -916,19 +1220,97 @@
         </div>
     </header>
 
+    <!-- Login Popup Modal -->
+    <div id="loginPopupOverlay" class="login-popup-overlay" onclick="closeLoginPopup()">
+        <div class="login-popup" onclick="event.stopPropagation()">
+            <button class="login-popup-close" onclick="closeLoginPopup()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="login-popup-content">
+                <h2 class="login-popup-title">ACESSAR CONTA</h2>
+
+                <form id="loginPopupForm">
+                    <div class="login-popup-field">
+                        <label for="popupUserID">Usuário</label>
+                        <div class="login-input-wrapper">
+                            <i class="fas fa-user"></i>
+                            <input type="text" name="UserID" id="popupUserID" placeholder="Seu usuário" maxlength="20" required>
+                        </div>
+                    </div>
+                    <div class="login-popup-field">
+                        <label for="popupUserPW">Senha</label>
+                        <div class="login-input-wrapper">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" name="UserPW" id="popupUserPW" placeholder="Sua senha" maxlength="12" required>
+                        </div>
+                    </div>
+                    <div id="loginPopupMessage"></div>
+                    <button type="submit" class="login-popup-submit">
+                        ENTRAR
+                    </button>
+                </form>
+
+                <div class="login-popup-links">
+                    <a href="?to=registro">Criar conta</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function openLoginPopup() {
+        document.getElementById('loginPopupOverlay').classList.add('active');
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => document.getElementById('popupUserID').focus(), 100);
+    }
+
+    function closeLoginPopup() {
+        document.getElementById('loginPopupOverlay').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // Close on ESC key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeLoginPopup();
+    });
+
+    // Handle login form submission
+    $(document).ready(function() {
+        $('#loginPopupForm').on('submit', function(e) {
+            e.preventDefault();
+            var $btn = $(this).find('button[type="submit"]');
+            $btn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> ENTRANDO...');
+
+            $.ajax({
+                type: 'POST',
+                url: 'api/entrar.php',
+                data: $(this).serialize(),
+                success: function(response) {
+                    $('#loginPopupMessage').html(response);
+                    $btn.prop('disabled', false).html('ENTRAR');
+
+                    // If login successful (check for redirect or success indicator)
+                    if (response.includes('sucesso') || response.includes('Sucesso') || response.includes('window.location')) {
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 1000);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Erro na requisição', status, error);
+                    $btn.prop('disabled', false).html('ENTRAR');
+                }
+            });
+        });
+    });
+    </script>
+
     <!-- Hero Section with Game Elements -->
     <section class="hero-section pt-5 mt-4 <?php echo (isset($_GET['to']) && ($_GET['to'] === 'database' || $_GET['to'] === 'comercio' || $_GET['to'] === 'ranking' || $_GET['to'] === 'registro' || $_GET['to'] === 'entrar' || $_GET['to'] === 'conta' || $_GET['to'] === 'veritem' || $_GET['to'] === 'vermonstro' || $_GET['to'] === 'rmt')) ? 'compact-page' : ''; ?>" 
             style="padding-top: <?php echo (isset($_GET['to']) && ($_GET['to'] === 'database' || $_GET['to'] === 'comercio' || $_GET['to'] === 'ranking' || $_GET['to'] === 'registro' || $_GET['to'] === 'entrar' || $_GET['to'] === 'conta' || $_GET['to'] === 'veritem' || $_GET['to'] === 'vermonstro' || $_GET['to'] === 'rmt')) ? '20px' : '100px'; ?> !important;">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-10 text-center">
-                    <a href="./">
-                        <div class="logo-wrapper">
-                            <img src="assets/newreclassiclogo.png" alt="ReClassic Ragnarok Online" class="main-logo logo-pulse <?php echo (isset($_GET['to']) && ($_GET['to'] === 'database' || $_GET['to'] === 'comercio' || $_GET['to'] === 'ranking' || $_GET['to'] === 'registro' || $_GET['to'] === 'entrar' || $_GET['to'] === 'conta' || $_GET['to'] === 'veritem' || $_GET['to'] === 'vermonstro' || $_GET['to'] === 'rmt')) ? 'mb-0' : 'mb-4'; ?>">
-                            <div class="logo-glow"></div>
-                        </div>
-                    </a>
-                    
                     <?php if (!isset($_GET['to']) || ($_GET['to'] !== 'database' && $_GET['to'] !== 'comercio' && $_GET['to'] !== 'ranking' && $_GET['to'] !== 'registro' && $_GET['to'] !== 'entrar' && $_GET['to'] !== 'conta' && $_GET['to'] !== 'veritem' && $_GET['to'] !== 'vermonstro' && $_GET['to'] !== 'rmt')): ?>
                     <!-- SWF Placeholder -->
                     <div id="swf-placeholder" class="swf-desktop-only" style="width: 100%; max-width: 760px; height: 404px; margin: 0 auto 30px; display: flex; justify-content: center; align-items: center; pointer-events: none;">
@@ -1079,46 +1461,5 @@
         });
     </script>
     
-    <!-- Floating Account Buttons -->
-    <div class="pixel-account-float">
-        <?php if(isset($_SESSION["conta"]) && !empty($_SESSION["conta"])): ?>
-            <!-- Logged In State -->
-            <div class="pixel-float-menu">
-                <a href="?to=conta" class="pixel-float-button account-button" title="Minha Conta">
-                    <i class="fas fa-user"></i>
-                    <span>CONTA</span>
-                </a>
-                <div class="pixel-menu-bridge"></div>
-                <div class="pixel-float-items">
-                    <a href="?to=conta" class="pixel-float-item">
-                        <i class="fas fa-user"></i><span>Minha Conta</span>
-                    </a>
-                    <a href="?to=vote" class="pixel-float-item">
-                        <i class="fas fa-vote-yea"></i><span>Votar</span>
-                    </a>
-                    <a href="api/sair.php" class="pixel-float-item">
-                        <i class="fas fa-sign-out-alt"></i><span>Sair</span>
-                    </a>
-                </div>
-            </div>
-        <?php else: ?>
-            <!-- Guest State -->
-            <div class="pixel-float-menu">
-                <a href="?to=entrar" class="pixel-float-button join-button" title="Entrar na sua conta">
-                    <i class="fas fa-sign-in-alt"></i>
-                    <span>LOGIN</span>
-                </a>
-                <div class="pixel-menu-bridge"></div>
-                <div class="pixel-float-items">
-                    <a href="?to=entrar" class="pixel-float-item">
-                        <i class="fas fa-sign-in-alt"></i><span>Login</span>
-                    </a>
-                    <a href="?to=registro" class="pixel-float-item">
-                        <i class="fas fa-user-plus"></i><span>Criar Conta</span>
-                    </a>
-                </div>
-            </div>
-        <?php endif; ?>
-    </div>
 </body>
 </html>

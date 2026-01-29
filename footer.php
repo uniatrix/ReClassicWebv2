@@ -24,7 +24,7 @@
                     <h5 class="text-accent mb-4">Links Rápidos</h5>
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="?to=inicio" class="text-decoration-none text-light-50">Início</a></li>
-                        <li class="mb-2"><a href="?to=entrar" class="text-decoration-none text-light-50">Login</a></li>
+                        <li class="mb-2"><a href="#" onclick="openLoginPopup(); return false;" class="text-decoration-none text-light-50">Login</a></li>
                         <li class="mb-2"><a href="?to=registro" class="text-decoration-none text-light-50">Registrar</a></li>
                         <li class="mb-2"><a href="?to=vote" class="text-decoration-none text-light-50">Votar</a></li>
                     </ul>
@@ -148,7 +148,7 @@
                     <span>Conta</span>
                 </a>
             <?php else: ?>
-                <a href="?to=entrar" class="mobile-nav-item">
+                <a href="#" class="mobile-nav-item" onclick="openLoginPopup(); return false;">
                     <i class="fas fa-sign-in-alt"></i>
                     <span>Entrar</span>
                 </a>
@@ -209,7 +209,7 @@
                     <span>Sair</span>
                 </a>
             <?php else: ?>
-                <a href="?to=entrar" class="mobile-drawer-item">
+                <a href="#" class="mobile-drawer-item" onclick="closeDrawer(); openLoginPopup(); return false;">
                     <i class="fas fa-sign-in-alt"></i>
                     <span>Login</span>
                 </a>
@@ -230,6 +230,13 @@
 
     <!-- Mobile Drawer JavaScript -->
     <script>
+    // Global function to close drawer (used by login popup link)
+    function closeDrawer() {
+        $('#mobileDrawer').removeClass('active');
+        $('#mobileDrawerOverlay').removeClass('active');
+        $('body').css('overflow', '');
+    }
+
     $(document).ready(function() {
         const $menuToggle = $('#mobileMenuToggle');
         const $drawer = $('#mobileDrawer');
@@ -244,13 +251,6 @@
             $('body').css('overflow', 'hidden');
         });
 
-        // Close drawer function
-        function closeDrawer() {
-            $drawer.removeClass('active');
-            $overlay.removeClass('active');
-            $('body').css('overflow', '');
-        }
-
         // Close on close button click
         $closeBtn.on('click', closeDrawer);
 
@@ -264,9 +264,11 @@
             }
         });
 
-        // Close drawer when clicking a link inside
-        $('.mobile-drawer-item').on('click', function() {
-            closeDrawer();
+        // Close drawer when clicking a link inside (except login popup link)
+        $('.mobile-drawer-item').on('click', function(e) {
+            if (!$(this).attr('onclick')) {
+                closeDrawer();
+            }
         });
 
         // Handle swipe to close (touch devices)
