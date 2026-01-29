@@ -1273,7 +1273,6 @@
                 <a href="wiki/index.php/P%C3%A1gina_principal" class="sticky-nav-link"><i class="fas fa-book"></i> Wiki</a>
                 <a href="?to=rmt" class="sticky-nav-link"><i class="fas fa-hand-holding-usd"></i> RMT</a>
                 <a href="?to=vote" class="sticky-nav-link"><i class="fas fa-vote-yea"></i> Votar</a>
-                <a href="https://drive.google.com/file/d/1ROEqhrWH4mnp40ULfnM0wul84jp6knn4/view?usp=sharing" target="_blank" class="sticky-nav-link sticky-nav-download"><i class="fas fa-download"></i> Download</a>
             </nav>
             <div class="sticky-actions">
                 <?php if(isset($_SESSION["conta"]) && !empty($_SESSION["conta"])): ?>

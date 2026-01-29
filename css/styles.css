@@ -1894,15 +1894,7 @@ section.container:first-of-type {
 
 @media (max-width: 768px) {
     .floating-download-btn {
-        bottom: 100px;
-        right: 15px;
-        display: block !important;
-        z-index: 99999 !important;
-    }
-
-    .floating-download-btn img {
-        max-width: 120px;
-        height: auto;
+        display: none !important;
     }
 }
 
@@ -1966,9 +1958,9 @@ section.container:first-of-type {
 }
 
 .db-sidebar-item.active {
-    background: rgba(255, 152, 0, 0.15);
-    color: #ff9800;
-    border-left-color: #ff9800;
+    background: rgba(79, 195, 247, 0.15);
+    color: var(--accent-color);
+    border-left-color: var(--accent-color);
     font-weight: 600;
 }
 
@@ -2152,6 +2144,23 @@ section.container:first-of-type {
     font-size: 1rem;
     font-weight: 600;
     color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.db-slots-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(79, 195, 247, 0.15);
+    border: 1px solid rgba(79, 195, 247, 0.4);
+    color: var(--accent-color);
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .db-row-badge {
@@ -2395,8 +2404,8 @@ section.container:first-of-type {
 }
 
 .db-filter-item input[type="radio"]:checked {
-    border-color: #ff9800;
-    background: #ff9800;
+    border-color: var(--accent-color);
+    background: var(--accent-color);
 }
 
 .db-filter-item label {
@@ -2521,7 +2530,7 @@ section.container:first-of-type {
 
     .db-sidebar-item.active {
         border-left: none;
-        border-bottom-color: #ff9800;
+        border-bottom-color: var(--accent-color);
     }
 
     .db-main-content {
@@ -2552,6 +2561,113 @@ section.container:first-of-type {
 }
 
 @media (max-width: 768px) {
+    /* Database Layout - Mobile Vertical */
+    .db-layout {
+        flex-direction: column;
+        padding: 15px;
+        gap: 15px;
+    }
+
+    /* Sidebar - Lista Vertical no Topo */
+    .db-sidebar {
+        width: 100%;
+        position: relative;
+        top: 0;
+        max-height: none;
+        margin-right: 0;
+        margin-bottom: 15px;
+        border-radius: 16px;
+        padding: 15px;
+    }
+
+    .db-sidebar-nav {
+        flex-direction: column;
+        overflow-x: visible;
+        padding: 0;
+        gap: 0;
+    }
+
+    .db-sidebar-item {
+        padding: 16px 20px;
+        border-left: 3px solid transparent;
+        border-bottom: none;
+        border-radius: 0;
+        white-space: normal;
+        min-height: 44px;
+        font-size: 1rem;
+    }
+
+    .db-sidebar-item:first-child {
+        border-radius: 8px 8px 0 0;
+    }
+
+    .db-sidebar-item:last-child {
+        border-radius: 0 0 8px 8px;
+    }
+
+    .db-sidebar-item.active {
+        border-left-color: #ff9800;
+        border-bottom: none;
+        background: rgba(255, 152, 0, 0.15);
+        color: #ff9800;
+    }
+
+    .db-sidebar-item:hover {
+        background: rgba(79, 195, 247, 0.1);
+    }
+
+    .db-sidebar-item i {
+        color: inherit;
+    }
+
+    .db-sidebar-item.active i {
+        color: #ff9800;
+    }
+
+    /* Database Home Cards - Mobile */
+    .db-home-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .db-home-card {
+        padding: 20px;
+    }
+
+    .db-home-card-header {
+        gap: 12px;
+    }
+
+    .db-home-card-icon {
+        width: 45px;
+        height: 45px;
+    }
+
+    .db-home-card-icon i {
+        font-size: 1.3rem;
+    }
+
+    .db-home-card-title {
+        font-size: 1.1rem;
+    }
+
+    .db-home-card-desc {
+        font-size: 0.85rem;
+    }
+
+    .db-home-card-count {
+        font-size: 0.75rem;
+    }
+
+    .db-home-welcome {
+        padding: 20px;
+    }
+
+    .db-home-welcome p {
+        font-size: 0.9rem;
+    }
+
+    /* Database List Rows - Mobile */
     .db-list-row {
         flex-wrap: wrap;
         padding: 15px;
@@ -2571,10 +2687,12 @@ section.container:first-of-type {
     .db-row-name {
         flex-basis: calc(100% - 120px);
         order: 0;
+        font-size: 0.95rem;
     }
 
     .db-row-id {
         order: -1;
+        font-size: 0.8rem;
     }
 
     .db-row-badge {
@@ -2582,15 +2700,80 @@ section.container:first-of-type {
         font-size: 0.75rem;
     }
 
+    .db-row-arrow {
+        display: none;
+    }
+
+    /* Pagination - Mobile */
     .db-pagination {
         justify-content: center;
+    }
+
+    .db-page-arrow {
+        width: 44px;
+        height: 44px;
+    }
+
+    /* Header & Title - Mobile */
+    .db-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
     }
 
     .db-title {
         font-size: 1.4rem;
         letter-spacing: 2px;
+        text-align: center;
     }
 
+    /* Search Box - Mobile */
+    .db-search-box {
+        width: 100%;
+    }
+
+    .db-search-form {
+        width: 100%;
+    }
+
+    .db-search-input {
+        flex: 1;
+        width: 100% !important;
+        font-size: 1rem !important;
+        padding: 14px 16px !important;
+    }
+
+    .db-search-btn {
+        padding: 14px 18px;
+        min-width: 44px;
+    }
+
+    /* Actions - Mobile */
+    .db-actions {
+        justify-content: center;
+    }
+
+    .db-action-btn {
+        padding: 12px 16px;
+        min-height: 44px;
+    }
+
+    /* Filters - Mobile */
+    .filterdb {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        padding: 15px;
+    }
+
+    .radio-item {
+        padding: 10px;
+    }
+
+    .radio-item label {
+        font-size: 0.8rem;
+    }
+
+    /* Footer - Mobile */
     .db-footer-content {
         flex-direction: column;
         text-align: center;

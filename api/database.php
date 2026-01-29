@@ -153,6 +153,7 @@ if (isset($_GET["type"]) && $_GET["type"] == "monstros") {
                         "subtype" => !empty($row["subtype"]) ? strtolower($row["subtype"]) : "unknown",
                         "price_buy" => !empty($row["price_buy"]) ? $row["price_buy"] : "N/A",
                         "weight" => !empty($row["weight"]) ? $row["weight"] : "N/A",
+                        "slots" => !empty($row["slots"]) ? $row["slots"] : 0,
                     ];
                     $itens[] = $item;
                 }
@@ -191,6 +192,7 @@ if (isset($_GET["type"]) && $_GET["type"] == "monstros") {
                         "subtype" => !empty($row["subtype"]) ? strtolower($row["subtype"]) : "unknown",
                         "price_buy" => !empty($row["price_buy"]) ? $row["price_buy"] : "N/A",
                         "weight" => !empty($row["weight"]) ? $row["weight"] : "N/A",
+                        "slots" => !empty($row["slots"]) ? $row["slots"] : 0,
                     ];
                     $itens[] = $item;
                 }
@@ -223,6 +225,7 @@ if (isset($_GET["type"]) && $_GET["type"] == "monstros") {
                         "subtype" => !empty($row["subtype"]) ? strtolower($row["subtype"]) : "unknown",
                         "price_buy" => !empty($row["price_buy"]) ? $row["price_buy"] : "N/A",
                         "weight" => !empty($row["weight"]) ? $row["weight"] : "N/A",
+                        "slots" => !empty($row["slots"]) ? $row["slots"] : 0,
                     ];
                     $itens[] = $item;
                 }
@@ -400,6 +403,7 @@ if (isset($_GET["type"]) && $_GET["type"] == "monstros") {
                         "subtype" => !empty($row["subtype"]) ? strtolower($row["subtype"]) : "unknown",
                         "price_buy" => !empty($row["price_buy"]) ? $row["price_buy"] : "N/A",
                         "weight" => !empty($row["weight"]) ? $row["weight"] : "N/A",
+                        "slots" => !empty($row["slots"]) ? $row["slots"] : 0,
                     ];
                     $itens[] = $item;
                 }
@@ -436,6 +440,7 @@ if (isset($_GET["type"]) && $_GET["type"] == "monstros") {
                         "subtype" => !empty($row["subtype"]) ? strtolower($row["subtype"]) : "unknown",
                         "price_buy" => !empty($row["price_buy"]) ? $row["price_buy"] : "N/A",
                         "weight" => !empty($row["weight"]) ? $row["weight"] : "N/A",
+                        "slots" => !empty($row["slots"]) ? $row["slots"] : 0,
                     ];
                     $itens[] = $item;
                 }
@@ -466,6 +471,7 @@ if (isset($_GET["type"]) && $_GET["type"] == "monstros") {
                         "subtype" => !empty($row["subtype"]) ? strtolower($row["subtype"]) : "unknown",
                         "price_buy" => !empty($row["price_buy"]) ? $row["price_buy"] : "N/A",
                         "weight" => !empty($row["weight"]) ? $row["weight"] : "N/A",
+                        "slots" => !empty($row["slots"]) ? $row["slots"] : 0,
                     ];
                     $itens[] = $item;
                 }

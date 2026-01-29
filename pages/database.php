@@ -113,6 +113,39 @@
     border-radius: 4px;
     margin-left: 8px;
 }
+
+/* Mobile Responsiveness - Database Page */
+@media (max-width: 768px) {
+    .filterdb {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 15px;
+        gap: 8px;
+    }
+
+    .radio-item {
+        padding: 10px;
+    }
+
+    .radio-item label {
+        font-size: 0.8rem;
+    }
+
+    .db-action-btn {
+        padding: 12px 16px;
+        min-height: 44px;
+        font-size: 0.9rem;
+    }
+
+    .db-actions {
+        justify-content: center;
+    }
+
+    .mvp-badge {
+        font-size: 0.7rem;
+        padding: 2px 6px;
+        margin-left: 5px;
+    }
+}
 </style>
 
 <?php
@@ -247,6 +280,7 @@ $currentType = isset($_GET['type']) ? $_GET['type'] : 'inicio';
                 <form class="db-search-form" method="get" action="">
                     <input type="hidden" name="to" value="database">
                     <input type="hidden" name="type" value="monstros">
+                    <input type="hidden" name="page" value="1">
                     <input type="text" name="busca" class="db-search-input" placeholder="Nome ou ID do Monstro"
                            value="<?php echo isset($_GET['busca']) ? htmlspecialchars($_GET['busca']) : ''; ?>">
                     <button type="submit" class="db-search-btn">
@@ -383,6 +417,7 @@ $currentType = isset($_GET['type']) ? $_GET['type'] : 'inicio';
                 <form class="db-search-form" method="get" action="">
                     <input type="hidden" name="to" value="database">
                     <input type="hidden" name="type" value="mapas">
+                    <input type="hidden" name="page" value="1">
                     <input type="text" name="busca" class="db-search-input" placeholder="Nome ou ID do Mapa"
                            value="<?php echo isset($_GET['busca']) ? htmlspecialchars($_GET['busca']) : ''; ?>">
                     <button type="submit" class="db-search-btn">
@@ -490,6 +525,7 @@ if ($currentType == 'equipamentos') {
                 <form class="db-search-form" method="get" action="">
                     <input type="hidden" name="to" value="database">
                     <input type="hidden" name="type" value="<?php echo $currentType; ?>">
+                    <input type="hidden" name="page" value="1">
                     <input type="text" name="busca" class="db-search-input" placeholder="Nome ou ID do Item"
                            value="<?php echo isset($_GET['busca']) ? htmlspecialchars($_GET['busca']) : ''; ?>">
                     <button type="submit" class="db-search-btn">
@@ -550,7 +586,12 @@ if ($currentType == 'equipamentos') {
                     <img src="<?php echo iconImage($item['id']); ?>" alt="<?php echo $item['name_english']; ?>">
                 </div>
                 <span class="db-row-id">#<?php echo $item['id']; ?></span>
-                <span class="db-row-name"><?php echo $item['name_english']; ?></span>
+                <span class="db-row-name">
+                    <?php echo $item['name_english']; ?>
+                    <?php if (isset($item['slots']) && $item['slots'] > 0): ?>
+                        <span class="db-slots-badge">[<?php echo $item['slots']; ?>]</span>
+                    <?php endif; ?>
+                </span>
                 <span class="db-row-badge"><?php echo itemType()[$item['type']]; ?></span>
                 <span class="db-row-stat">
                     <i class="fas fa-coins" style="color: #ffd700;"></i>

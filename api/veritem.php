@@ -74,29 +74,64 @@ if ($resultado->num_rows > 0) {
             : "assets/img/NEGATIVE.png";
 
  
-        $sql = "(SELECT * FROM mob_db)
-                UNION
-            (SELECT * FROM mob_db2)";
-     
+        // Buscar monstros que dropam este item (otimizado com WHERE)
+        $sql = "
+            SELECT id, name_english,
+                   drop1_item, drop1_rate,
+                   drop2_item, drop2_rate,
+                   drop3_item, drop3_rate,
+                   drop4_item, drop4_rate,
+                   drop5_item, drop5_rate,
+                   drop6_item, drop6_rate,
+                   drop7_item, drop7_rate,
+                   drop8_item, drop8_rate,
+                   drop9_item, drop9_rate,
+                   drop10_item, drop10_rate
+            FROM mob_db
+            WHERE drop1_item = ? OR drop2_item = ? OR drop3_item = ? OR drop4_item = ? OR drop5_item = ?
+               OR drop6_item = ? OR drop7_item = ? OR drop8_item = ? OR drop9_item = ? OR drop10_item = ?
+            UNION
+            SELECT id, name_english,
+                   drop1_item, drop1_rate,
+                   drop2_item, drop2_rate,
+                   drop3_item, drop3_rate,
+                   drop4_item, drop4_rate,
+                   drop5_item, drop5_rate,
+                   drop6_item, drop6_rate,
+                   drop7_item, drop7_rate,
+                   drop8_item, drop8_rate,
+                   drop9_item, drop9_rate,
+                   drop10_item, drop10_rate
+            FROM mob_db2
+            WHERE drop1_item = ? OR drop2_item = ? OR drop3_item = ? OR drop4_item = ? OR drop5_item = ?
+               OR drop6_item = ? OR drop7_item = ? OR drop8_item = ? OR drop9_item = ? OR drop10_item = ?
+        ";
 
-    $resultado = $conn->query($sql);
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssssssssssssssssssss",
+        $aegis, $aegis, $aegis, $aegis, $aegis, $aegis, $aegis, $aegis, $aegis, $aegis,
+        $aegis, $aegis, $aegis, $aegis, $aegis, $aegis, $aegis, $aegis, $aegis, $aegis
+    );
+    $stmt->execute();
+    $resultado = $stmt->get_result();
 
     $itemget = [];
 
     if ($resultado->num_rows > 0) {
         while ($linha = $resultado->fetch_assoc()) {
+            // Verificar cada slot de drop e adicionar à lista
             for ($i = 1; $i <= 10; $i++) {
                 $drop_item_column = "drop" . $i . "_item";
                 $drop_rate_column = "drop" . $i . "_rate";
-                $nome = "name_english";
-                $id = "id";
-                if ($linha[$drop_item_column] == $aegis) {
+
+                if ($linha[$drop_item_column] == $aegis && $linha[$drop_rate_column] > 0) {
                     $itemget[] = [
                         "Item" => $linha[$drop_item_column],
                         "Taxa de drop" => $linha[$drop_rate_column],
-                        "nome" => $linha[$nome],
-                        "id" => $linha[$id],
+                        "nome" => $linha["name_english"],
+                        "id" => $linha["id"],
                     ];
+                    break; // Evita duplicatas se o mesmo mob dropa o mesmo item em slots diferentes
                 }
             }
         }
