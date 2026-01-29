@@ -6,7 +6,8 @@
       "Bash(git pull:*)",
       "Bash(git stash:*)",
       "Bash(git stash pop:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(mysql:*)"
     ]
   }
 }
