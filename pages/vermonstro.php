@@ -1471,21 +1471,50 @@
 </div>
 
 <script type="text/javascript">
-function showTab(tabName) {
-    // Hide all tabs
-    document.querySelectorAll('.monster-tab-content').forEach(tab => {
-        tab.classList.remove('active');
-    });
+// Cache tab elements for better performance
+const tabCache = {
+    contents: null,
+    buttons: null,
+    init: function() {
+        if (!this.contents) {
+            this.contents = document.querySelectorAll('.monster-tab-content');
+            this.buttons = document.querySelectorAll('.monster-tab');
+        }
+    }
+};
 
-    // Remove active from all tab buttons
-    document.querySelectorAll('.monster-tab').forEach(btn => {
-        btn.classList.remove('active');
-    });
+function showTab(tabName, clickedButton) {
+    tabCache.init();
+
+    // Remove active class from all tabs and buttons
+    tabCache.contents.forEach(tab => tab.classList.remove('active'));
+    tabCache.buttons.forEach(btn => btn.classList.remove('active'));
 
     // Show selected tab
-    document.getElementById('tab-' + tabName).classList.add('active');
+    const targetTab = document.getElementById('tab-' + tabName);
+    if (targetTab) {
+        targetTab.classList.add('active');
+    }
 
-    // Set active button
-    event.target.closest('.monster-tab').classList.add('active');
+    // Set active button - use passed parameter instead of global event
+    if (clickedButton) {
+        const tabButton = clickedButton.closest('.monster-tab');
+        if (tabButton) {
+            tabButton.classList.add('active');
+        }
+    }
 }
+
+// Update tab button click handlers to pass the element
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.monster-tab').forEach(button => {
+        button.addEventListener('click', function(e) {
+            const tabName = this.getAttribute('onclick')?.match(/showTab\('(.+?)'/)?.[1];
+            if (tabName) {
+                e.preventDefault();
+                showTab(tabName, this);
+            }
+        });
+    });
+});
 </script>

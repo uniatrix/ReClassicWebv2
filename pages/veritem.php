@@ -520,7 +520,7 @@
                         <i class="fas fa-coins" style="color: #ffc107;"></i>
                         Preço
                     </div>
-                    <div class="item-info-card-value small"><?php echo number_format($preco); ?>z</div>
+                    <div class="item-info-card-value small"><?php echo is_numeric($preco) ? number_format($preco) . 'z' : $preco; ?></div>
                 </div>
 
                 <div class="item-info-card">

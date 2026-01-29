@@ -172,8 +172,8 @@
 
 .register-card {
     background: var(--glass-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border: 1px solid var(--glass-border);
     border-radius: var(--card-radius);
     padding: 2.5rem;
@@ -451,7 +451,7 @@
 
 .success-content {
     background: var(--glass-bg);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(10px);
     border: 1px solid var(--glass-border);
     border-radius: var(--card-radius);
     padding: 3rem 2rem;

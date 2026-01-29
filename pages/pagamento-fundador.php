@@ -24,8 +24,8 @@
 
 .login-required-box {
     background: var(--glass-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border: 1px solid var(--glass-border);
     border-radius: var(--card-radius);
     padding: 50px 40px;
@@ -251,7 +251,7 @@ function loginParaComprar(pacote) {
     border: 1px solid var(--glass-border);
     border-radius: var(--card-radius);
     overflow: hidden;
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(10px);
     display: flex;
     flex-direction: column;
 }
@@ -343,7 +343,7 @@ function loginParaComprar(pacote) {
     border: 1px solid var(--glass-border);
     border-radius: var(--card-radius);
     padding: 25px;
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(10px);
     display: flex;
     flex-direction: column;
 }

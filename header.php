@@ -93,7 +93,7 @@
             background: url('assets/prontera.jpg') no-repeat center top;
             background-color: #0F172A;
             background-size: cover;
-            background-attachment: fixed;
+            background-attachment: scroll;
             position: relative;
             color: var(--light-color);
             display: flex;
@@ -224,15 +224,17 @@
             content: '';
             position: absolute;
             top: 0;
-            left: -100%;
+            left: 0;
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s ease;
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+            will-change: transform;
         }
 
         .btn-custom:hover::before {
-            left: 100%;
+            transform: translateX(100%);
         }
 
         .btn-custom:hover {
@@ -249,8 +251,8 @@
         
         .card {
             background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border: 1px solid var(--glass-border);
             border-radius: var(--card-radius);
             overflow: hidden;
@@ -618,7 +620,7 @@
             animation: logoPulse 5s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
             filter: drop-shadow(0 0 8px rgba(81, 200, 250, 0.5));
             transform-origin: center center;
-            will-change: transform, filter;
+            will-change: transform;
         }
         
         .logo-wrapper {
@@ -667,25 +669,14 @@
         }
         
         @keyframes logoPulse {
-            0% {
+            0%, 100% {
                 transform: scale(1);
-                filter: drop-shadow(0 0 6px rgba(81, 200, 250, 0.5));
             }
-            25% {
+            25%, 75% {
                 transform: scale(1.016);
-                filter: drop-shadow(0 0 8px rgba(81, 200, 250, 0.6));
             }
             50% {
                 transform: scale(1.03);
-                filter: drop-shadow(0 0 10px rgba(81, 200, 250, 0.7));
-            }
-            75% {
-                transform: scale(1.016);
-                filter: drop-shadow(0 0 8px rgba(81, 200, 250, 0.6));
-            }
-            100% {
-                transform: scale(1);
-                filter: drop-shadow(0 0 6px rgba(81, 200, 250, 0.5));
             }
         }
         
@@ -1512,7 +1503,7 @@
             }
         });
         
-        // Custom animated cursor
+        // Custom animated cursor - Optimized
         document.addEventListener('DOMContentLoaded', function() {
             // Pular cursor customizado em dispositivos touch (mobile)
             if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
@@ -1527,24 +1518,44 @@
                 'assets/main-cursor-frame-4.gif',
                 'assets/main-cursor-frame-5.gif'
             ];
-            
+
             let currentFrame = 0;
-            
-            function updateCursor() {
-                document.documentElement.style.cursor = `url('${cursorFrames[currentFrame]}'), auto`;
-                
-                // Set the delay - normal 100ms, but 300ms pause after showing frame 0
+            let lastFrameTime = 0;
+            let animationId = null;
+            let isPageVisible = !document.hidden;
+
+            function updateCursor(timestamp) {
+                if (!isPageVisible) {
+                    animationId = null;
+                    return;
+                }
+
                 const delay = (currentFrame === 0) ? 300 : 100;
-                
-                // Determine the next frame
-                currentFrame = (currentFrame + 1) % cursorFrames.length;
-                
-                // Schedule the next update
-                setTimeout(updateCursor, delay);
+
+                if (timestamp - lastFrameTime >= delay) {
+                    document.documentElement.style.cursor = `url('${cursorFrames[currentFrame]}'), auto`;
+                    currentFrame = (currentFrame + 1) % cursorFrames.length;
+                    lastFrameTime = timestamp;
+                }
+
+                animationId = requestAnimationFrame(updateCursor);
             }
-            
+
+            // Pause animation when page is hidden
+            document.addEventListener('visibilitychange', function() {
+                isPageVisible = !document.hidden;
+
+                if (isPageVisible && !animationId) {
+                    lastFrameTime = performance.now();
+                    animationId = requestAnimationFrame(updateCursor);
+                } else if (!isPageVisible && animationId) {
+                    cancelAnimationFrame(animationId);
+                    animationId = null;
+                }
+            });
+
             // Start the animation
-            updateCursor();
+            animationId = requestAnimationFrame(updateCursor);
         });
     </script>
 

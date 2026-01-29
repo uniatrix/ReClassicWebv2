@@ -355,8 +355,8 @@ try {
 /* Countdown Container */
 .countdown-container {
     background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(79, 195, 247, 0.2);
     border-radius: 20px;
     padding: 2.5rem;
@@ -604,8 +604,8 @@ try {
 
 .phase-card {
     background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(79, 195, 247, 0.15);
     border-radius: 16px;
     padding: 1.8rem;
@@ -749,8 +749,8 @@ try {
 
 .info-card {
     background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(79, 195, 247, 0.15);
     border-radius: 16px;
     padding: 2rem;
@@ -1015,29 +1015,57 @@ try {
 </style>
 
 <script>
-// Countdown Timer
-function updateCountdown() {
+// Countdown Timer - Optimized
+(function() {
     const launchDate = new Date('March 1, 2026 19:00:00').getTime();
-    const now = new Date().getTime();
-    const distance = launchDate - now;
 
-    if (distance < 0) {
-        document.getElementById('countdown').innerHTML = '<p style="color: var(--accent-color); font-size: 1.5rem;">O SERVIDOR ESTA NO AR!</p>';
-        return;
+    // Cache DOM elements
+    const countdownEl = document.getElementById('countdown');
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+
+    let intervalId = null;
+    let isPageVisible = !document.hidden;
+
+    function updateCountdown() {
+        const now = Date.now();
+        const distance = launchDate - now;
+
+        if (distance < 0) {
+            clearInterval(intervalId);
+            countdownEl.innerHTML = '<p style="color: var(--accent-color); font-size: 1.5rem;">O SERVIDOR ESTA NO AR!</p>';
+            return;
+        }
+
+        const days = Math.floor(distance / 86400000);
+        const hours = Math.floor((distance % 86400000) / 3600000);
+        const minutes = Math.floor((distance % 3600000) / 60000);
+        const seconds = Math.floor((distance % 60000) / 1000);
+
+        // Use textContent assignment (faster than padStart for simple cases)
+        daysEl.textContent = (days < 10 ? '0' : '') + days;
+        hoursEl.textContent = (hours < 10 ? '0' : '') + hours;
+        minutesEl.textContent = (minutes < 10 ? '0' : '') + minutes;
+        secondsEl.textContent = (seconds < 10 ? '0' : '') + seconds;
     }
 
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    // Pause countdown when page is hidden
+    document.addEventListener('visibilitychange', function() {
+        isPageVisible = !document.hidden;
 
-    document.getElementById('days').textContent = days.toString().padStart(2, '0');
-    document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-    document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-    document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-}
+        if (isPageVisible && !intervalId) {
+            updateCountdown();
+            intervalId = setInterval(updateCountdown, 1000);
+        } else if (!isPageVisible && intervalId) {
+            clearInterval(intervalId);
+            intervalId = null;
+        }
+    });
 
-// Update countdown every second
-updateCountdown();
-setInterval(updateCountdown, 1000);
+    // Start countdown
+    updateCountdown();
+    intervalId = setInterval(updateCountdown, 1000);
+})();
 </script>

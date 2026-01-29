@@ -702,24 +702,48 @@ button.btn-ir:active {
 
 
 function toggleSearchForm() {
-    var filterdb = $('.filterdb');
-    var button = $('.filter-button'); // Seletor do botão
+    const filterdb = document.querySelector('.filterdb');
+    const button = document.querySelector('.filter-button');
 
-    if (filterdb.is(':hidden')) {
-        filterdb.css('display', 'grid').hide().slideToggle(300);
-        button.css('transform', 'rotate(180deg)'); // Inverte o botão
-    } else {
-        filterdb.slideToggle(300, function() {
-            filterdb.css('display', 'none'); 
+    if (!filterdb || !button) return;
+
+    const isHidden = filterdb.style.display === 'none' || !filterdb.style.display || getComputedStyle(filterdb).display === 'none';
+
+    if (isHidden) {
+        filterdb.style.display = 'grid';
+        filterdb.style.maxHeight = '0';
+        filterdb.style.opacity = '0';
+        filterdb.style.transition = 'max-height 0.3s ease, opacity 0.3s ease';
+
+        requestAnimationFrame(() => {
+            filterdb.style.maxHeight = '1000px';
+            filterdb.style.opacity = '1';
         });
-        button.css('transform', 'rotate(0deg)'); // Reverte o botão para a posição original
+
+        button.style.transition = 'transform 0.3s ease';
+        button.style.transform = 'rotate(180deg)';
+    } else {
+        filterdb.style.maxHeight = '0';
+        filterdb.style.opacity = '0';
+
+        setTimeout(() => {
+            filterdb.style.display = 'none';
+        }, 300);
+
+        button.style.transform = 'rotate(0deg)';
     }
 }
 
 function resetFilters() {
-    const newUrl = '?to=comercio&type=<?php echo $_GET['type']; ?>&page=1'; 
+    const newUrl = '?to=comercio&type=<?php echo $_GET['type']; ?>&page=1';
 
-    window.history.pushState(null, '', newUrl); 
+    window.history.pushState(null, '', newUrl);
+
+    // Cache selectors
+    const currentContent = document.querySelector('.infoblocks');
+    const currentPaginas = document.getElementById('paginas');
+    const currentPrevLink = document.querySelector('.btn-footer-anterior')?.parentElement;
+    const currentNextLink = document.querySelector('.btn-footer-proximo')?.parentElement;
 
     fetch(newUrl)
         .then(response => response.text())
@@ -727,38 +751,33 @@ function resetFilters() {
             const parser = new DOMParser();
             const doc = parser.parseFromString(data, 'text/html');
 
-            // Atualiza o conteúdo da tabela
-            const updatedContent = doc.querySelector('.infoblocks'); 
-            const currentContent = document.querySelector('.infoblocks');
-            if (currentContent && updatedContent) {
-                currentContent.innerHTML = updatedContent.innerHTML; 
-            }
+            // Batch DOM updates using requestAnimationFrame
+            requestAnimationFrame(() => {
+                const updatedContent = doc.querySelector('.infoblocks');
+                if (currentContent && updatedContent) {
+                    currentContent.innerHTML = updatedContent.innerHTML;
+                }
 
-            // Atualiza o texto de paginação
-            const updatedPaginas = doc.getElementById('paginas');
-            const currentPaginas = document.getElementById('paginas');
-            if (currentPaginas && updatedPaginas) {
-                currentPaginas.innerHTML = updatedPaginas.innerHTML;
-            }
+                const updatedPaginas = doc.getElementById('paginas');
+                if (currentPaginas && updatedPaginas) {
+                    currentPaginas.innerHTML = updatedPaginas.innerHTML;
+                }
 
-            // Atualiza os links dos botões de paginação
-            const updatedPrevLink = doc.querySelector('.btn-footer-anterior').parentElement;
-            const updatedNextLink = doc.querySelector('.btn-footer-proximo').parentElement;
+                const updatedPrevLink = doc.querySelector('.btn-footer-anterior')?.parentElement;
+                const updatedNextLink = doc.querySelector('.btn-footer-proximo')?.parentElement;
 
-            const currentPrevLink = document.querySelector('.btn-footer-anterior').parentElement;
-            const currentNextLink = document.querySelector('.btn-footer-proximo').parentElement;
+                if (currentPrevLink && updatedPrevLink) {
+                    currentPrevLink.href = updatedPrevLink.href;
+                    currentPrevLink.className = updatedPrevLink.className;
+                }
 
-            if (currentPrevLink && updatedPrevLink) {
-                currentPrevLink.href = updatedPrevLink.href;
-                currentPrevLink.className = updatedPrevLink.className;
-            }
+                if (currentNextLink && updatedNextLink) {
+                    currentNextLink.href = updatedNextLink.href;
+                    currentNextLink.className = updatedNextLink.className;
+                }
 
-            if (currentNextLink && updatedNextLink) {
-                currentNextLink.href = updatedNextLink.href;
-                currentNextLink.className = updatedNextLink.className;
-            }
-
-            disableResetButton(); // Desativa o botão de reset após resetar os filtros
+                disableResetButton();
+            });
         })
         .catch(error => console.error('Error:', error));
 }
@@ -770,60 +789,70 @@ function resetFilters() {
     });
 
 
+// Debounce helper function
+let filterDebounceTimer = null;
 function submitFormFilter(radio) {
-    const form = document.getElementById('filterForm');
-    const formData = new FormData(form);
-
-    if (radio && radio.name) {
-        formData.set(radio.name, radio.value); // Atualiza o valor do filtro
+    // Clear previous timer
+    if (filterDebounceTimer) {
+        clearTimeout(filterDebounceTimer);
     }
 
-    const params = new URLSearchParams(formData).toString();
-    const newUrl = `${window.location.pathname}?${params}`;
-    window.history.pushState(null, '', newUrl);
+    // Debounce for 300ms
+    filterDebounceTimer = setTimeout(function() {
+        const form = document.getElementById('filterForm');
+        const formData = new FormData(form);
 
-    // Realiza a requisição
-    fetch(newUrl)
-        .then(response => response.text())
-        .then(data => {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(data, 'text/html');
+        if (radio && radio.name) {
+            formData.set(radio.name, radio.value);
+        }
 
-            // Atualiza a tabela
-            const updatedContent = doc.querySelector('.database');
-            const currentContent = document.querySelector('.database');
-            if (currentContent && updatedContent) {
-                currentContent.innerHTML = updatedContent.innerHTML;
-            }
+        const params = new URLSearchParams(formData).toString();
+        const newUrl = `${window.location.pathname}?${params}`;
+        window.history.pushState(null, '', newUrl);
 
-            // Atualiza o número de páginas
-            const updatedPaginas = doc.getElementById('paginas');
-            const currentPaginas = document.getElementById('paginas');
-            if (currentPaginas && updatedPaginas) {
-                currentPaginas.innerHTML = updatedPaginas.innerHTML;
-            }
+        // Cache selectors
+        const currentDatabase = document.querySelector('.database');
+        const currentPaginas = document.getElementById('paginas');
+        const currentPrevLink = document.querySelector('.btn-footer-anterior')?.parentElement;
+        const currentNextLink = document.querySelector('.btn-footer-proximo')?.parentElement;
 
+        fetch(newUrl)
+            .then(response => response.text())
+            .then(data => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(data, 'text/html');
 
-            const updatedPrevLink = doc.querySelector('.btn-footer-anterior').parentElement;
-            const updatedNextLink = doc.querySelector('.btn-footer-proximo').parentElement;
+                // Batch DOM updates using requestAnimationFrame
+                requestAnimationFrame(() => {
+                    const updatedContent = doc.querySelector('.database');
+                    if (currentDatabase && updatedContent) {
+                        currentDatabase.innerHTML = updatedContent.innerHTML;
+                    }
 
-            const currentPrevLink = document.querySelector('.btn-footer-anterior').parentElement;
-            const currentNextLink = document.querySelector('.btn-footer-proximo').parentElement;
+                    const updatedPaginas = doc.getElementById('paginas');
+                    if (currentPaginas && updatedPaginas) {
+                        currentPaginas.innerHTML = updatedPaginas.innerHTML;
+                    }
 
-            if (currentPrevLink && updatedPrevLink) {
-                currentPrevLink.href = updatedPrevLink.href;
-                currentPrevLink.className = updatedPrevLink.className;
-            }
+                    const updatedPrevLink = doc.querySelector('.btn-footer-anterior')?.parentElement;
+                    const updatedNextLink = doc.querySelector('.btn-footer-proximo')?.parentElement;
 
-            if (currentNextLink && updatedNextLink) {
-                currentNextLink.href = updatedNextLink.href;
-                currentNextLink.className = updatedNextLink.className;
-            }
+                    if (currentPrevLink && updatedPrevLink) {
+                        currentPrevLink.href = updatedPrevLink.href;
+                        currentPrevLink.className = updatedPrevLink.className;
+                    }
 
-            enableResetButton();
-        })
-        .catch(error => console.error('Error:', error));
-    }
+                    if (currentNextLink && updatedNextLink) {
+                        currentNextLink.href = updatedNextLink.href;
+                        currentNextLink.className = updatedNextLink.className;
+                    }
+
+                    enableResetButton();
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    }, 300);
+}
 
 
     

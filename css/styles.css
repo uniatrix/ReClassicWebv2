@@ -21,13 +21,31 @@
     --header-radius: 8px;
 }
 
+/* Performance optimizations */
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Optimize scrolling performance */
+html {
+    scroll-behavior: smooth;
+}
+
+/* GPU acceleration for transformed elements */
+.card, .navbar, .btn-custom, .sticky-header {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
 body {
     z-index: 0;
     background-image: url('../assets/prontera.jpg');
     background-repeat: no-repeat;
     background-position: center top;
     background-size: cover;
-    background-attachment: fixed;
+    background-attachment: scroll;
     background-color: #0F172A;
     margin: 0;
     font-family: 'Montserrat', sans-serif;
@@ -1431,8 +1449,8 @@ section.container:first-of-type {
     z-index: 10000;
     background: var(--glass-bg);
     border-bottom: 1px solid var(--glass-border);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     height: 65px;
     display: flex;
     align-items: center;
@@ -1826,24 +1844,24 @@ section.container:first-of-type {
 
 /* Mobile-only adjustments for database pages */
 @media (max-width: 768px) {
-    /* Remove background image on mobile */
+    /* Keep dark background on mobile */
     body.database-page::before {
-        display: none;
+        display: block;
     }
 
     body.database-page {
-        background: white;
+        background-color: #0F172A;
     }
 
     body.database-page .hero-section {
-        background: white;
+        background: transparent;
         min-height: 0;
         padding: 5px 0 !important;
     }
 
     /* Infoblocks container adjustments - mobile only */
     body.database-page .infoblocks {
-        background: white;
+        background: transparent;
         margin-top: 0;
         box-shadow: none;
         max-width: 100%;
@@ -1916,8 +1934,8 @@ section.container:first-of-type {
 .db-sidebar {
     width: 260px;
     background: var(--glass-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border: 1px solid var(--glass-border);
     border-radius: var(--card-radius);
     padding: 20px 0;

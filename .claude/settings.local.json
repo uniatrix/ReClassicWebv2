@@ -11,7 +11,8 @@
       "Bash(grep:*)",
       "Bash(php -l:*)",
       "Bash(ls:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(find:*)"
     ]
   }
 }
