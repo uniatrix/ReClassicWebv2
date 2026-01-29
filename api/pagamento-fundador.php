@@ -5,6 +5,18 @@ $title = 'Pagamento - Pacote Fundador';
 // Verificar se usuario esta logado (sem redirecionar)
 $isLoggedIn = isset($_SESSION['conta']) && !empty($_SESSION['conta']);
 
+// Buscar informacoes da conta se logado
+$conta_query = null;
+if ($isLoggedIn) {
+    $account_id = (int)$_SESSION['conta'];
+    $sql = "SELECT email FROM login WHERE account_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $account_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $conta_query = $result->fetch_assoc();
+}
+
 // Validar pacote selecionado
 $pacoteTier = isset($_GET['pacote']) ? (int)$_GET['pacote'] : 0;
 

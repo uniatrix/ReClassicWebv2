@@ -1,62 +1,128 @@
         </div>
     </div>
-    
-    <!-- Modern Footer -->
-    <footer class="mt-5">
+    </div> <!-- Close #main-content-wrapper -->
+
+    <!-- Simplified Modern Footer -->
+    <footer class="modern-footer">
         <div class="container">
-            <div class="row g-4">
-                <div class="col-lg-4">
-                    <img src="assets/logo.png" alt="ReClassic Logo" class="mb-4" style="max-width: 150px;">
-                    <p class="text-light-50">Reviva a nostalgia do Ragnarok Online clássico com melhorias modernas. Junte-se à nossa comunidade e comece sua aventura hoje!</p>
-                    <div class="d-flex gap-3 mt-3">
-                        <a href="https://discord.gg/JG6vTMbT58" class="text-decoration-none" aria-label="Discord">
-                            <i class="fab fa-discord fa-2x text-light"></i>
-                        </a>
-                        <a href="#" class="text-decoration-none" aria-label="Facebook">
-                            <i class="fab fa-facebook fa-2x text-light"></i>
-                        </a>
-                        <a href="#" class="text-decoration-none" aria-label="Twitter">
-                            <i class="fab fa-twitter fa-2x text-light"></i>
-                        </a>
-                    </div>
+            <div class="footer-content">
+                <!-- Logo e Copyright -->
+                <div class="footer-brand">
+                    <span class="footer-logo">RAGNAROK <span class="highlight">RECLASSIC</span></span>
+                    <span class="footer-divider">/</span>
+                    <span class="footer-copyright">&copy; <?php echo date("Y") ?> ReClassic. Ragnarok Online e todas as imagens relacionadas sao propriedade da Gravity Co., Ltd.</span>
                 </div>
-                <div class="col-lg-2 col-md-4">
-                    <h5 class="text-accent mb-4">Links Rápidos</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="?to=inicio" class="text-decoration-none text-light-50">Início</a></li>
-                        <li class="mb-2"><a href="#" onclick="openLoginPopup(); return false;" class="text-decoration-none text-light-50">Login</a></li>
-                        <li class="mb-2"><a href="?to=registro" class="text-decoration-none text-light-50">Registrar</a></li>
-                        <li class="mb-2"><a href="?to=vote" class="text-decoration-none text-light-50">Votar</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-2 col-md-4">
-                    <h5 class="text-accent mb-4">Recursos</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="?to=comercio&type=vendedores" class="text-decoration-none text-light-50">Mercadores</a></li>
-                        <li class="mb-2"><a href="?to=database&type=itens" class="text-decoration-none text-light-50">Database</a></li>
-                        <li class="mb-2"><a href="?to=ranking&type=personagens" class="text-decoration-none text-light-50">Rankings</a></li>
-                        <li class="mb-2"><a href="wiki/index.php/P%C3%A1gina_principal" class="text-decoration-none text-light-50">Wiki</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-4 col-md-4">
-                    <h5 class="text-accent mb-4">Download</h5>
-                    <p class="text-light-50">Comece a jogar ReClassic Ragnarok Online</p>
-                    <a href="https://drive.google.com/file/d/1ROEqhrWH4mnp40ULfnM0wul84jp6knn4/view?usp=sharing" target="_blank" class="btn btn-custom mt-2">
-                        <i class="fas fa-download me-2"></i>Baixar Cliente do Jogo
+
+                <!-- Social Links -->
+                <div class="footer-social">
+                    <a href="https://discord.gg/JG6vTMbT58" target="_blank" class="social-link" aria-label="Discord">
+                        <i class="fab fa-discord"></i>
+                        <span>DISCORD</span>
                     </a>
-                </div>
-            </div>
-            <hr class="mt-5 mb-4" style="border-color: rgba(255,255,255,0.1);">
-            <div class="row">
-                <div class="col-md-6">
-                    <p class="mb-0 text-light-50">© <?php echo date("Y") ?> ReClassic Ragnarok Online. Todos os direitos reservados.</p>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <p class="mb-0 text-light-50">Ragnarok Online é uma marca registrada da Gravity Co., Ltd.</p>
+                    <a href="#" class="social-link" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                        <span>INSTAGRAM</span>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Facebook">
+                        <i class="fab fa-facebook"></i>
+                        <span>FACEBOOK</span>
+                    </a>
                 </div>
             </div>
         </div>
     </footer>
+
+    <style>
+    .modern-footer {
+        background: var(--dark-bg);
+        border-top: 1px solid var(--glass-border);
+        padding: 25px 0;
+        margin-top: auto;
+        margin-bottom: 0;
+    }
+
+    .footer-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .footer-brand {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .footer-logo {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        letter-spacing: 1px;
+    }
+
+    .footer-logo .highlight {
+        color: var(--accent-color);
+    }
+
+    .footer-divider {
+        color: var(--dark-border);
+    }
+
+    .footer-copyright {
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+    }
+
+    .footer-social {
+        display: flex;
+        gap: 25px;
+    }
+
+    .social-link {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-size: 0.8rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .social-link i {
+        font-size: 1rem;
+    }
+
+    .social-link:hover {
+        color: var(--accent-color);
+    }
+
+    @media (max-width: 768px) {
+        .footer-content {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .footer-social {
+            gap: 20px;
+        }
+
+        .social-link span {
+            display: none;
+        }
+
+        .social-link i {
+            font-size: 1.3rem;
+        }
+
+        .modern-footer {
+            padding-bottom: 90px; /* Space for mobile nav */
+        }
+    }
+    </style>
 
     <!-- Scripts with updated Bootstrap 5 -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -88,11 +154,21 @@
                 container.innerHTML = '';
                 container.appendChild(player);
 
+                // Hide Ruffle logo and context menu
+                player.style.setProperty('--ruffle-blue', 'transparent');
+                player.setAttribute('menu', 'false');
+                player.setAttribute('allowFullScreen', 'false');
+
                 // Player configuration
                 const config = {
                     autoplay: "on",
                     unmuteOverlay: "hidden",
                     wmode: "transparent",
+                    menu: false,
+                    splashScreen: false,
+                    contextMenu: false,
+                    showSwfDownload: false,
+                    logoEnabled: false,
                 };
 
                 // Load the SWF
@@ -161,6 +237,11 @@
             </a>
         </div>
     </nav>
+
+    <!-- Floating Download Button -->
+    <a href="?to=download" class="floating-download-btn" id="floatingDownloadBtn">
+        <img src="assets/baixe_agora.gif" alt="Baixe Agora">
+    </a>
 
     <!-- Mobile Sliding Drawer Menu -->
     <div class="mobile-drawer-overlay" id="mobileDrawerOverlay"></div>

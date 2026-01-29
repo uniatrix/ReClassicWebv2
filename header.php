@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Silkscreen&family=Pixelify+Sans&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Silkscreen&family=Pixelify+Sans&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Custom CSS with nocache parameter -->
     <link rel="stylesheet" href="css/styles.css?nocache=<?php echo rand()?>">
@@ -27,16 +27,24 @@
     
     <style>
         :root {
+            /* Tema azul modernizado */
             --primary-color: #3498db;
             --secondary-color: #2980b9;
             --accent-color: #4fc3f7;
             --dark-color: #1F2937;
             --light-color: #F9FAFB;
             --bg-gradient: linear-gradient(135deg, rgba(52, 152, 219, 0.9), rgba(41, 128, 185, 0.8));
-            
-            /* Pixel border colors */
-            --pixel-border-outer: #1a1c25;
-            --pixel-border-inner: var(--primary-color);
+
+            /* Glassmorphism variables */
+            --dark-bg: #0f172a;
+            --dark-surface: #1e293b;
+            --dark-border: #334155;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --glass-bg: rgba(30, 41, 59, 0.85);
+            --glass-border: rgba(79, 195, 247, 0.2);
+            --card-radius: 12px;
+            --header-radius: 8px;
         }
         
         /* Custom Cursor Styles */
@@ -74,13 +82,12 @@
         
         html, body {
             margin: 0;
-            padding: 0;
             width: 100%;
             min-height: 100vh; /* Ensure minimum height is full viewport */
             height: 100%;
             overflow-x: hidden;
         }
-        
+
         body {
             font-family: 'Montserrat', sans-serif;
             background: url('assets/prontera.jpg') no-repeat center top;
@@ -93,13 +100,30 @@
             flex-direction: column;
             min-height: 100vh; /* Ensure body takes full viewport height */
             image-rendering: pixelated;
+            /* Spacing for sticky header */
+            padding-top: 65px;
+            padding-bottom: 0;
+        }
+
+        /* Mobile spacing for sticky header and footer nav */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 55px;
+                padding-bottom: 90px; /* Space for mobile footer nav */
+            }
         }
         
-        /* Main content should take available space */
+        /* Main content wrapper should take available space */
+        #main-content-wrapper {
+            flex: 1 0 auto; /* Allow growing, prevent shrinking, push footer to bottom */
+            display: flex;
+            flex-direction: column;
+        }
+
         main, .container, .infoblocks {
-            flex: 1 0 auto; /* Allow growing, prevent shrinking */
+            flex: 1 0 auto;
         }
-        
+
         /* Footer at the bottom */
         footer {
             flex-shrink: 0; /* Prevent footer from shrinking */
@@ -180,69 +204,70 @@
         }
         
         .btn-custom {
-            background: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             border: none;
             color: white;
             font-weight: 600;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0;
-            transition: all 0.3s ease;
+            padding: 0.875rem 2rem;
+            border-radius: var(--header-radius);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-family: 'Pixelify Sans', sans-serif;
-            font-size: 1.1rem;
+            letter-spacing: 1px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
             position: relative;
-            box-shadow: inset -3px -3px 0 rgba(0,0,0,0.3),
-                        inset 3px 3px 0 rgba(255,255,255,0.2);
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+            overflow: hidden;
         }
-        
-        .btn-custom:hover {
-            background: var(--secondary-color);
-            transform: translateY(-3px);
-            box-shadow: inset -3px -3px 0 rgba(0,0,0,0.5),
-                        inset 3px 3px 0 rgba(255,255,255,0.3),
-                        0 6px 10px rgba(0, 0, 0, 0.3);
-        }
-        
-        .btn-custom::after {
+
+        .btn-custom::before {
             content: '';
             position: absolute;
+            top: 0;
+            left: -100%;
             width: 100%;
             height: 100%;
-            top: 3px;
-            left: 0;
-            border-radius: 0;
-            z-index: -1;
-            background-color: rgba(0,0,0,0.2);
-            transition: all 0.2s ease;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
         }
-        
+
+        .btn-custom:hover::before {
+            left: 100%;
+        }
+
+        .btn-custom:hover {
+            background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(79, 195, 247, 0.5);
+            color: white;
+        }
+
         .btn-custom:active {
-            transform: translateY(0);
-            box-shadow: inset -1px -1px 0 rgba(0,0,0,0.3),
-                        inset 1px 1px 0 rgba(255,255,255,0.2);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
         }
         
         .card {
-            background-color: rgba(31, 41, 55, 0.8);
-            backdrop-filter: blur(10px);
-            border: none;
-            border-radius: 0;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--card-radius);
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            padding: 0.75rem;
-            margin-bottom: 1rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            padding: 0;
+            margin-bottom: 1.5rem;
         }
-        
+
         .card-body {
-            padding: 1rem 0.75rem;
+            padding: 1.5rem;
             display: flex;
             flex-direction: column;
             height: 100%;
         }
-        
+
         .card::before {
             content: '';
             position: absolute;
@@ -250,36 +275,52 @@
             left: 0;
             width: 100%;
             height: 100%;
-            box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.1);
+            background: linear-gradient(135deg, rgba(79, 195, 247, 0.05) 0%, transparent 50%);
             pointer-events: none;
             z-index: 1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
-        
+
         .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.4);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(79, 195, 247, 0.1);
+            border-color: rgba(79, 195, 247, 0.3);
         }
-        
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
         .card-title {
             color: var(--accent-color);
-            font-weight: 700;
-            font-family: 'Silkscreen', cursive;
-            font-size: 1.4rem;
-            text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
-            margin-bottom: 0.75rem;
+            font-weight: 600;
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            text-shadow: none;
+            margin-bottom: 1rem;
+            letter-spacing: 0.5px;
         }
-        
+
         .feature-icon {
-            font-size: 2.8rem;
-            background: var(--bg-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.3));
-            margin-bottom: 0.75rem;
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            background: none;
+            -webkit-background-clip: unset;
+            -webkit-text-fill-color: unset;
+            filter: drop-shadow(0 4px 8px rgba(79, 195, 247, 0.3));
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
         }
-        
+
+        .card:hover .feature-icon {
+            transform: scale(1.1);
+        }
+
         .card-text {
-            font-size: 1.15rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
             margin-bottom: auto;
             flex-grow: 1;
         }
@@ -830,66 +871,98 @@
         }
         
         /* ===============================================
-           STICKY NAV MENU
+           STICKY NAV MENU - MODERNIZED
            =============================================== */
         .sticky-nav {
             display: flex;
             align-items: center;
-            gap: 5px;
-            margin-left: 20px;
+            gap: 8px;
+            margin-left: 30px;
         }
 
         .sticky-nav-link {
-            color: var(--light-color);
+            color: var(--text-secondary);
             text-decoration: none;
-            font-family: 'Pixelify Sans', sans-serif;
-            font-size: 0.95rem;
-            padding: 8px 12px;
-            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 10px 16px;
+            border-radius: var(--header-radius);
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            position: relative;
+        }
+
+        .sticky-nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
         }
 
         .sticky-nav-link:hover {
-            background-color: rgba(79, 195, 247, 0.15);
-            color: var(--accent-color);
+            color: var(--text-primary);
+        }
+
+        .sticky-nav-link:hover::after {
+            width: 80%;
         }
 
         .sticky-nav-link i {
             font-size: 0.9rem;
+            color: var(--accent-color);
         }
 
         .sticky-nav-download {
-            background: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .sticky-nav-download::after {
+            display: none;
         }
 
         .sticky-nav-download:hover {
-            background: var(--secondary-color);
+            background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79, 195, 247, 0.4);
+        }
+
+        .sticky-nav-download i {
             color: white;
         }
 
         .sticky-account-btn {
-            background: rgba(79, 195, 247, 0.2);
-            padding: 8px 16px;
+            background: rgba(79, 195, 247, 0.15);
+            padding: 10px 18px;
             color: var(--accent-color);
             text-decoration: none;
-            border-radius: 4px;
-            font-family: 'Pixelify Sans', sans-serif;
-            font-size: 1rem;
+            border-radius: var(--header-radius);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
             transition: all 0.3s ease;
-            margin-right: 10px;
+            margin-right: 12px;
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .sticky-account-btn:hover {
-            background: rgba(79, 195, 247, 0.3);
+            background: rgba(79, 195, 247, 0.25);
             color: white;
-        }
-
-        .sticky-account-btn i {
-            margin-right: 6px;
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
         }
 
         /* Mobile adjustments for sticky nav */
@@ -1315,9 +1388,11 @@
 
     <!-- Hero Section with Game Elements -->
     <?php
-    $compactPages = ['database', 'comercio', 'ranking', 'registro', 'entrar', 'conta', 'veritem', 'vermonstro', 'rmt', 'pacote-fundador', 'pagamento-fundador'];
+    $compactPages = ['inicio', 'database', 'comercio', 'ranking', 'registro', 'entrar', 'conta', 'veritem', 'vermonstro', 'rmt', 'pacote-fundador', 'pagamento-fundador'];
     $isCompactPage = isset($_GET['to']) && in_array($_GET['to'], $compactPages);
+    $isHomePage = !isset($_GET['to']) || $_GET['to'] === 'inicio';
     ?>
+    <?php if (!$isHomePage): ?>
     <section class="hero-section pt-5 mt-4 <?php echo $isCompactPage ? 'compact-page' : ''; ?>"
             style="padding-top: <?php echo $isCompactPage ? '20px' : '100px'; ?> !important;">
         <div class="container">
@@ -1329,17 +1404,17 @@
                         <div class="spinner"></div>
                     </div>
                     <div id="swf-container" class="swf-desktop-only" style="pointer-events: none; margin-left: 90px;"></div>
-                    
+
                     <p class="hero-subtitle mb-4">Reviva a nostalgia do Ragnarok clássico com melhorias modernas e uma comunidade vibrante</p>
-                    
+
                     <!-- Main Action Buttons -->
                     <div class="container px-3 mb-5" style="margin-bottom: 5rem !important;">
                         <div class="row justify-content-center">
                             <!-- Download Button Only -->
                             <div class="col-md-8 text-center">
                                 <div class="d-flex justify-content-center">
-                                    <a href="https://drive.google.com/file/d/1ROEqhrWH4mnp40ULfnM0wul84jp6knn4/view?usp=sharing" target="_blank" 
-                                       class="btn btn-custom py-2" style="min-width: 220px; height: 48px; line-height: 28px; font-family: 'Silkscreen', cursive; font-size: 1.1rem;">
+                                    <a href="https://drive.google.com/file/d/1ROEqhrWH4mnp40ULfnM0wul84jp6knn4/view?usp=sharing" target="_blank"
+                                       class="btn btn-custom py-2" style="min-width: 220px; height: 48px; line-height: 28px; font-family: 'Montserrat', sans-serif; font-size: 0.95rem;">
                                        <i class="fas fa-download me-2"></i>Download
                                     </a>
                                 </div>
@@ -1351,9 +1426,10 @@
             </div>
         </div>
     </section>
+    <?php endif; ?>
 
     <!-- Main Content Container -->
-    <?php if (!$isCompactPage): ?>
+    <?php if (!$isCompactPage && !$isHomePage): ?>
     <div class="container mb-5 mt-3" style="margin-top: 2rem !important;">
         <!-- Community Section -->
         <div class="row g-3 mb-4">
@@ -1413,7 +1489,7 @@
             </div>
         </div>
     </div>
-    <?php endif; ?>
+    <?php endif; /* !$isCompactPage && !$isHomePage */ ?>
 
     <!-- Modern scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -1472,6 +1548,6 @@
             updateCursor();
         });
     </script>
-    
-</body>
-</html>
+
+    <!-- Main Content Wrapper (push footer to bottom) -->
+    <div id="main-content-wrapper">

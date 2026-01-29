@@ -47,7 +47,7 @@
 
 <style>
 .founder-page {
-    padding: 40px 20px 150px;
+    padding: 40px 20px 80px;
     min-height: 100vh;
 }
 
@@ -58,12 +58,11 @@
 }
 
 .founder-hero h1 {
-    font-family: 'Silkscreen', cursive;
+    font-family: 'Cinzel', serif;
     font-size: 2.5rem;
     margin-bottom: 15px;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    letter-spacing: 3px;
 }
 
 .founder-hero .text-white {
@@ -71,15 +70,15 @@
 }
 
 .founder-hero .text-highlight {
-    color: #3498db;
+    color: var(--accent-color);
+    text-shadow: 0 0 30px rgba(79, 195, 247, 0.5);
 }
 
 .founder-hero p {
-    color: #fff;
+    color: var(--text-secondary);
     font-size: 1rem;
     max-width: 700px;
     margin: 0 auto;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
 }
 
 .founder-packages-row {
@@ -92,34 +91,32 @@
 }
 
 .founder-card {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 16px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--card-radius);
     width: 320px;
     display: flex;
     flex-direction: column;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     position: relative;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .founder-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    border-color: rgba(79, 195, 247, 0.3);
 }
 
 .founder-card.featured-card {
-    border: 2px solid rgba(52, 152, 219, 0.6);
-    box-shadow: 0 8px 32px rgba(52, 152, 219, 0.25);
-    background: rgba(52, 152, 219, 0.1);
+    border: 2px solid rgba(79, 195, 247, 0.5);
+    box-shadow: 0 8px 32px rgba(79, 195, 247, 0.2);
 }
 
 .founder-card.featured-card:hover {
-    box-shadow: 0 15px 50px rgba(52, 152, 219, 0.35);
-    background: rgba(52, 152, 219, 0.15);
+    box-shadow: 0 20px 50px rgba(79, 195, 247, 0.3);
 }
 
 .featured-badge {
@@ -127,11 +124,12 @@
     top: -12px;
     left: 50%;
     transform: translateX(-50%);
-    background: linear-gradient(135deg, #3498db, #2980b9);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
     padding: 6px 20px;
-    font-family: 'Silkscreen', cursive;
-    font-size: 0.75rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
     border-radius: 20px;
     letter-spacing: 1px;
     box-shadow: 0 4px 15px rgba(52, 152, 219, 0.5);
@@ -142,13 +140,13 @@
 .card-header {
     text-align: center;
     padding: 25px 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 16px 16px 0 0;
+    border-bottom: 1px solid var(--glass-border);
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: var(--card-radius) var(--card-radius) 0 0;
 }
 
 .card-header h2 {
-    font-family: 'Silkscreen', cursive;
+    font-family: 'Cinzel', serif;
     color: #fff;
     font-size: 1.1rem;
     margin: 0 0 10px 0;
@@ -157,9 +155,9 @@
 }
 
 .card-price {
-    font-family: 'Silkscreen', cursive;
+    font-family: 'Montserrat', sans-serif;
     font-size: 1.8rem;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 .card-items {
@@ -170,8 +168,8 @@
 .item-row {
     display: flex;
     align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 10px 0;
+    border-bottom: 1px solid var(--glass-border);
     gap: 12px;
 }
 
@@ -187,13 +185,13 @@
 }
 
 .item-row .item-name {
-    color: rgba(255, 255, 255, 0.85);
+    color: var(--text-secondary);
     font-size: 0.85rem;
     flex-grow: 1;
 }
 
 .item-row .item-plus {
-    color: #3498db;
+    color: var(--accent-color);
     font-weight: bold;
     font-size: 1.2rem;
 }
@@ -203,11 +201,12 @@
     margin: 15px 20px 20px;
     padding: 14px 20px;
     text-align: center;
-    border: 2px solid;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    font-family: 'Silkscreen', cursive;
-    font-size: 0.9rem;
+    border: 1px solid;
+    border-radius: var(--header-radius);
+    background: transparent;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
     text-decoration: none;
     transition: all 0.3s ease;
     letter-spacing: 1px;
@@ -216,10 +215,12 @@
 }
 
 .btn-adquirir:hover {
-    background: rgba(52, 152, 219, 0.2);
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white !important;
     text-decoration: none;
-    transform: scale(1.02);
-    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(52, 152, 219, 0.4);
 }
 
 @media (max-width: 1024px) {
@@ -240,11 +241,11 @@
     }
 
     .founder-page {
-        padding: 20px 10px 200px;
+        padding: 20px 10px 40px; /* Body has padding for mobile nav */
     }
 
     .founder-packages-row {
-        margin-bottom: 100px;
+        margin-bottom: 30px;
     }
 
     .card-price {

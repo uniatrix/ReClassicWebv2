@@ -1,507 +1,613 @@
-<style type="text/css">
-   input[type="checkbox"] {
-    width: 12px; 
-    height: 12px; 
-    appearance: none; 
-    -webkit-appearance: none; 
-    background-image: url('assets/checkbox_off.png'); 
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    cursor: pointer;
-  }
+<!-- Pagina de Registro Modernizada -->
+<section class="register-section">
+    <div class="container">
+        <div class="register-card">
+            <!-- Titulo -->
+            <div class="register-header text-center">
+                <h1 class="register-title">Garanta seu <span class="highlight">Lugar</span></h1>
+                <p class="register-subtitle">Faca o pre-registro e receba recompensas exclusivas.</p>
+            </div>
 
-   input[type="checkbox"]:checked {
-    width: 12px; 
-    height: 12px; 
-    appearance: none; 
-    -webkit-appearance: none; 
-    background-image: url('assets/checkbox_on.png'); 
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-</style>
+            <!-- Recompensas do Pre-Registro -->
+            <div class="rewards-section">
+                <div class="rewards-label">
+                    <span>RECOMPENSAS</span>
+                    <span class="highlight">PRE-REGISTRO</span>
+                </div>
+                <div class="rewards-grid">
+                    <div class="reward-item">
+                        <img src="assets/items/5381.png" alt="Item" onerror="this.src='assets/items/default.png'">
+                        <span>[Visual] Faixa de Ragnarok</span>
+                    </div>
+                    <div class="reward-item">
+                        <div class="reward-quantity">20</div>
+                        <img src="assets/items/501.png" alt="Item" onerror="this.src='assets/items/default.png'">
+                        <span>Pocao Menor de Vida</span>
+                    </div>
+                    <div class="reward-item">
+                        <div class="reward-quantity">2</div>
+                        <img src="assets/items/12208.png" alt="Item" onerror="this.src='assets/items/default.png'">
+                        <span>Manual de Combate</span>
+                    </div>
+                    <div class="reward-item">
+                        <div class="reward-quantity">2</div>
+                        <img src="assets/items/12210.png" alt="Item" onerror="this.src='assets/items/default.png'">
+                        <span>Goma de Mascar</span>
+                    </div>
+                </div>
+            </div>
 
-<style>
-    @media (max-width: 768px) {
-        .registrese {
-            display: flex;
-            margin: 0 auto;
-            justify-content: center;
-            transform: none;
-        }
-        img.registrese {
-            margin-top: 25px;
-            margin-left: auto;
-            margin-right: auto;
-            display: block;
-        } 
-        .arial8 {
-            margin: 0 auto;
-            text-align: center;
-            display: block;
-        }
-        .registration-form .npc {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: left; 
-        }
-        #img-register-gray {
-            margin: 0 auto;
-        }
-    }
-</style>
-<div id="successImage" class="success-popup" style="display: none; position: relative;">
-  <!-- Main Background Image -->
-  <img src="assets/register_bg.png" alt="Success Image" style="display: block; margin: 0 auto;">
+            <!-- Formulario -->
+            <form id="formRegistro" class="register-form">
+                <div class="form-group">
+                    <label for="UserID">Usuario</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user"></i>
+                        <input type="text" name="UserID" id="UserID" placeholder="Seu usuario no jogo" maxlength="20" required>
+                    </div>
+                </div>
 
-  <!-- X Button SVG (Top Right) -->
-  <a href="#" onclick="closeRegistrationPopup();"
-    style="position: absolute; top: 3px; right: 5px; z-index: 1001; text-decoration: none;">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000000" width="20px" height="20px">
-      <path
-        d="M19.7 5.3c.4.4.4 1 0 1.4L13.4 13l6.3 6.3c.4.4.4 1 0 1.4-.4.4-1 .4-1.4 0L12 14.4l-6.3 6.3c-.4.4-1 .4-1.4 0-.4-.4-.4-1 0-1.4L10.6 13 4.3 6.7c-.4-.4-.4-1 0-1.4.4-.4 1-.4 1.4 0L12 11.6l6.3-6.3c.4-.4 1-.4 1.4 0z" />
-    </svg>
-  </a>
+                <div class="form-group">
+                    <label for="FullName">Nome / Apelido</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user"></i>
+                        <input type="text" name="FullName" id="FullName" placeholder="Como voce quer ser chamado" maxlength="50" required>
+                    </div>
+                </div>
 
-  <!-- Download Button -->
-  <a href="https://drive.google.com/file/d/1ROEqhrWH4mnp40ULfnM0wul84jp6knn4/view?usp=drive_link" target="_blank"
-    style="position: absolute; top: 60%; right: 30%; transform: translate(50%, -50%); z-index: 1001;">
-    <img src="assets/DownloadRegistro.png" alt="Download Button"
-      style="width: 154px; height: 28px;">
-  </a>
+                <div class="form-group">
+                    <label for="Email">E-mail</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" name="Email" id="Email" placeholder="seu@email.com" maxlength="35" required>
+                    </div>
+                </div>
 
-  <!-- Discord Button -->
-  <a href="https://discord.gg/JG6vTMbT58" target="_blank"
-    style="position: absolute; top: 72%; right: 30%; transform: translate(50%, -50%); z-index: 1001;">
-    <img src="assets/DiscordRegistro.png" alt="Discord Button"
-      style="width: 154px; height: 28px;">
-  </a>
-</div>
+                <div class="form-group">
+                    <label for="UserPW">Senha</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" name="UserPW" id="UserPW" placeholder="Senha" maxlength="12" required>
+                    </div>
+                </div>
 
+                <div class="form-group">
+                    <label for="ReUserPW">Confirmar Senha</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" name="ReUserPW" id="ReUserPW" placeholder="Repita sua senha" maxlength="12" required>
+                    </div>
+                </div>
 
-<div class="main-content">
-  <div class="registration-form" id="DisableRegisterForm">
-    <form id="formRegistro">
-   
-      <table class="cinza" width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: -20px;">
-        <tbody class="npc">
-          <tr>
-            <td height="12"></td>
-          </tr>
-          <tr>
-            <td>
-              <table width="100%" border="0" cellspacing="0" cellpadding="0" height="55">
-                <tr>
-                  <td width="340" style="margin-top: -10px;">
-                    <img class="registrese" src="assets/register_title.png">
-                    <br>
-                    <font color="#000000"><span class="arial8">Ragnarok ReClassic é gratuito e exclusivo para
-                        PC.</span>
-                    </font>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <table width="100%" border="0" cellspacing="0" cellpadding="0" id="img-register-gray">
-                <tr>
-                  <td width="6"><img src="assets/t_left.gif" width="6" height="117"></td>
-                  <td background="assets/t__t_bg.gif">
-                    <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
-                      <tr>
-                        <td width="120">
-                          <div align="center"><img src="assets/regist_npc.gif" width="100"
-                              height="100"></div>
-                        </td>
-                        <td class="hidethis">
-                          <table width="98%" style="font-size: 9pt;" border="0" cellspacing="0" cellpadding="0"
-                            text-align="justify">
-                            <tr>
-                              <td>
-                                <font color="#FF0000">*</font>
-                              </td>
-                              <td>
-                                <font color="#FF0000">Todos as informações preenchidas no formulário devem ser
-                                  verdadeiras.</font>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td width="10" valign="baseline">
-                                <font color="#FF0000">*</font>
-                              </td>
-                              <td>
-                                <font color="#FF0000"> Enviar informações falsas pode resultar em suspensão
-                                  permanente.
-                                </font>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td valign="baseline">
-                                <font color="#FF0000">*</font>
-                              </td>
-                              <td>
-                                <font color="#FF0000"> Proprietários de múltiplas contas podem ser bloqueados devido a
-                                  infrações de outras contas associadas.</font>
-                              </td>
-                            </tr>
-                          </table>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                  <td width="6"><img src="assets/t_right.gif" width="6" height="117"></td>
-                </tr>
-              </table>
-              <br>
-              <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
-                <tr>
-                  <td><img src="assets/gray_dot.gif" width="100%" height="1"></td>
-                </tr>
-              </table>
+                <!-- Campo oculto para sexo (padrao) -->
+                <input type="hidden" name="sex" value="M">
 
-              <table width="90%" border="0" cellspacing="5" cellpadding="0" align="center">
-                <tr>
-                  <td width="120" class="arial9_b" valign="baseline">
-                    <font color="#003366">Usuário *</font>
-                  </td>
-                  <td>
-                    <input type="text" name="UserID" id="UserID" class="input" style="ime-mode:inactive" maxlength="20">
-                    <font color="#FF0000"></font>
-                    <br>
-                  </td>
-                </tr>
-              </table>
-              <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
-                <tr>
-                  <td><img src="assets/gray_dot.gif" width="100%" height="1"></td>
-                </tr>
-              </table>
-              <table width="90%" border="0" cellspacing="5" cellpadding="0" align="center">
-                <tr>
-                  <td width="120" class="arial9_b" valign="baseline">
-                    <font color="#003366">Senha *</font>
-                  </td>
-                  <td>
-                    <input type="password" name="UserPW" id="UserPW" class="input" value="" maxlength="12">
-                    <font color="#FF0000"></font>
-                    <br>
-                    <input type="password" name="ReUserPW" id="ReUserPW" class="input" value="" maxlength="12"
-                      style="margin-top: 5px;" >
-                    <br>
-                  </td>
-                </tr>
-              </table>
-              <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
-                <tr>
-                  <td><img src="assets/gray_dot.gif" width="100%" height="1"></td>
-                </tr>
-              </table>
-              <table width="90%" border="0" cellspacing="5" cellpadding="0" align="center">
-                <tr>
-                  <td width="120" class="arial9_b">
-                    <font color="#003366">Nome completo *</font>
-                  </td>
-                  <td>
-                    <input type="text" name="FullName" id="FullName" class="input" value="" maxlength="50" size="30">
-                    <br>
-                  </td>
-                </tr>
-              </table>
-              <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
-                <tr>
-                  <td><img src="assets/gray_dot.gif" width="100%" height="1"></td>
-                </tr>
-              </table>
-              <table width="90%" border="0" cellspacing="5" cellpadding="0" align="center">
-                <tr>
-                  <td width="120" class="arial9_b" valign="baseline">
-                    <font color="#003366">E-mail *</font>
-                  </td>
-                  <td>
-                    <input type="email" name="Email" id="Email" class="input" size="30" value="" maxlength="35">
-                    <br>
-                  </td>
-                </tr>
-              </table>
-              <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
-                <tr>
-                  <td><img src="assets/gray_dot.gif" width="100%" height="1"></td>
-                </tr>
-              </table>
-              <table width="90%" border="0" cellspacing="5" cellpadding="0" align="center">
-                <tr>
-                  <td width="120" class="arial9_b" valign="baseline">
-                    <font color="#003366">WhatsApp</font>
-                  </td>
-                  <td>
-                    <input type="text" name="whatsapp" id="whatsapp" class="input" size="30" value="" maxlength="20" placeholder="(opcional)">
-                    <br>
-                  </td>
-                </tr>
-              </table>
-              <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
-                <tr>
-                  <td><img src="assets/gray_dot.gif" width="100%" height="1"></td>
-                </tr>
-              </table>
-              <table width="90%" border="0" cellspacing="5" cellpadding="0" align="center">
-                <tr>
-                  <td width="120" class="arial9_b" valign="baseline">
-                    <font color="#003366">Sexo *</font>
-                  </td>
-                  <td>
-                    <select name="sex" id="sex">
-                      <option selected disabled>Gênero</option>
-                      <option value="M">Masculino</option>
-                      <option value="F">Feminino</option>
-                    </select>
-                    <br>
-                  </td>
-                </tr>
-              </table>
-              <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
-                <tr>
-                  <td><img src="assets/gray_dot.gif" width="100%" height="1"></td>
-                </tr>
-              </table>
+                <!-- Termos de Uso -->
+                <div class="terms-wrapper">
+                    <label class="terms-checkbox">
+                        <input type="checkbox" id="termsCheckbox" name="termsCheckbox" required>
+                        <span class="checkmark"></span>
+                        <span class="terms-text">Li e aceito os <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">termos de uso e servico</a></span>
+                    </label>
+                </div>
 
-              <!-- Update the checkbox section -->
-              <div style="text-align: center; margin: 15px 0; padding: 10px; background-color: rgba(255, 255, 255, 0.1); border-radius: 5px;">
-                <input type="checkbox" id="termsCheckbox" name="termsCheckbox" required>
-                <label for="termsCheckbox" style="cursor: pointer; font-size: 12px;"><font color="#003366" style="font-weight: 600;">Li e aceito os</font> <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal" style="color: #4a90e2; text-decoration: none; font-weight: 600;">termos de uso e serviço</a></label>
-                <br>
-                <div id="message"></div>
-              </div>
+                <!-- Mensagem de Erro/Sucesso -->
+                <div id="message" class="message-container"></div>
 
-              <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: -15px;">
-                <tr>
-                  <td height="70">
-                    <table border="0" cellspacing="0" cellpadding="0" align="center">
-                      <tr>
-                        <td>
-                          <button type="submit" class="reg-button" id="submitRegistro" >
-                            <img src="assets/reg-button.webp" alt="Registrar"
-                              style="border: 0;">
-                          </button>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-              </table>
-              <div style="text-align: center; margin-top: 30px; padding: 15px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
-                <p style="color: #003366; margin-bottom: 10px; font-weight: bold; font-size: 14px;">Já possui conta?</p>
-                <a href="?to=entrar" style="text-decoration: none; display: inline-block; transition: transform 0.2s;">
-                  <img src="assets/btn_login.jpg" alt="Login" style="border: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
-                </a>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <br><br>
-    </form>
-  </div>
-</div>
+                <!-- Botao de Submit -->
+                <button type="submit" class="btn-register" id="submitRegistro">
+                    FINALIZAR PRE-REGISTRO
+                </button>
+            </form>
 
-<!-- Add modal component after the registration form -->
-<div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="termsModalLabel">Termos de Uso e Serviço</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body text-dark">
-        <h4>Regras de Conduta</h4>
-        <p>As punições serão aplicadas a critério da equipe do Ragnarok ReClassic e serão analisadas caso a caso.</p>
-        <p>A equipe reserva o direito de punir a violação das regras com ou sem aviso prévio. Isso inclui comportamentos que, mesmo não descritos explicitamente, sejam considerados inadequados ou prejudiciais ao ambiente do jogo.</p>
-        <p>Caso discorde de uma decisão, é possível recorrer abrindo um ticket de suporte.</p>
-
-        <h5>1. OFENSAS</h5>
-        <h6>1.1 Linguagem e Comportamento Inadequados</h6>
-        <ul>
-          <li>1.1.1 - Proibido o uso de violência verbal para ameaçar, insultar, zombar ou ridicularizar outros jogadores.</li>
-          <li>1.1.2 - Proibido o uso de linguagem ofensiva, obscena, sexualmente explícita, odiosa ou ilegal, bem como qualquer comportamento rude que prejudique a experiência de outros jogadores.</li>
-          <li>1.1.3 - Proibido atormentar, perseguir, ameaçar ou causar aflição a outros jogadores.</li>
-          <li>1.1.4 - Proibido divulgar ou expor informações pessoais de outros jogadores, como nome, endereço, telefone, e-mail, etc.</li>
-        </ul>
-        <p><em>Punição: Advertência → Suspensão de 3 a 7 dias → Suspensão de 30 dias → Banimento permanente.</em></p>
-
-        <h6>1.2 Comportamento Discriminatório e/ou Violento</h6>
-        <ul>
-          <li>1.2.1 - Proibido qualquer forma de discriminação ou discurso de ódio com base em etnia, religião, política, orientação sexual, condição social ou qualquer outra característica.</li>
-          <li>1.2.2 - Proibido fazer apologia a atos criminosos, violência, tortura, tráfico, crimes sexuais ou qualquer comportamento extremo da vida real.</li>
-        </ul>
-        <p><em>Punição: Suspensão de 7 dias → Suspensão de 30 dias → Banimento permanente.</em></p>
-
-        <h6>1.3 Racismo</h6>
-        <ul>
-          <li>1.3.1 - Proibido qualquer tipo de racismo, xenofobia ou discursos de ódio relacionados à etnia.</li>
-          <li>1.3.2 - Proibido a criação de grupos, clãs ou guildas baseadas em ideologias racistas.</li>
-        </ul>
-        <p><em>Punição: Suspensão de 7 dias → Banimento permanente.</em></p>
-
-        <h5>2. DESRESPEITO À EQUIPE</h5>
-        <ul>
-          <li>2.1 - Jogadores devem seguir as instruções da equipe quando contatados. Administradores são identificados por nicks amarelos e vestimentas diferenciadas.</li>
-          <li>2.2 - Proibido insultar, ofender ou desrespeitar um Administrador. Comentários irônicos ou abusivos contra a equipe não serão tolerados.</li>
-          <li>2.3 - Comentários negativos ou ataques direcionados à Administração são infrações deste código de conduta.</li>
-        </ul>
-        <p><em>Punição: Advertência → Suspensão de 7 dias → Suspensão de 30 dias → Banimento permanente.</em></p>
-
-        <h5>3. MÁ CONDUTA</h5>
-        <p>3.1 - Proibido qualquer comportamento que comprometa a jogabilidade de outros jogadores.</p>
-        <p>Exemplos de práticas proibidas:</p>
-        <ul>
-          <li>Criar lojas sobrepondo outras lojas.</li>
-          <li>Criar portais em locais estratégicos para prejudicar outros jogadores.</li>
-          <li>Uso abusivo da habilidade Barreira de Gelo para atrapalhar o jogo.</li>
-          <li>Uso de macros para farm semi-automático/automático.</li>
-        </ul>
-        <p><em>Punição: Advertência → Suspensão de 3 a 7 dias → Suspensão de 30 dias.</em></p>
-
-        <h5>4. NOMES INAPROPRIADOS PARA PERSONAGENS, PETS OU HOMÚNCULOS</h5>
-        <ul>
-          <li>4.1 - Proibido nomes ofensivos, obscenos ou que façam apologia a drogas, ódio, racismo, sexismo ou qualquer discurso discriminatório.</li>
-          <li>4.2 - Nomes impróprios podem ser alterados pela equipe e pets/homúnculos deletados se necessário.</li>
-        </ul>
-        <p><em>Punição: Renomeação forçada → Suspensão de 3 dias (em caso de reincidência).</em></p>
-
-        <h5>5. REPRESENTAÇÃO</h5>
-        <ul>
-          <li>5.1 - Proibido se passar por amigos, parentes ou Administradores.</li>
-          <li>5.2 - Proibido se passar por outro jogador.</li>
-          <li>5.3 - Proibido compartilhar informações da conta. O titular é responsável por todas as ações feitas na conta.</li>
-        </ul>
-        <p><em>Punição: Advertência → Suspensão de 7 dias → Banimento permanente.</em></p>
-
-        <h5>6. ANÚNCIOS IRREGULARES</h5>
-        <ul>
-          <li>6.1 - Proibido fazer marketing, propaganda ou promoção comercial dentro do jogo.</li>
-          <li>6.2 - Proibido negociar itens, Zenys, personagens ou contas entre servidores ou jogos diferentes.</li>
-          <li>6.3 - Proibido divulgar softwares, hacks, sites irregulares ou serviços não autorizados.</li>
-          <li>6.4 - Proibido qualquer discussão ou título de chat/loja relacionado a modificações do client, bots ou hacks.</li>
-          <li>6.5 - Proibido anúncios de vendas ou trocas por dinheiro real dentro do jogo e Discord oficial.</li>
-          <li>6.6 - Proibida a venda de cash via RMT (Real Money Trading), sendo permitida exclusivamente para itens e equipamentos.</li>
-        </ul>
-        <p><em>Punição: Advertência → Suspensão de 7 dias → Suspensão de 30 dias → Banimento permanente.</em></p>
-
-        <h5>7. ATIVIDADE IRREGULAR</h5>
-        <ul>
-          <li>7.1 - PROIBIDO O USO DE BOT E QUALQUER FORMA DE AUTOMAÇÃO. O USO DE BOT RESULTA EM BANIMENTO PERMANENTE.</li>
-          <li>7.2 - Proibido usar ou se beneficiar de programas irregulares (BOTs, hacks, exploits).</li>
-          <li>7.3 - Proibido explorar bugs do jogo para obter vantagens indevidas.</li>
-          <li>7.4 - Proibido se associar a jogadores que usam programas ilegais. Caso uma denúncia seja comprovada, todos os envolvidos serão punidos.</li>
-        </ul>
-        <p><em>Punição para BOTs e automação: Banimento permanente sem aviso prévio.</em></p>
-        <p><em>Punição para uso de hacks, exploits e bugs: Suspensão de 30 dias → Banimento permanente.</em></p>
-        <p><em>Punição para associação com jogadores que utilizam programas ilegais: Remoção de todos os itens suspeitos. Suspensão de 7 a 30 dias → Banimento permanente.</em></p>
-
-        <p>O Servidor Ragnarok ReClassic se reserva o direito de aplicar punições conforme a gravidade da infração, podendo alterar regras e punições a qualquer momento para manter um ambiente saudável e justo para todos os jogadores.</p>
-        <p>Se tiver dúvidas ou precisar recorrer de uma punição, abra um ticket de suporte.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-      </div>
+            <!-- Link para Login -->
+            <div class="login-link text-center">
+                <p>Ja possui conta? <a href="?to=entrar">Fazer login</a></p>
+            </div>
+        </div>
     </div>
-  </div>
+</section>
+
+<!-- Popup de Sucesso -->
+<div id="successPopup" class="success-popup" style="display: none;">
+    <div class="success-content">
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <h2>Registro Concluido!</h2>
+        <p>Sua conta foi criada com sucesso. Bem-vindo ao ReClassic!</p>
+        <div class="success-actions">
+            <a href="https://drive.google.com/file/d/1ROEqhrWH4mnp40ULfnM0wul84jp6knn4/view?usp=sharing" target="_blank" class="btn-success-action">
+                <i class="fas fa-download"></i> Download do Jogo
+            </a>
+            <a href="https://discord.gg/JG6vTMbT58" target="_blank" class="btn-success-action secondary">
+                <i class="fab fa-discord"></i> Entrar no Discord
+            </a>
+        </div>
+        <a href="?to=entrar" class="btn-go-login">Ir para Login</a>
+    </div>
 </div>
 
-<!-- Add modal styles -->
+<!-- Modal de Termos -->
+<div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="termsModalLabel">Termos de Uso e Servico</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h4>Regras de Conduta</h4>
+                <p>As punicoes serao aplicadas a criterio da equipe do Ragnarok ReClassic e serao analisadas caso a caso.</p>
+                <p>A equipe reserva o direito de punir a violacao das regras com ou sem aviso previo.</p>
+
+                <h5>1. OFENSAS</h5>
+                <p>Proibido o uso de violencia verbal, linguagem ofensiva, ou qualquer comportamento rude que prejudique a experiencia de outros jogadores.</p>
+
+                <h5>2. ATIVIDADE IRREGULAR</h5>
+                <p><strong>PROIBIDO O USO DE BOT E QUALQUER FORMA DE AUTOMACAO. O USO DE BOT RESULTA EM BANIMENTO PERMANENTE.</strong></p>
+
+                <h5>3. NOMES INAPROPRIADOS</h5>
+                <p>Proibido nomes ofensivos, obscenos ou que facam apologia a drogas, odio, racismo ou qualquer discurso discriminatorio.</p>
+
+                <p>O Servidor Ragnarok ReClassic se reserva o direito de aplicar punicoes conforme a gravidade da infracao.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <style>
-.modal-body {
-  max-height: 70vh;
-  overflow-y: auto;
+/* ===============================================
+   REGISTER PAGE STYLES
+   =============================================== */
+.register-section {
+    padding: 40px 0 80px;
+    min-height: calc(100vh - 200px);
+    display: flex;
+    align-items: center;
 }
 
-.modal-body h4, .modal-body h5, .modal-body h6 {
-  color: #333;
-  margin-top: 1.5rem;
-  margin-bottom: 1rem;
+.register-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--card-radius);
+    padding: 2.5rem;
+    max-width: 550px;
+    margin: 0 auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
 }
 
-.modal-body ul {
-  padding-left: 1.5rem;
-  margin-bottom: 1rem;
+.register-header {
+    margin-bottom: 2rem;
 }
 
-.modal-body li {
-  margin-bottom: 0.5rem;
+.register-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.register-title .highlight {
+    color: var(--accent-color);
+}
+
+.register-subtitle {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+/* Rewards Section */
+.rewards-section {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: var(--header-radius);
+    padding: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.rewards-label {
+    text-align: center;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+}
+
+.rewards-label .highlight {
+    color: var(--accent-color);
+    margin-left: 5px;
+}
+
+.rewards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+}
+
+.reward-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(30, 41, 59, 0.6);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--header-radius);
+    padding: 10px 12px;
+    position: relative;
+}
+
+.reward-item img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.reward-item span {
+    font-size: 0.8rem;
+    color: var(--text-primary);
+    flex: 1;
+}
+
+.reward-quantity {
+    position: absolute;
+    top: -5px;
+    left: 35px;
+    background: var(--accent-color);
+    color: var(--dark-bg);
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 3px;
+}
+
+/* Form Styles */
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper i {
+    position: absolute;
+    left: 15px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.input-wrapper input {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--dark-border);
+    border-radius: var(--header-radius);
+    padding: 14px 15px 14px 45px;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.input-wrapper input::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.input-wrapper input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+/* Terms Checkbox */
+.terms-wrapper {
+    margin-top: 0.5rem;
+}
+
+.terms-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.terms-checkbox input {
+    display: none;
+}
+
+.checkmark {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--dark-border);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.terms-checkbox input:checked + .checkmark {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.terms-checkbox input:checked + .checkmark::after {
+    content: '\f00c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    font-size: 0.7rem;
+    color: white;
+}
+
+.terms-text a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+.terms-text a:hover {
+    text-decoration: underline;
+}
+
+/* Message Container */
+.message-container {
+    min-height: 20px;
+}
+
+.message-container .alert {
+    padding: 10px 15px;
+    border-radius: var(--header-radius);
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+/* Submit Button */
+.btn-register {
+    width: 100%;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 16px;
+    border-radius: var(--header-radius);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(52, 152, 219, 0.4);
+}
+
+.btn-register:hover {
+    background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(79, 195, 247, 0.5);
+}
+
+.btn-register:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Login Link */
+.login-link {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--glass-border);
+}
+
+.login-link p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.login-link a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+/* Success Popup */
+.success-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10001;
+    padding: 20px;
+}
+
+.success-content {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--card-radius);
+    padding: 3rem 2rem;
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+.success-icon {
+    font-size: 4rem;
+    color: #22c55e;
+    margin-bottom: 1.5rem;
+}
+
+.success-content h2 {
+    font-family: 'Cinzel', serif;
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.success-content p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+}
+
+.success-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.btn-success-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 12px 20px;
+    border-radius: var(--header-radius);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-success-action:hover {
+    transform: translateY(-2px);
+    color: white;
+}
+
+.btn-success-action.secondary {
+    background: #5865f2;
+}
+
+.btn-go-login {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.btn-go-login:hover {
+    color: var(--accent-color);
+}
+
+/* Modal Styles */
+.modal-content {
+    background: var(--dark-surface);
+    color: var(--text-primary);
+    border: 1px solid var(--glass-border);
+}
+
+.modal-header {
+    border-bottom-color: var(--glass-border);
+}
+
+.modal-footer {
+    border-top-color: var(--glass-border);
+}
+
+.modal-body h4, .modal-body h5 {
+    color: var(--accent-color);
+    margin-top: 1.5rem;
 }
 
 .modal-body p {
-  margin-bottom: 1rem;
+    color: var(--text-secondary);
 }
 
-.modal-body em {
-  color: #dc3545;
-  font-style: normal;
+.btn-close {
+    filter: invert(1);
 }
 
-.modal-dialog {
-  margin: 1.75rem auto;
-}
-
+/* Responsive */
 @media (max-width: 768px) {
-  .modal-dialog {
-    margin: 1rem;
-    max-width: calc(100% - 2rem);
-  }
+    .register-section {
+        padding-bottom: 40px; /* Body has padding for mobile nav */
+    }
+}
+
+@media (max-width: 576px) {
+    .register-card {
+        padding: 1.5rem;
+        margin: 0 15px;
+    }
+
+    .register-title {
+        font-size: 1.8rem;
+    }
+
+    .rewards-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .input-wrapper input {
+        padding: 12px 12px 12px 42px;
+    }
 }
 </style>
 
 <script>
-
 $(document).ready(function() {
     $('#formRegistro').on('submit', function(e) {
         e.preventDefault();
         var $btn = $('#submitRegistro');
-        $btn.prop('disabled', true);
+        $btn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> PROCESSANDO...');
+
         $.ajax({
             type: 'POST',
             url: 'api/registro.php',
             data: $(this).serialize(),
             success: function(response) {
-                $('#message').html(response);   
-                $btn.prop('disabled', false);  // Reabilita o botão
+                $('#message').html(response);
+                $btn.prop('disabled', false).html('FINALIZAR PRE-REGISTRO');
+
+                // Verificar se registro foi bem sucedido
+                if (response.includes('sucesso') || response.includes('Sucesso') || response.includes('criada')) {
+                    showSuccessPopup();
+                }
             },
             error: function(xhr, status, error) {
-                
-                console.error('Erro na requisição', status, error);
+                console.error('Erro na requisicao', status, error);
+                $btn.prop('disabled', false).html('FINALIZAR PRE-REGISTRO');
             }
         });
     });
 });
 
+function showSuccessPopup() {
+    document.getElementById('successPopup').style.display = 'flex';
+}
 
-  function showRegistrationPopup() {
-
-    document.getElementById("DisableRegisterForm").style.display = "none";
-    var successMessage = document.getElementById("message");
-    if (successMessage) {
-      successMessage.style.display = "block";
-    }
-
-    var successImage = document.getElementById("successImage");
-    if (successImage) {
-      successImage.style.display = "block";
-      setTimeout(function () {
-        successImage.classList.add("show");
-      }, 10);
-    }
-  }
-
-  function closeRegistrationPopup() {
-    document.getElementById("successImage").style.display = "none";
-    window.location.href = "?to=entrar"; 
-  }
-
+function closeSuccessPopup() {
+    document.getElementById('successPopup').style.display = 'none';
+    window.location.href = '?to=entrar';
+}
 </script>
-
-

@@ -441,6 +441,9 @@ function formatarNumero($numero)
 }
 
 function formatarDataHora($dataHora) {
+    if (empty($dataHora)) {
+        return 'Nunca';
+    }
     $date = new DateTime($dataHora);
     return $date->format('d/m/Y H:i:s');
 }

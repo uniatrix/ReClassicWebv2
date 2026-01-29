@@ -23,52 +23,55 @@
 }
 
 .login-required-box {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 16px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--card-radius);
     padding: 50px 40px;
     text-align: center;
     max-width: 450px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .login-required-box i.fa-lock {
-    font-size: 4rem;
-    color: #3498db;
+    font-size: 3.5rem;
+    color: var(--accent-color);
     margin-bottom: 20px;
 }
 
 .login-required-box h2 {
-    font-family: 'Silkscreen', cursive;
-    color: #fff;
+    font-family: 'Cinzel', serif;
+    color: var(--text-primary);
     margin-bottom: 15px;
+    font-size: 1.5rem;
 }
 
 .login-required-box p {
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--text-secondary);
     margin-bottom: 30px;
     line-height: 1.6;
 }
 
 .login-required-box strong {
-    color: #3498db;
+    color: var(--accent-color);
 }
 
 .btn-login-required {
     display: block;
     width: 100%;
-    padding: 15px 30px;
-    background: linear-gradient(135deg, #3498db, #2980b9);
+    padding: 14px 30px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
     border: none;
-    border-radius: 10px;
-    font-family: 'Silkscreen', cursive;
-    font-size: 1rem;
+    border-radius: var(--header-radius);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
     margin-bottom: 15px;
+    letter-spacing: 0.5px;
 }
 
 .btn-login-required:hover {
@@ -79,16 +82,17 @@
 .btn-voltar-pacotes {
     display: block;
     padding: 12px 20px;
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--text-secondary);
     text-decoration: none;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--header-radius);
     transition: all 0.3s ease;
+    font-size: 0.9rem;
 }
 
 .btn-voltar-pacotes:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
     text-decoration: none;
 }
 </style>
@@ -102,100 +106,113 @@ function loginParaComprar(pacote) {
 
 <?php else: ?>
 
-<div class="payment-founder-container">
-    <div class="payment-header">
-        <h2><i class="fas fa-credit-card"></i> Pagamento - Pacote <?php echo htmlspecialchars($selectedPackage['name']); ?></h2>
-        <p>Revise os detalhes do seu pedido e confirme o pagamento via PIX</p>
-    </div>
+<div class="payment-page">
+    <div class="payment-container">
+        <!-- Header -->
+        <div class="payment-header">
+            <span class="payment-step">Finalizar Compra</span>
+            <h1>Pacote <?php echo htmlspecialchars($selectedPackage['name']); ?></h1>
+        </div>
 
-    <div class="payment-content">
-        <div class="order-summary">
-            <div class="summary-header" style="background: <?php echo $selectedPackage['color']; ?>">
-                <i class="fas <?php echo $selectedPackage['icon']; ?>"></i>
-                <h3>Pacote <?php echo htmlspecialchars($selectedPackage['name']); ?></h3>
-            </div>
+        <div class="payment-grid">
+            <!-- Resumo do Pedido -->
+            <div class="order-card">
+                <div class="order-header" style="background: <?php echo $selectedPackage['color']; ?>">
+                    <i class="fas <?php echo $selectedPackage['icon']; ?>"></i>
+                    <span>Pacote <?php echo htmlspecialchars($selectedPackage['name']); ?></span>
+                </div>
 
-            <div class="summary-items">
-                <h4><i class="fas fa-box-open"></i> Itens do Pacote</h4>
-                <ul class="items-list">
+                <div class="order-items">
                     <?php foreach($selectedPackage['items'] as $item): ?>
-                    <li>
+                    <div class="order-item">
                         <img src="<?php echo iconImage($item['id']); ?>"
                              alt="<?php echo htmlspecialchars($item['name']); ?>"
                              onerror="this.src='assets/img/noimage.png'">
-                        <span class="item-info">
-                            <strong><?php echo htmlspecialchars($item['name']); ?></strong>
-                            <small>x<?php echo $item['qty']; ?> - <?php echo htmlspecialchars($item['desc']); ?></small>
-                        </span>
-                    </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-
-            <div class="summary-total">
-                <span>Total:</span>
-                <span class="price">R$ <?php echo number_format($selectedPackage['price'], 2, ',', '.'); ?></span>
-            </div>
-        </div>
-
-        <div class="payment-form-section">
-            <form id="formPagamentoFounder">
-                <input type="hidden" name="pacote" value="<?php echo $pacoteTier; ?>">
-                <input type="hidden" name="confirmar_pagamento" value="1">
-
-                <div class="form-field">
-                    <label><i class="fas fa-user"></i> Usuario</label>
-                    <input type="text" value="<?php echo htmlspecialchars($_SESSION['user']); ?>" readonly class="readonly-field">
-                    <small>O pacote sera enviado para esta conta</small>
-                </div>
-
-                <?php if(isset($_SESSION['email']) && !empty($_SESSION['email'])): ?>
-                <div class="form-field">
-                    <label><i class="fas fa-envelope"></i> E-mail</label>
-                    <input type="text" value="<?php echo htmlspecialchars($_SESSION['email']); ?>" readonly class="readonly-field">
-                </div>
-                <?php endif; ?>
-
-                <div class="payment-method">
-                    <h4><i class="fas fa-qrcode"></i> Metodo de Pagamento</h4>
-                    <div class="pix-option">
-                        <input type="radio" id="pix" name="metodo" value="pix" checked>
-                        <label for="pix">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Logo%E2%80%94pix_powered_by_Banco_Central_%28Brazil%2C_2020%29.svg" alt="PIX" class="pix-logo">
-                            <span>Pagamento instantaneo via PIX</span>
-                        </label>
+                        <div class="item-details">
+                            <span class="item-name"><?php echo htmlspecialchars($item['name']); ?></span>
+                            <span class="item-qty">x<?php echo $item['qty']; ?></span>
+                        </div>
                     </div>
+                    <?php endforeach; ?>
                 </div>
 
-                <div class="payment-notice">
-                    <i class="fas fa-info-circle"></i>
-                    <p>Apos clicar em "Pagar com PIX", voce sera redirecionado para a pagina de pagamento. Os itens serao entregues automaticamente ao logar no jogo apos a confirmacao do pagamento.</p>
+                <div class="order-total">
+                    <span>Total</span>
+                    <span class="total-price">R$ <?php echo number_format($selectedPackage['price'], 2, ',', '.'); ?></span>
                 </div>
+            </div>
 
-                <div id="message"></div>
+            <!-- Formulario de Pagamento -->
+            <div class="payment-form-card">
+                <form id="formPagamentoFounder">
+                    <input type="hidden" name="pacote" value="<?php echo $pacoteTier; ?>">
+                    <input type="hidden" name="confirmar_pagamento" value="1">
 
-                <button type="submit" id="submitPagamento" class="btn-pagar" style="background: <?php echo $selectedPackage['color']; ?>">
-                    <i class="fas fa-qrcode"></i> Pagar com PIX - R$ <?php echo number_format($selectedPackage['price'], 2, ',', '.'); ?>
-                </button>
+                    <!-- Conta -->
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> Conta</label>
+                        <div class="account-display">
+                            <span><?php echo htmlspecialchars($_SESSION['user']); ?></span>
+                            <small>Os itens serao enviados para esta conta</small>
+                        </div>
+                    </div>
 
-                <a href="?to=pacote-fundador" class="btn-voltar">
-                    <i class="fas fa-arrow-left"></i> Voltar para pacotes
-                </a>
-            </form>
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label><i class="fas fa-envelope"></i> Email</label>
+                        <div class="account-display">
+                            <span><?php echo htmlspecialchars($conta_query['email']); ?></span>
+                            <small>Comprovante sera enviado para este email</small>
+                        </div>
+                    </div>
+
+                    <!-- Metodo de Pagamento -->
+                    <div class="form-group">
+                        <label><i class="fas fa-credit-card"></i> Pagamento</label>
+                        <div class="payment-method-card">
+                            <div class="method-icon pix-icon">
+                                <i class="fab fa-pix"></i>
+                            </div>
+                            <div class="method-info">
+                                <span class="method-name">PIX</span>
+                                <span class="method-desc">Pagamento instantaneo</span>
+                            </div>
+                            <i class="fas fa-check-circle method-check"></i>
+                        </div>
+                    </div>
+
+                    <!-- Aviso -->
+                    <div class="payment-info">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Apos o pagamento, os itens serao entregues automaticamente ao logar no jogo.</span>
+                    </div>
+
+                    <div id="message"></div>
+
+                    <!-- Botao de Pagamento -->
+                    <button type="submit" id="submitPagamento" class="btn-pay">
+                        <i class="fas fa-lock"></i>
+                        <span>Pagar R$ <?php echo number_format($selectedPackage['price'], 2, ',', '.'); ?></span>
+                    </button>
+
+                    <a href="?to=pacote-fundador" class="btn-back">
+                        <i class="fas fa-arrow-left"></i> Voltar
+                    </a>
+                </form>
+            </div>
         </div>
     </div>
 </div>
 
 <style>
-.payment-founder-container {
+.payment-page {
+    padding: 20px;
+    min-height: 70vh;
+}
+
+.payment-container {
     max-width: 900px;
     margin: 0 auto;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    margin-top: 20px;
-    margin-bottom: 100px;
 }
 
 .payment-header {
@@ -203,287 +220,340 @@ function loginParaComprar(pacote) {
     margin-bottom: 30px;
 }
 
-.payment-header h2 {
-    font-family: 'Silkscreen', cursive;
-    color: var(--primary-color);
-    margin-bottom: 10px;
+.payment-step {
+    display: inline-block;
+    color: var(--accent-color);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
 }
 
-.payment-header p {
-    color: #666;
-    font-size: 0.95rem;
+.payment-header h1 {
+    font-family: 'Cinzel', serif;
+    color: var(--text-primary);
+    font-size: 1.6rem;
+    margin: 0;
+    letter-spacing: 1px;
 }
 
-.payment-content {
+.payment-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 25px;
+    align-items: start;
 }
 
-.order-summary {
-    background: #f9f9f9;
-    border-radius: 10px;
+/* Order Card */
+.order-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--card-radius);
     overflow: hidden;
-    border: 1px solid #eee;
-}
-
-.summary-header {
-    padding: 20px;
-    text-align: center;
-    color: white;
-}
-
-.summary-header i {
-    font-size: 2rem;
-    margin-bottom: 10px;
-    display: block;
-}
-
-.summary-header h3 {
-    font-family: 'Silkscreen', cursive;
-    margin: 0;
-    color: white;
-    text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
-}
-
-.summary-items {
-    padding: 20px;
-    max-height: 400px;
-    overflow-y: auto;
-}
-
-.summary-items h4 {
-    margin: 0 0 15px 0;
-    font-size: 0.9rem;
-    color: #555;
-}
-
-.items-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.items-list li {
-    display: flex;
-    align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px solid #eee;
-    gap: 10px;
-}
-
-.items-list li:last-child {
-    border-bottom: none;
-}
-
-.items-list li img {
-    width: 32px;
-    height: 32px;
-    object-fit: contain;
-}
-
-.items-list .item-info {
+    backdrop-filter: blur(20px);
     display: flex;
     flex-direction: column;
 }
 
-.items-list .item-info strong {
+.order-header {
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+}
+
+.order-header i {
+    font-size: 1.3rem;
+}
+
+.order-header span {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.order-items {
+    padding: 15px 20px;
+    overflow-y: auto;
+    max-height: 336px;
+}
+
+.order-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.order-item:last-child {
+    border-bottom: none;
+}
+
+.order-item img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.item-details {
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+    align-items: center;
+}
+
+.item-details .item-name {
+    color: var(--text-secondary);
     font-size: 0.85rem;
-    color: #333;
 }
 
-.items-list .item-info small {
-    font-size: 0.75rem;
-    color: #888;
+.item-details .item-qty {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    opacity: 0.7;
 }
 
-.summary-total {
+.order-total {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
-    background: #333;
-    color: white;
-    font-size: 1.2rem;
+    padding: 18px 20px;
+    background: rgba(0, 0, 0, 0.2);
+    border-top: 1px solid var(--glass-border);
 }
 
-.summary-total .price {
-    font-family: 'Silkscreen', cursive;
-    font-size: 1.5rem;
+.order-total span:first-child {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
 }
 
-.payment-form-section {
-    padding: 20px;
+.total-price {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--accent-color);
 }
 
-.form-field {
+/* Payment Form Card */
+.payment-form-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--card-radius);
+    padding: 25px;
+    backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+}
+
+.payment-form-card form {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.payment-form-card .payment-info {
+    margin-top: auto;
+}
+
+.form-group {
     margin-bottom: 20px;
 }
 
-.form-field label {
+.form-group label {
     display: block;
-    margin-bottom: 8px;
-    color: #333;
-    font-weight: 500;
-}
-
-.form-field label i {
-    margin-right: 8px;
-    color: var(--primary-color);
-}
-
-.form-field input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1rem;
-}
-
-.form-field input.readonly-field {
-    background: #f5f5f5;
-    color: #666;
-    cursor: not-allowed;
-}
-
-.form-field small {
-    display: block;
-    margin-top: 5px;
-    color: #888;
+    color: var(--text-secondary);
     font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.payment-method {
-    margin: 25px 0;
+.form-group label i {
+    margin-right: 8px;
+    color: var(--accent-color);
 }
 
-.payment-method h4 {
-    margin: 0 0 15px 0;
-    color: #333;
+.account-display {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--header-radius);
+    padding: 14px 16px;
 }
 
-.pix-option {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    border: 2px solid var(--primary-color);
-    border-radius: 8px;
-    background: #f0f8ff;
+.account-display span {
+    display: block;
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 0.95rem;
 }
 
-.pix-option input[type="radio"] {
-    width: auto;
-    margin-right: 15px;
+.account-display small {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    margin-top: 4px;
+    display: block;
 }
 
-.pix-option label {
+.payment-method-card {
     display: flex;
     align-items: center;
     gap: 15px;
-    cursor: pointer;
-    margin: 0;
+    background: rgba(79, 195, 247, 0.1);
+    border: 2px solid var(--accent-color);
+    border-radius: var(--header-radius);
+    padding: 16px;
 }
 
-.pix-logo {
-    height: 30px;
+.method-icon img {
+    height: 24px;
     width: auto;
 }
 
-.payment-notice {
+.method-icon.pix-icon {
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, #32BCAD, #00B4A6);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.method-icon.pix-icon i {
+    font-size: 1.5rem;
+    color: white;
+}
+
+.method-info {
+    flex: 1;
+}
+
+.method-name {
+    display: block;
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.method-desc {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+}
+
+.method-check {
+    color: var(--accent-color);
+    font-size: 1.2rem;
+}
+
+.payment-info {
     display: flex;
     align-items: flex-start;
     gap: 10px;
-    padding: 15px;
-    background: #fff3cd;
-    border-radius: 8px;
+    padding: 14px;
+    background: rgba(255, 193, 7, 0.1);
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    border-radius: var(--header-radius);
     margin-bottom: 20px;
 }
 
-.payment-notice i {
-    color: #856404;
-    font-size: 1.2rem;
+.payment-info i {
+    color: #ffc107;
+    font-size: 1rem;
     margin-top: 2px;
 }
 
-.payment-notice p {
-    margin: 0;
-    color: #856404;
-    font-size: 0.85rem;
+.payment-info span {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
     line-height: 1.5;
 }
 
-.btn-pagar {
-    display: block;
+.btn-pay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     width: 100%;
-    padding: 15px 20px;
-    border: none;
-    border-radius: 8px;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
-    font-weight: bold;
-    font-size: 1.1rem;
+    border: none;
+    border-radius: var(--header-radius);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    font-family: 'Silkscreen', cursive;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
 
-.btn-pagar:hover {
-    filter: brightness(1.1);
-    transform: scale(1.02);
+.btn-pay:hover {
+    background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
 }
 
-.btn-pagar:disabled {
-    opacity: 0.7;
+.btn-pay:disabled {
+    opacity: 0.6;
     cursor: not-allowed;
     transform: none;
 }
 
-.btn-voltar {
+.btn-back {
     display: block;
     text-align: center;
-    padding: 12px 20px;
-    color: #666;
+    padding: 12px;
+    color: var(--text-secondary);
     text-decoration: none;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    transition: all 0.3s ease;
+    font-size: 0.85rem;
+    transition: color 0.3s ease;
 }
 
-.btn-voltar:hover {
-    background: #f5f5f5;
-    color: #333;
+.btn-back:hover {
+    color: var(--text-primary);
     text-decoration: none;
 }
 
 #message .error {
-    background: #f8d7da;
-    color: #721c24;
-    padding: 12px;
-    border-radius: 5px;
+    background: rgba(220, 53, 69, 0.15);
+    color: #ff6b6b;
+    padding: 14px;
+    border-radius: var(--header-radius);
     margin-bottom: 15px;
+    font-size: 0.85rem;
+    border: 1px solid rgba(220, 53, 69, 0.3);
 }
 
 #message .success {
-    background: #d4edda;
-    color: #155724;
-    padding: 12px;
-    border-radius: 5px;
+    background: rgba(40, 167, 69, 0.15);
+    color: #51cf66;
+    padding: 14px;
+    border-radius: var(--header-radius);
     margin-bottom: 15px;
+    font-size: 0.85rem;
+    border: 1px solid rgba(40, 167, 69, 0.3);
 }
 
 @media (max-width: 768px) {
-    .payment-content {
+    .payment-grid {
         grid-template-columns: 1fr;
     }
 
-    .payment-founder-container {
-        margin: 10px;
-        margin-bottom: 150px;
-        border-radius: 10px;
+    .payment-page {
+        padding: 15px 10px 40px;
     }
 
-    .summary-items {
-        max-height: 250px;
+    .order-items {
+        max-height: 264px;
+        flex: none;
+    }
+
+    .payment-header h1 {
+        font-size: 1.3rem;
     }
 }
 </style>
@@ -496,7 +566,7 @@ $(document).ready(function() {
         var $btn = $('#submitPagamento');
         var originalText = $btn.html();
 
-        $btn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Processando...');
+        $btn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> <span>Processando...</span>');
         $('#message').html('');
 
         $.ajax({
