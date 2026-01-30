@@ -1577,23 +1577,23 @@ section.container:first-of-type {
 }
 
 .rmt-header {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--card-radius);
+    background: rgba(30, 41, 59, 0.85);
+    border: 1px solid rgba(79, 195, 247, 0.2);
+    border-radius: 12px;
     padding: 30px;
     text-align: center;
     margin-bottom: 30px;
 }
 
 .rmt-header h2 {
-    color: var(--text-primary);
+    color: #ffffff;
     font-family: 'Cinzel', serif;
     margin-bottom: 10px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .rmt-header p {
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.8);
     margin-bottom: 15px;
 }
 
@@ -1641,9 +1641,9 @@ section.container:first-of-type {
 }
 
 .rmt-item-card {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--card-radius);
+    background: rgba(30, 41, 59, 0.85);
+    border: 1px solid rgba(79, 195, 247, 0.2);
+    border-radius: 12px;
     padding: 20px;
     transition: all 0.3s ease;
 }
@@ -1673,7 +1673,7 @@ section.container:first-of-type {
 
 .rmt-item-name {
     font-weight: bold;
-    color: var(--text-primary);
+    color: #ffffff;
     font-size: 1.1rem;
     text-align: center;
     margin-bottom: 10px;
@@ -1681,6 +1681,8 @@ section.container:first-of-type {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
+    gap: 5px;
 }
 
 .rmt-item-name .refine {
@@ -1690,7 +1692,7 @@ section.container:first-of-type {
 
 .rmt-item-details {
     font-size: 0.9rem;
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.8);
     margin-bottom: 10px;
     text-align: center;
 }
@@ -1709,12 +1711,16 @@ section.container:first-of-type {
 
 .rmt-item-seller {
     font-size: 0.85rem;
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.8);
     text-align: center;
     margin-bottom: 10px;
     padding: 8px;
     background: rgba(79, 195, 247, 0.1);
     border-radius: 6px;
+}
+
+.rmt-item-seller i {
+    color: var(--accent-color);
 }
 
 .rmt-item-price {
@@ -1729,8 +1735,8 @@ section.container:first-of-type {
 .rmt-buy-btn {
     width: 100%;
     padding: 14px;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    color: white;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: #ffffff;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -1748,7 +1754,7 @@ section.container:first-of-type {
 
 .rmt-buy-btn:disabled {
     background: rgba(255, 255, 255, 0.1);
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.5);
     cursor: not-allowed;
     transform: none;
     box-shadow: none;
@@ -1759,24 +1765,28 @@ section.container:first-of-type {
 }
 
 .rmt-empty {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--card-radius);
+    background: rgba(30, 41, 59, 0.85);
+    border: 1px solid rgba(79, 195, 247, 0.2);
+    border-radius: 12px;
     text-align: center;
     padding: 60px 30px;
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .rmt-empty i {
-    color: var(--text-secondary);
-    opacity: 0.5;
+    color: rgba(255, 255, 255, 0.5);
     margin-bottom: 20px;
+    display: block;
 }
 
 .rmt-empty h3 {
-    color: var(--text-primary);
+    color: #ffffff;
     font-family: 'Cinzel', serif;
     margin-bottom: 10px;
+}
+
+.rmt-empty p {
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .rmt-pagination {
@@ -1786,29 +1796,29 @@ section.container:first-of-type {
     gap: 15px;
     margin-top: 30px;
     padding: 20px;
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--card-radius);
+    background: rgba(30, 41, 59, 0.85);
+    border: 1px solid rgba(79, 195, 247, 0.2);
+    border-radius: 12px;
     flex-wrap: wrap;
 }
 
 .rmt-pagination a {
     background: rgba(79, 195, 247, 0.1);
-    border: 1px solid var(--glass-border);
+    border: 1px solid rgba(79, 195, 247, 0.2);
     border-radius: 8px;
     padding: 10px 20px;
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.8);
     text-decoration: none;
     transition: all 0.3s ease;
 }
 
 .rmt-pagination a:hover {
-    border-color: var(--accent-color);
-    color: var(--accent-color);
+    border-color: #4fc3f7;
+    color: #4fc3f7;
 }
 
 .rmt-pagination span {
-    color: var(--text-primary);
+    color: #ffffff;
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
 }
@@ -3298,7 +3308,7 @@ section.container:first-of-type {
    ============================================ */
 
 .vote-page {
-    max-width: 900px;
+    max-width: 1100px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -3593,7 +3603,7 @@ section.container:first-of-type {
 /* Vote Info Section - Simplified Layout */
 .vote-info-section {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
 
