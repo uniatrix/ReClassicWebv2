@@ -1378,7 +1378,7 @@
 
     <!-- Hero Section with Game Elements -->
     <?php
-    $compactPages = ['inicio', 'database', 'comercio', 'ranking', 'registro', 'entrar', 'conta', 'veritem', 'vermonstro', 'rmt', 'pacote-fundador', 'pagamento-fundador'];
+    $compactPages = ['inicio', 'database', 'comercio', 'ranking', 'registro', 'entrar', 'conta', 'veritem', 'vermonstro', 'verloja', 'rmt', 'pacote-fundador', 'pagamento-fundador'];
     $isCompactPage = isset($_GET['to']) && in_array($_GET['to'], $compactPages);
     $isHomePage = !isset($_GET['to']) || $_GET['to'] === 'inicio';
     ?>

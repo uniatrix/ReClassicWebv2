@@ -24,7 +24,7 @@
                 ?>
                 <div class="rmt-item-card" data-item-id="<?php echo (int)$item['id']; ?>">
                     <div class="rmt-item-image">
-                        <img src="<?php echo itemImage($item['item_id']); ?>" alt="<?php echo htmlspecialchars($item['item_name']); ?>" onerror="this.src='assets/img/noimage.png'">
+                        <img src="<?php echo itemImage($item['item_id']); ?>" alt="<?php echo htmlspecialchars($item['item_name']); ?>" onerror="this.src='assets/img/icones/categoriaitem/unknown.png'">
                     </div>
 
                     <div class="rmt-item-name">

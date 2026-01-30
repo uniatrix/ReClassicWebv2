@@ -9,9 +9,8 @@
     <!-- Vendedor Shop Header -->
     <div class="shop-detail-header">
         <h1 class="shop-detail-title">
-            <img src="<?php echo iconImage($vending->extended_vending_item); ?>" alt="Currency">
+            <i class="fas fa-store" style="color: var(--accent-color);"></i>
             <?php echo htmlspecialchars($title); ?>
-            <img src="<?php echo iconImage($vending->extended_vending_item); ?>" alt="Currency">
         </h1>
         <div class="shop-detail-location">
             <i class="fas fa-map-marker-alt"></i>
@@ -32,7 +31,7 @@
         <?php foreach ($items as $item): ?>
         <div class="shop-item-row">
             <div class="shop-item-icon">
-                <img src="<?php echo iconImage($item->nameid); ?>" alt="<?php echo htmlspecialchars($item->item_name); ?>">
+                <img src="<?php echo iconImage($item->nameid); ?>" alt="<?php echo htmlspecialchars($item->item_name); ?>" onerror="this.src='assets/img/icones/categoriaitem/unknown.png'">
             </div>
             <div class="shop-item-info">
                 <div class="shop-item-name">
@@ -68,8 +67,8 @@
                 </div>
             </div>
             <div class="shop-item-price">
-                <?php echo number_format($item->price, 0, ',', '.'); ?>
-                <img src="<?php echo iconImage($vending->extended_vending_item); ?>" alt="Currency">
+                <i class="fas fa-coins" style="color: #ffd700;"></i>
+                <?php echo number_format($item->price, 0, ',', '.'); ?>z
             </div>
             <div class="shop-item-amount">x<?php echo $item->amount; ?></div>
         </div>
@@ -96,7 +95,6 @@
         <h1 class="shop-detail-title">
             <i class="fas fa-shopping-cart" style="color: var(--accent-color);"></i>
             <?php echo htmlspecialchars($title); ?>
-            <i class="fas fa-shopping-cart" style="color: var(--accent-color);"></i>
         </h1>
         <div class="shop-detail-location">
             <i class="fas fa-map-marker-alt"></i>
@@ -117,7 +115,7 @@
         <?php foreach ($items as $item): ?>
         <div class="shop-item-row">
             <div class="shop-item-icon">
-                <img src="<?php echo iconImage($item->nameid); ?>" alt="<?php echo htmlspecialchars($item->item_name); ?>">
+                <img src="<?php echo iconImage($item->nameid); ?>" alt="<?php echo htmlspecialchars($item->item_name); ?>" onerror="this.src='assets/img/icones/categoriaitem/unknown.png'">
             </div>
             <div class="shop-item-info">
                 <div class="shop-item-name">
@@ -125,8 +123,8 @@
                 </div>
             </div>
             <div class="shop-item-price">
-                <?php echo number_format($item->price, 0, ',', '.'); ?>
-                <img src="<?php echo iconImage(673); ?>" alt="Zeny">
+                <i class="fas fa-coins" style="color: #ffd700;"></i>
+                <?php echo number_format($item->price, 0, ',', '.'); ?>z
             </div>
             <div class="shop-item-amount">x<?php echo $item->amount; ?></div>
         </div>

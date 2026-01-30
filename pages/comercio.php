@@ -52,16 +52,12 @@
     <div class="shop-list">
         <?php foreach ($paginated_vendedores as $vendedor): ?>
         <a href="?to=verloja&type=vendedores&id=<?php echo $vendedor['id']; ?>" class="shop-row">
-            <div class="shop-row-currency">
-                <img src="<?php echo iconImage($vendedor['extended_vending_item']); ?>" alt="Currency">
-            </div>
             <span class="shop-row-name"><?php echo htmlspecialchars($vendedor['char_name']); ?></span>
             <span class="shop-row-title"><?php echo htmlspecialchars($vendedor['title']); ?></span>
             <span class="shop-row-location">
                 <i class="fas fa-map-marker-alt"></i>
                 <?php echo $vendedor['map']; ?> (<?php echo $vendedor['x']; ?>, <?php echo $vendedor['y']; ?>)
             </span>
-            <span class="shop-row-gender"><?php echo $vendedor['sex'] == 'M' ? '<i class="fas fa-mars"></i>' : '<i class="fas fa-venus"></i>'; ?></span>
             <span class="shop-view-btn">Ver Loja</span>
         </a>
         <?php endforeach; ?>
@@ -146,16 +142,12 @@
     <div class="shop-list">
         <?php foreach ($paginated_compradores as $comprador): ?>
         <a href="?to=verloja&type=compradores&id=<?php echo $comprador['id']; ?>" class="shop-row">
-            <div class="shop-row-currency">
-                <img src="<?php echo iconImage(673); ?>" alt="Zeny">
-            </div>
             <span class="shop-row-name"><?php echo htmlspecialchars($comprador['char_name']); ?></span>
             <span class="shop-row-title"><?php echo htmlspecialchars($comprador['title']); ?></span>
             <span class="shop-row-location">
                 <i class="fas fa-map-marker-alt"></i>
                 <?php echo $comprador['map']; ?> (<?php echo $comprador['x']; ?>, <?php echo $comprador['y']; ?>)
             </span>
-            <span class="shop-row-gender"><?php echo $comprador['sex'] == 'M' ? '<i class="fas fa-mars"></i>' : '<i class="fas fa-venus"></i>'; ?></span>
             <span class="shop-view-btn">Ver Loja</span>
         </a>
         <?php endforeach; ?>
