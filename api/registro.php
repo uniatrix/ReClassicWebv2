@@ -57,11 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $stmt->bind_param("ssssss", $usuario, $email, $senhaUser, $sexo, $whatsapp, $nome_completo);
 
                 if ($stmt->execute()) {
-                    echo "<div class='success-message'>Conta criada com sucesso</div>";echo "<script>
-				        showRegistrationPopup();
-				        $('html, body').animate({ scrollTop: 0 }, 'slow');  
-				      </script>";
-
+                    echo "<div class='success-message'>Conta criada com sucesso</div>";
                 } else {
                     echo "<div class='error'>Erro ao criar a conta. Contate o suporte!</div>";
                 }           

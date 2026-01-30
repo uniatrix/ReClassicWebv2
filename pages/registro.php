@@ -118,21 +118,67 @@
 
 <!-- Popup de Sucesso -->
 <div id="successPopup" class="success-popup" style="display: none;">
-    <div class="success-content">
-        <div class="success-icon">
-            <i class="fas fa-check-circle"></i>
+    <div class="success-popup-content">
+        <!-- Header igual ao form -->
+        <div class="success-header text-center">
+            <h1 class="success-main-title">Garanta seu <span class="highlight">Lugar</span></h1>
+            <p class="success-subtitle">Faca o pre-registro e receba recompensas exclusivas.</p>
         </div>
-        <h2>Registro Concluido!</h2>
-        <p>Sua conta foi criada com sucesso. Bem-vindo ao ReClassic!</p>
-        <div class="success-actions">
-            <a href="https://drive.google.com/file/d/1ROEqhrWH4mnp40ULfnM0wul84jp6knn4/view?usp=sharing" target="_blank" class="btn-success-action">
-                <i class="fas fa-download"></i> Download do Jogo
+
+        <!-- Recompensas -->
+        <div class="success-rewards-section">
+            <div class="rewards-label">
+                <span>RECOMPENSAS</span>
+                <span class="highlight">PRE-REGISTRO</span>
+            </div>
+            <div class="rewards-grid">
+                <div class="reward-item">
+                    <img src="<?php echo iconImage(5381); ?>" alt="Item" onerror="this.src='assets/img/noimage.png'">
+                    <span>[Visual] Faixa de Ragnarok</span>
+                </div>
+                <div class="reward-item">
+                    <div class="reward-quantity">20</div>
+                    <img src="<?php echo iconImage(501); ?>" alt="Item" onerror="this.src='assets/img/noimage.png'">
+                    <span>Pocao Menor de Vida</span>
+                </div>
+                <div class="reward-item">
+                    <div class="reward-quantity">2</div>
+                    <img src="<?php echo iconImage(12208); ?>" alt="Item" onerror="this.src='assets/img/noimage.png'">
+                    <span>Manual de Combate</span>
+                </div>
+                <div class="reward-item">
+                    <div class="reward-quantity">2</div>
+                    <img src="<?php echo iconImage(12210); ?>" alt="Item" onerror="this.src='assets/img/noimage.png'">
+                    <span>Goma de Mascar</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Icone de Sucesso -->
+        <div class="success-checkmark">
+            <div class="checkmark-circle">
+                <i class="fas fa-check"></i>
+            </div>
+        </div>
+
+        <!-- Titulo de Sucesso -->
+        <h2 class="success-title">Tudo Pronto!</h2>
+        <p class="success-message">Seu registro foi realizado com sucesso.</p>
+
+        <!-- Card de Instrucoes -->
+        <div class="success-instructions-card">
+            <p>Agora e so fazer o download do jogo e aguardar a abertura oficial. Enquanto isso, que tal conferir nossos Pacotes de Fundador?</p>
+        </div>
+
+        <!-- Botoes -->
+        <div class="success-buttons">
+            <a href="?to=pacote-fundador" class="btn-success-primary">
+                VER PACOTES
             </a>
-            <a href="https://discord.gg/JG6vTMbT58" target="_blank" class="btn-success-action secondary">
-                <i class="fab fa-discord"></i> Entrar no Discord
+            <a href="?to=inicio" class="btn-success-secondary">
+                VOLTAR AO INICIO
             </a>
         </div>
-        <a href="?to=entrar" class="btn-go-login">Ir para Login</a>
     </div>
 </div>
 
@@ -459,82 +505,185 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(15, 23, 42, 0.95);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 10001;
     padding: 20px;
+    overflow-y: auto;
 }
 
-.success-content {
+.success-popup-content {
     background: var(--glass-bg);
     backdrop-filter: blur(10px);
     border: 1px solid var(--glass-border);
     border-radius: var(--card-radius);
-    padding: 3rem 2rem;
+    padding: 2.5rem;
     text-align: center;
-    max-width: 400px;
+    max-width: 550px;
     width: 100%;
+    margin: auto;
 }
 
-.success-icon {
-    font-size: 4rem;
-    color: #22c55e;
+.success-header {
     margin-bottom: 1.5rem;
 }
 
-.success-content h2 {
+.success-main-title {
     font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    font-weight: 700;
     color: var(--text-primary);
-    font-size: 1.5rem;
+    text-transform: uppercase;
     margin-bottom: 0.5rem;
 }
 
-.success-content p {
+.success-main-title .highlight {
+    color: var(--accent-color);
+}
+
+.success-subtitle {
     color: var(--text-secondary);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.success-rewards-section {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: var(--header-radius);
+    padding: 1.25rem;
     margin-bottom: 2rem;
 }
 
-.success-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+/* Checkmark Circle */
+.success-checkmark {
     margin-bottom: 1.5rem;
 }
 
-.btn-success-action {
+.checkmark-circle {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    margin: 0 auto;
+    box-shadow: 0 0 30px rgba(34, 197, 94, 0.4);
+}
+
+.checkmark-circle i {
+    font-size: 3rem;
+    color: white;
+}
+
+.success-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    margin: 0 0 0.5rem 0;
+}
+
+.success-message {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    margin: 0 0 1.5rem 0;
+}
+
+.success-instructions-card {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--header-radius);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.success-instructions-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.success-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.btn-success-primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
-    padding: 12px 20px;
+    padding: 14px 20px;
     border-radius: var(--header-radius);
     text-decoration: none;
-    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
     transition: all 0.3s ease;
+    border: none;
 }
 
-.btn-success-action:hover {
+.btn-success-primary:hover {
     transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
     color: white;
 }
 
-.btn-success-action.secondary {
-    background: #5865f2;
-}
-
-.btn-go-login {
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-size: 0.9rem;
-}
-
-.btn-go-login:hover {
+.btn-success-secondary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
     color: var(--accent-color);
+    padding: 14px 20px;
+    border-radius: var(--header-radius);
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    border: 2px solid var(--accent-color);
+}
+
+.btn-success-secondary:hover {
+    background: rgba(79, 195, 247, 0.1);
+    color: var(--accent-color);
+}
+
+@media (max-width: 576px) {
+    .success-popup-content {
+        padding: 1.5rem;
+    }
+
+    .success-main-title {
+        font-size: 1.5rem;
+    }
+
+    .success-title {
+        font-size: 1.5rem;
+    }
+
+    .checkmark-circle {
+        width: 80px;
+        height: 80px;
+    }
+
+    .checkmark-circle i {
+        font-size: 2.5rem;
+    }
+
+    .success-buttons {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* Modal Styles */
@@ -604,12 +753,15 @@ $(document).ready(function() {
             url: 'api/registro.php',
             data: $(this).serialize(),
             success: function(response) {
-                $('#message').html(response);
+                var responseText = String(response);
+                $('#message').html(responseText);
                 $btn.prop('disabled', false).html('FINALIZAR PRE-REGISTRO');
 
                 // Verificar se registro foi bem sucedido
-                if (response.includes('sucesso') || response.includes('Sucesso') || response.includes('criada')) {
-                    showSuccessPopup();
+                if (responseText.indexOf('sucesso') !== -1 || responseText.indexOf('Sucesso') !== -1 || responseText.indexOf('success-message') !== -1) {
+                    setTimeout(function() {
+                        showSuccessPopup();
+                    }, 300);
                 }
             },
             error: function(xhr, status, error) {
@@ -621,11 +773,19 @@ $(document).ready(function() {
 });
 
 function showSuccessPopup() {
-    document.getElementById('successPopup').style.display = 'flex';
+    var popup = document.getElementById('successPopup');
+    if (popup) {
+        popup.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
 }
 
 function closeSuccessPopup() {
-    document.getElementById('successPopup').style.display = 'none';
+    var popup = document.getElementById('successPopup');
+    if (popup) {
+        popup.style.display = 'none';
+        document.body.style.overflow = '';
+    }
     window.location.href = '?to=entrar';
 }
 </script>

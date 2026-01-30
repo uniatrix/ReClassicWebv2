@@ -141,6 +141,14 @@
                     </div>
                     <i class="fas fa-chevron-right"></i>
                 </button>
+                <a href="api/sair.php" class="action-btn action-btn-danger">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <div class="action-text">
+                        <span class="action-title">Sair da Conta</span>
+                        <span class="action-desc">Encerrar sua sessao</span>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </a>
             </div>
         </div>
     </div>
@@ -426,6 +434,23 @@
 .action-btn > i:last-child {
     color: var(--text-secondary);
     font-size: 0.9rem;
+}
+
+.action-btn-danger {
+    text-decoration: none;
+}
+
+.action-btn-danger > i:first-child {
+    color: #dc3545;
+}
+
+.action-btn-danger:hover {
+    background: rgba(220, 53, 69, 0.2);
+    border-color: #dc3545;
+}
+
+.action-btn-danger:hover .action-title {
+    color: #dc3545;
 }
 
 /* Characters Section */
