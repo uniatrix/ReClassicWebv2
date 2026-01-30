@@ -6,6 +6,7 @@
         <h1 class="vote-title">Vote e <span class="highlight">Ganhe</span></h1>
         <p class="vote-subtitle">Ajude o servidor e receba recompensas</p>
 
+        <?php if ($loggedIn): ?>
         <!-- Card de Pontos -->
         <div class="vote-points-card">
             <div class="points-icon">
@@ -16,6 +17,17 @@
                 <span class="points-value"><?php echo $pontos; ?></span>
             </div>
         </div>
+        <?php else: ?>
+        <!-- Login Required -->
+        <div class="vote-login-required">
+            <i class="fas fa-user-lock"></i>
+            <p>Faca login para ver seus pontos</p>
+            <a href="?to=entrar" class="btn-login-vote">
+                <i class="fas fa-sign-in-alt"></i>
+                <span>Entrar</span>
+            </a>
+        </div>
+        <?php endif; ?>
     </div>
 
     <?php echo RECLASSIC::getMessageSession(); ?>
