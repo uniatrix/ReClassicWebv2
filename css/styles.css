@@ -3310,7 +3310,7 @@ section.container:first-of-type {
 .vote-page {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 40px 20px 60px 20px;
 }
 
 .vote-header {
