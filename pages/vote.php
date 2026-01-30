@@ -83,7 +83,7 @@
                 </div>
                 <div class="npc-location">
                     <i class="fas fa-map-marker-alt"></i>
-                    <span>Morroc Paraiso (20, 21)</span>
+                    <span>Grupo Eden (20, 21)</span>
                 </div>
             </div>
             <p class="vote-tip">
