@@ -1,146 +1,137 @@
+<!-- ==================  ITEMINFO UPLOAD - MODERN LAYOUT ================ -->
 
-<style>
-   .progress-bar {
-      width: 100%;
-      height: 20px;
-      background-color: #e0e0e0;
-      border-radius: 5px;
-      overflow: hidden;
-      position: relative;
-   }
+<div class="tool-page">
+    <div class="tool-card">
+        <div class="tool-header">
+            <i class="fas fa-upload"></i>
+            <h1><?php echo $title ?? 'Importar Iteminfo'; ?></h1>
+        </div>
 
-   .progress-fill {
-      height: 100%;
-      background-color: #4caf50;
-      width: 0;
-      transition: width 2s ease-in-out;
-   }
+        <div class="tool-content">
+            <form id="uploadForm" method="POST" enctype="multipart/form-data">
+                <div class="upload-area" id="dropzone">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p id="fileNameText">Arraste o arquivo ou clique para selecionar</p>
+                    <span class="upload-formats">.txt, .lua, .lub</span>
+                    <input type="file" id="iteminfo" name="iteminfo" class="upload-input" hidden accept=".txt, .lua, .lub" />
+                </div>
 
-   #progressText {
-      font-size: 14px;
-   }
-   .card:hover{
-       transform: none;
-   }
-       @media (max-width: 768px) {
+                <div class="progress-container" id="progressWrapper" style="display: none;">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <span class="progress-text" id="progressText">0%</span>
+                </div>
 
-    .content-wrapper {
-        zoom: 0.90;
-       margin-top: 125px;
-    }    
-
- }
-</style>
-<!-- Content wrapper -->
-<div class="content-wrapper">
-   <!-- Content -->
-   <div class="container-xxl flex-grow-1 container-p-y">
-      <div class="card" style="padding: 0 20px;">
-        <h5 class="card-header text-center text-md-start"><?php echo $title?></h5>
-        <div class="card-datatable table-responsive">
-          <div class="card-body">
-      <form id="uploadForm" method="POST" enctype="multipart/form-data">
-         <div class="button-wrapper">
-            <label for="iteminfo" class="btn btn-primary me-3 mb-4" tabindex="0">
-               <span id="fileNameText" >📁 📁 📁 📁 📁 📁</span>
-               <i class="ri-upload-2-line d-block d-sm-none"></i>
-               <input type="file" id="iteminfo" name="iteminfo" class="account-file-input" hidden accept=".txt, .lua, .lub" />
-            </label>
-         </div>
-
-         <div class="mt-6">
-                  <!-- Barra de progresso personalizada -->
-      <div id="progressWrapper" style="display:none; width: 100%; margin-bottom: 15px;">
-         <p id="progressText" style="text-align: center; font-size: 14px;"></p>
-         <div id="progressBar" class="progress-bar">
-            <div id="progressFill" class="progress-fill"></div>
-         </div>
-      </div>
-            <button type="submit" id="submitBtn" class="btn btn-primary me-3" disabled>Enviar</button>
-         </div>
-      </form>
-
+                <button type="submit" class="btn-upload" id="submitBtn" disabled>
+                    <i class="fas fa-paper-plane"></i>
+                    <span>Enviar Arquivo</span>
+                </button>
+            </form>
+        </div>
+    </div>
 </div>
-
-
 
 <script>
-   document.getElementById('iteminfo').addEventListener('change', function() {
-      const file = this.files[0];
-      const fileNameText = document.getElementById('fileNameText');
-      const submitBtn = document.getElementById('submitBtn');
-      
-      if (file) {
+// Click to select file
+document.getElementById('dropzone').addEventListener('click', function() {
+    document.getElementById('iteminfo').click();
+});
 
-         fileNameText.textContent = file.name;
-         fileNameText.classList.remove('d-none');
+// File input change
+document.getElementById('iteminfo').addEventListener('change', function() {
+    const file = this.files[0];
+    const fileNameText = document.getElementById('fileNameText');
+    const submitBtn = document.getElementById('submitBtn');
+    const dropzone = document.getElementById('dropzone');
 
-         submitBtn.disabled = false;
-      } else {
-         // Reseta a interface se não houver arquivo selecionado
-         fileNameText.textContent = '📁 📁 📁 📁 📁 📁';
-         submitBtn.disabled = true;
-      }
-   });
+    if (file) {
+        fileNameText.textContent = file.name;
+        submitBtn.disabled = false;
+        dropzone.classList.add('has-file');
+    } else {
+        fileNameText.textContent = 'Arraste o arquivo ou clique para selecionar';
+        submitBtn.disabled = true;
+        dropzone.classList.remove('has-file');
+    }
+});
 
-   document.getElementById('uploadForm').addEventListener('submit', function(event) {
-      event.preventDefault();
-      const formData = new FormData(this);
-      const progressWrapper = document.getElementById('progressWrapper');
-      const progressFill = document.getElementById('progressFill');
-      const progressText = document.getElementById('progressText');
-      const submitBtn = document.getElementById('submitBtn');
+// Drag and drop
+const dropzone = document.getElementById('dropzone');
+const inputFile = document.getElementById('iteminfo');
 
- 
-      progressWrapper.style.display = 'block';
+['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    dropzone.addEventListener(eventName, preventDefaults, false);
+});
 
- 
-      progressFill.style.width = '0%';
-      progressText.textContent = '';
+function preventDefaults(e) {
+    e.preventDefault();
+    e.stopPropagation();
+}
 
+['dragenter', 'dragover'].forEach(eventName => {
+    dropzone.addEventListener(eventName, () => dropzone.classList.add('drag-over'), false);
+});
 
-      const xhr = new XMLHttpRequest();
-      xhr.open('POST', '', true);
+['dragleave', 'drop'].forEach(eventName => {
+    dropzone.addEventListener(eventName, () => dropzone.classList.remove('drag-over'), false);
+});
 
+dropzone.addEventListener('drop', function(e) {
+    const file = e.dataTransfer.files[0];
+    if (file) {
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
+        inputFile.files = dataTransfer.files;
+        inputFile.dispatchEvent(new Event('change'));
+    }
+});
 
-      xhr.upload.onprogress = function(e) {
-         if (e.lengthComputable) {
-            const percent = (e.loaded / e.total) * 100;
-            progressFill.style.width = percent + '%'; 
-            progressText.textContent = ` ${Math.round(percent)}%`; 
-         }
-      };
+// Form submit with progress
+document.getElementById('uploadForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const formData = new FormData(this);
+    const progressWrapper = document.getElementById('progressWrapper');
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+    const submitBtn = document.getElementById('submitBtn');
 
-      xhr.onload = function() {
-         if (xhr.status === 200) {
+    progressWrapper.style.display = 'flex';
+    progressFill.style.width = '0%';
+    progressText.textContent = '0%';
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '', true);
+
+    xhr.upload.onprogress = function(e) {
+        if (e.lengthComputable) {
+            const percent = Math.round((e.loaded / e.total) * 100);
+            progressFill.style.width = percent + '%';
+            progressText.textContent = percent + '%';
+        }
+    };
+
+    xhr.onload = function() {
+        if (xhr.status === 200) {
             progressFill.style.width = '100%';
-            progressText.textContent = '✅';
-            submitBtn.disabled = true; 
-         } else {
-            progressFill.style.width = '100%';
-            progressText.textContent = 'Error ❌';
-         }
-        
-         setTimeout(function() {
-            progressWrapper.style.display = 'none';
-         }, 1000);
-      };
+            progressText.innerHTML = '<i class="fas fa-check"></i> Concluído';
+            submitBtn.disabled = true;
+        } else {
+            progressText.innerHTML = '<i class="fas fa-times"></i> Erro';
+        }
 
-      xhr.onerror = function() {
-         progressFill.style.width = '100%';
-         progressText.textContent = 'Erro ao enviar o arquivo. Tente novamente.';
-         setTimeout(function() {
+        setTimeout(function() {
             progressWrapper.style.display = 'none';
-         }, 1000);
-      };
+        }, 2000);
+    };
 
-      xhr.send(formData);
-   });
+    xhr.onerror = function() {
+        progressText.innerHTML = '<i class="fas fa-times"></i> Erro ao enviar';
+        setTimeout(function() {
+            progressWrapper.style.display = 'none';
+        }, 2000);
+    };
+
+    xhr.send(formData);
+});
 </script>
-
-
-</div>
-</div>
-<!--/ Multilingual -->
-</div>
-

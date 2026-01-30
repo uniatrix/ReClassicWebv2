@@ -76,7 +76,7 @@
         <?php if($total_pages > 1): ?>
             <div class="rmt-pagination">
                 <?php if($prev_page_url): ?>
-                    <a href="<?php echo $prev_page_url; ?>" class="btn btn-custom">
+                    <a href="<?php echo $prev_page_url; ?>">
                         <i class="fas fa-chevron-left"></i> Anterior
                     </a>
                 <?php endif; ?>
@@ -84,7 +84,7 @@
                 <span>Pagina <?php echo $pagina; ?> de <?php echo $total_pages; ?></span>
 
                 <?php if($next_page_url): ?>
-                    <a href="<?php echo $next_page_url; ?>" class="btn btn-custom">
+                    <a href="<?php echo $next_page_url; ?>">
                         Proxima <i class="fas fa-chevron-right"></i>
                     </a>
                 <?php endif; ?>

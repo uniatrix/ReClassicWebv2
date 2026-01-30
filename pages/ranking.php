@@ -1,389 +1,286 @@
+<!-- ==================  RANKINGS - MODERN LAYOUT ================ -->
 
-<!-- ==================  RANKINGS ================ -->
-
-
-<style type="text/css">
-
-  /* ========== DESKTOP STYLES (Original) ========== */
-
-  h6 {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-
-  p.infoblocks {
-    font-size: 14px;
-    color: #555;
-  }
-
-  /* Tabela */
-  .ranking {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-
-  .ranking th,
-  .ranking td {
-    border: 1px solid #ddd;
-    padding: 10px;
-  }
-
-  .ranking th {
-    background-color: #e7e7e7;
-    color: black;
-    text-align: center;
-    font-weight: bold;
-  }
-
-  .ranking tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-
-  .ranking tr:hover {
-    background-color: #f1f1f1;
-  }
-
-  .ranking td {
-    text-align: center;
-    vertical-align: middle;
-  }
-
-  .ranking img {
-    max-width: 250px;
-    height: auto;
-    border-radius: 5px;
-  }
-
-  /* Estilização para a mensagem de espera */
-  td p {
-    margin: 0;
-    font-size: 12px;
-    color: red;
-    text-shadow: none;
-  }
-
-  .disabled {
-    color: black;
-    pointer-events: none;
-  }
-
-  /* ========== MOBILE STYLES (Modern) ========== */
-  @media (max-width: 768px) {
-    .infoblocks {
-      width: auto;
-      margin: 0;
-      margin-top: 0;
-      padding: 10px;
-      padding-bottom: 100px;
-    }
-
-    h6 {
-      padding: 15px;
-      background: white;
-      color: #333;
-      font-family: 'Pixelify Sans', sans-serif;
-      border-bottom: 1px solid #e0e0e0;
-      margin: 0 0 15px 0;
-    }
-
-    #filter_ranking {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 15px;
-      background-color: white;
-      padding: 10px;
-    }
-
-    #filter_ranking a {
-      flex: 1;
-      min-width: 80px;
-      text-align: center;
-      padding: 10px 15px;
-      background-color: #f5f5f5;
-      border: 2px solid var(--primary-color);
-      border-radius: 25px;
-      color: var(--primary-color);
-      font-family: 'Pixelify Sans', sans-serif;
-      font-size: 12px;
-      font-weight: 600;
-      text-decoration: none;
-    }
-
-    #filter_ranking a.disabled {
-      background-color: var(--primary-color);
-      color: white;
-    }
-
-    .ranking {
-      font-size: 12px;
-    }
-
-    .ranking th,
-    .ranking td {
-      padding: 8px 5px;
-    }
-
-    .ranking th {
-      background-color: var(--primary-color);
-      color: white;
-      font-family: 'Pixelify Sans', sans-serif;
-      font-size: 11px;
-    }
-
-    .ranking tr:hover {
-      background-color: rgba(52, 152, 219, 0.1);
-    }
-
-    h6 {
-      text-align: center;
-      padding: 10px;
-      margin: 0 0 15px 0;
-      background-color: #f5f5f5;
-      border-radius: 8px;
-    }
-  }
-</style>
-
-<div class="infoblocks">
-
-    <div id="filter_ranking">
-      <a href="?to=ranking&type=personagens">Personagens</a> >
-      <a href="?to=ranking&type=guilds">Guildas</a> >
-      <a href="?to=ranking&type=alquimistas">Alquimistas</a> >
-      <a href="?to=ranking&type=ferreiros">Ferreiros</a>
+<div class="ranking-page">
+    <!-- Header -->
+    <div class="ranking-header">
+        <h1 class="ranking-title">Hall da <span class="highlight">Fama</span></h1>
+        <p class="ranking-subtitle">Os maiores heróis de Midgard</p>
     </div>
 
-<?php if($_GET['type'] == 'personagens'):?>
+    <!-- Tabs de Navegação -->
+    <nav class="ranking-tabs">
+        <a href="?to=ranking&type=personagens" class="ranking-tab <?php echo ($_GET['type'] == 'personagens' || empty($_GET['type'])) ? 'active' : ''; ?>">
+            <i class="fas fa-user"></i>
+            <span>Personagens</span>
+        </a>
+        <a href="?to=ranking&type=guilds" class="ranking-tab <?php echo $_GET['type'] == 'guilds' ? 'active' : ''; ?>">
+            <i class="fas fa-shield-alt"></i>
+            <span>Guildas</span>
+        </a>
+        <a href="?to=ranking&type=alquimistas" class="ranking-tab <?php echo $_GET['type'] == 'alquimistas' ? 'active' : ''; ?>">
+            <i class="fas fa-flask"></i>
+            <span>Alquimistas</span>
+        </a>
+        <a href="?to=ranking&type=ferreiros" class="ranking-tab <?php echo $_GET['type'] == 'ferreiros' ? 'active' : ''; ?>">
+            <i class="fas fa-hammer"></i>
+            <span>Ferreiros</span>
+        </a>
+    </nav>
 
+    <!-- Conteúdo do Ranking -->
+    <div class="ranking-content">
 
-  <h6><?php echo $title?></h6>
-  <?php if ($chars): ?>
-      <table class="ranking">
-          <tr align="center">
-            <th align="center">Posição</th>
-            <th>Nome</th>
-            <th  colspan="2">Classe</th>
-            <th>Guild</th>
-            <th>Nível Base</th>
-            <th>Nível de Classe</th>
-            <th>Exp. Base</th>
-            <th>Exp. de Classe</th>
-          </tr>
-         <?php foreach ($chars as $key => $char): ?>
-         <tr align="left">
-            <?php if($key < 4):   ?>
-               <td align="center"><img src='assets/img/top<?php echo $key + 1?>.svg' width='30px'></td>
-            <?php else: ?>
-               <td align="center"><?php echo $key+1 ?><?php echo (strtolower($char['sex']) == 'f') ?  'ª' :   'º'?></td>
-            <?php endif?>
-            <td><?php echo $char['char_name'] ?></td>
-            <td width="24"><img src="<?php echo iconClass($char['char_class']);?>" /></td>
-            <td><?php echo getClasse($char['char_class'])?></td>
-            <td><?php echo RECLASSIC::getGuildName($char['guild_id']); ?></td>
-            <td><?php echo $char['base_level'] ?></td>
-            <td><?php echo $char['job_level'] ?></td>
-            <td><?php echo formatarNumero($char['base_exp']) ?></td>
-            <td><?php echo formatarNumero($char['job_exp']) ?></td>
-         </tr>
-         <?php endforeach; ?>
-</table>
-<?php else: ?>
-  <br><br>
-  <p style="text-shadow: none;">Nenhum personagem encontrado. <a href="./">Voltar ao início.</a></p>
+<?php if($_GET['type'] == 'personagens' || empty($_GET['type'])): ?>
+
+        <?php if ($chars): ?>
+            <div class="ranking-list">
+                <?php foreach ($chars as $key => $char): ?>
+                <div class="ranking-item <?php echo $key == 0 ? 'gold' : ($key == 1 ? 'silver' : ($key == 2 ? 'bronze' : '')); ?>">
+                    <div class="ranking-position">
+                        <?php if($key < 3): ?>
+                            <i class="fas fa-crown"></i>
+                        <?php endif; ?>
+                        <span class="position-number"><?php echo $key + 1; ?><?php echo (strtolower($char['sex']) == 'f') ? 'ª' : 'º'; ?></span>
+                    </div>
+                    <div class="ranking-avatar">
+                        <img src="<?php echo iconClass($char['char_class']); ?>" alt="<?php echo getClasse($char['char_class']); ?>">
+                    </div>
+                    <div class="ranking-info">
+                        <h3 class="ranking-name"><?php echo htmlspecialchars($char['char_name']); ?></h3>
+                        <span class="ranking-class"><?php echo getClasse($char['char_class']); ?></span>
+                        <?php if($char['guild_id']): ?>
+                            <span class="ranking-guild"><i class="fas fa-shield-alt"></i> <?php echo RECLASSIC::getGuildName($char['guild_id']); ?></span>
+                        <?php endif; ?>
+                    </div>
+                    <div class="ranking-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Base</span>
+                            <span class="stat-value"><?php echo $char['base_level']; ?></span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Job</span>
+                            <span class="stat-value"><?php echo $char['job_level']; ?></span>
+                        </div>
+                        <div class="stat-item exp">
+                            <span class="stat-label">Exp Base</span>
+                            <span class="stat-value"><?php echo formatarNumero($char['base_exp']); ?></span>
+                        </div>
+                        <div class="stat-item exp">
+                            <span class="stat-label">Exp Job</span>
+                            <span class="stat-value"><?php echo formatarNumero($char['job_exp']); ?></span>
+                        </div>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <div class="ranking-empty">
+                <i class="fas fa-users-slash"></i>
+                <p>Nenhum personagem encontrado.</p>
+                <a href="./" class="btn-back">Voltar ao início</a>
+            </div>
+        <?php endif; ?>
+
+<?php elseif($_GET['type'] == 'guilds'): ?>
+
+        <?php if ($chars): ?>
+            <div class="ranking-list">
+                <?php foreach ($chars as $key => $guild): ?>
+                <div class="ranking-item <?php echo $key == 0 ? 'gold' : ($key == 1 ? 'silver' : ($key == 2 ? 'bronze' : '')); ?>">
+                    <div class="ranking-position">
+                        <?php if($key < 3): ?>
+                            <i class="fas fa-crown"></i>
+                        <?php endif; ?>
+                        <span class="position-number"><?php echo $key + 1; ?>º</span>
+                    </div>
+                    <div class="ranking-avatar guild-avatar">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="ranking-info">
+                        <h3 class="ranking-name"><?php echo htmlspecialchars($guild['name']); ?></h3>
+                        <span class="ranking-class">Nível <?php echo $guild['guild_lv']; ?></span>
+                        <span class="ranking-guild"><i class="fas fa-users"></i> <?php echo $guild['members']; ?> membros</span>
+                    </div>
+                    <div class="ranking-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Castelos</span>
+                            <span class="stat-value"><?php echo $guild['castles']; ?></span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Média Lv</span>
+                            <span class="stat-value"><?php echo $guild['average_lv']; ?></span>
+                        </div>
+                        <div class="stat-item exp">
+                            <span class="stat-label">Experiência</span>
+                            <span class="stat-value"><?php echo formatarNumero($guild['exp']); ?></span>
+                        </div>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <div class="ranking-empty">
+                <i class="fas fa-shield-alt"></i>
+                <p>Nenhuma guilda encontrada.</p>
+                <a href="./" class="btn-back">Voltar ao início</a>
+            </div>
+        <?php endif; ?>
+
+<?php elseif($_GET['type'] == 'alquimistas'): ?>
+
+        <?php if ($chars): ?>
+            <div class="ranking-list">
+                <?php foreach ($chars as $key => $char): ?>
+                <div class="ranking-item <?php echo $key == 0 ? 'gold' : ($key == 1 ? 'silver' : ($key == 2 ? 'bronze' : '')); ?>">
+                    <div class="ranking-position">
+                        <?php if($key < 3): ?>
+                            <i class="fas fa-crown"></i>
+                        <?php endif; ?>
+                        <span class="position-number"><?php echo $key + 1; ?><?php echo (strtolower($char['sex']) == 'f') ? 'ª' : 'º'; ?></span>
+                    </div>
+                    <div class="ranking-avatar">
+                        <img src="<?php echo iconClass($char['char_class']); ?>" alt="<?php echo getClasse($char['char_class']); ?>">
+                    </div>
+                    <div class="ranking-info">
+                        <h3 class="ranking-name"><?php echo htmlspecialchars($char['char_name']); ?></h3>
+                        <span class="ranking-class"><?php echo getClasse($char['char_class']); ?></span>
+                        <?php if($char['guild_id']): ?>
+                            <span class="ranking-guild"><i class="fas fa-shield-alt"></i> <?php echo RECLASSIC::getGuildName($char['guild_id']); ?></span>
+                        <?php endif; ?>
+                    </div>
+                    <div class="ranking-stats">
+                        <div class="stat-item highlight-stat">
+                            <span class="stat-label">Fama</span>
+                            <span class="stat-value"><?php echo formatarNumero($char['fame']); ?></span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Base</span>
+                            <span class="stat-value"><?php echo $char['base_level']; ?></span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Job</span>
+                            <span class="stat-value"><?php echo $char['job_level']; ?></span>
+                        </div>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <div class="ranking-empty">
+                <i class="fas fa-flask"></i>
+                <p>Nenhum alquimista encontrado.</p>
+                <a href="./" class="btn-back">Voltar ao início</a>
+            </div>
+        <?php endif; ?>
+
+<?php elseif($_GET['type'] == 'ferreiros'): ?>
+
+        <?php if ($chars): ?>
+            <div class="ranking-list">
+                <?php foreach ($chars as $key => $char): ?>
+                <div class="ranking-item <?php echo $key == 0 ? 'gold' : ($key == 1 ? 'silver' : ($key == 2 ? 'bronze' : '')); ?>">
+                    <div class="ranking-position">
+                        <?php if($key < 3): ?>
+                            <i class="fas fa-crown"></i>
+                        <?php endif; ?>
+                        <span class="position-number"><?php echo $key + 1; ?><?php echo (strtolower($char['sex']) == 'f') ? 'ª' : 'º'; ?></span>
+                    </div>
+                    <div class="ranking-avatar">
+                        <img src="<?php echo iconClass($char['char_class']); ?>" alt="<?php echo getClasse($char['char_class']); ?>">
+                    </div>
+                    <div class="ranking-info">
+                        <h3 class="ranking-name"><?php echo htmlspecialchars($char['char_name']); ?></h3>
+                        <span class="ranking-class"><?php echo getClasse($char['char_class']); ?></span>
+                        <?php if($char['guild_id']): ?>
+                            <span class="ranking-guild"><i class="fas fa-shield-alt"></i> <?php echo RECLASSIC::getGuildName($char['guild_id']); ?></span>
+                        <?php endif; ?>
+                    </div>
+                    <div class="ranking-stats">
+                        <div class="stat-item highlight-stat">
+                            <span class="stat-label">Fama</span>
+                            <span class="stat-value"><?php echo formatarNumero($char['fame']); ?></span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Base</span>
+                            <span class="stat-value"><?php echo $char['base_level']; ?></span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Job</span>
+                            <span class="stat-value"><?php echo $char['job_level']; ?></span>
+                        </div>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <div class="ranking-empty">
+                <i class="fas fa-hammer"></i>
+                <p>Nenhum ferreiro encontrado.</p>
+                <a href="./" class="btn-back">Voltar ao início</a>
+            </div>
+        <?php endif; ?>
+
 <?php endif; ?>
 
-<?php elseif($_GET['type'] == 'guilds'):?>
-
-
-  <h6><?php echo $title?></h6>
-  <?php if ($chars): ?>
-      <table class="ranking">
-          <tr align="center">
-            <th align="center">Posição</th>
-            <th>Nome</th>
-            <th>Nível</th>
-            <th>Membros</th>
-            <th>Castelos</th>
-            <th>Nível</th>
-            <th>Experiência</th>
-          </tr>
-         <?php foreach ($chars as $key => $guild): ?>
-         <tr align="left">
-            <?php if($key < 4):   ?>
-               <td align="center"><img src='assets/img/top<?php echo $key + 1?>.svg' width='30px'></td>
-            <?php else: ?>
-               <td align="center"><?php echo $key+1 ?>º</td>
-            <?php endif?>
-            <td><?php echo $guild['name'] ?></td>
-            <td><?php echo $guild['guild_lv']?></td>
-            <td><?php echo $guild['castles'] ?></td>
-            <td><?php echo $guild['members'] ?></td>
-            <td><?php echo $guild['average_lv'] ?></td>
-            <td><?php echo formatarNumero($guild['exp']); ?></td>
-         </tr>
-         <?php endforeach; ?>
-</table>
-<?php else: ?>
-  <br><br>
-  <p style="text-shadow: none;">Nenhuma guilda encontrado. <a href="./">Voltar ao início.</a></p>
-<?php endif; ?>
-
-<?php elseif($_GET['type'] == 'alquimistas'):?>
-
-  
-  <h6><?php echo $title?></h6>
-  <?php if ($chars): ?>
-      <table class="ranking">
-          <tr align="center">
-            <th align="center">Posição</th>
-            <th>Nome</th>
-            <th colspan="2">Classe</th>
-		    <th>Pontos de Fama</th>
-            <th>Nível Base</th>
-            <th>Nível de Classe</th>
-            <th>Guild</th>
-          </tr>
-         <?php foreach ($chars as $key => $char): ?>
-         <tr align="left">
-            <?php if($key < 4):   ?>
-               <td align="center"><img src='assets/img/top<?php echo $key + 1?>.svg' width='30px'></td>
-            <?php else: ?>
-               <td align="center"><?php echo $key+1 ?><?php echo (strtolower($char['sex']) == 'f') ?  'ª' :   'º'?></td>
-            <?php endif?>
-            <td><?php echo $char['char_name'] ?></td>
-            <td width="24"><img src="<?php echo iconClass($char['char_class']);?>" /></td>
-            <td><?php echo getClasse($char['char_class'])?></td>
-            <td><?php echo formatarNumero($char['fame']) ?></td>
-            <td><?php echo $char['base_level'] ?></td>
-            <td><?php echo $char['job_level'] ?></td>
-            <td><?php echo RECLASSIC::getGuildName($char['guild_id']); ?></td>
-         </tr>
-         <?php endforeach; ?>
-</table>
-<?php else: ?>
-  <br><br>
-  <p style="text-shadow: none;">Nenhum alquimista encontrado. <a href="./">Voltar ao início.</a></p>
-<?php endif; ?>
-
-<?php elseif($_GET['type'] == 'ferreiros'):?>
-
-
-  <h6><?php echo $title?></h6>
-  <?php if ($chars): ?>
-      <table class="ranking">
-          <tr align="center">
-            <th align="center">Posição</th>
-            <th>Nome</th>
-            <th colspan="2">Classe</th>
-		    <th>Pontos de Fama</th>
-            <th>Nível Base</th>
-            <th>Nível de Classe</th>
-            <th>Guild</th>
-          </tr>
-         <?php foreach ($chars as $key => $char): ?>
-         <tr align="left">
-            <?php if($key < 4):   ?>
-               <td align="center"><img src='assets/img/top<?php echo $key + 1?>.svg' width='30px'></td>
-            <?php else: ?>
-               <td align="center"><?php echo $key+1 ?><?php echo (strtolower($char['sex']) == 'f') ?  'ª' :   'º'?></td>
-            <?php endif?>
-            <td><?php echo $char['char_name'] ?></td>
-            
-            <td width="24"><img src="<?php echo iconClass($char['char_class']);?>" /></td>
-            <td><?php echo getClasse($char['char_class'])?></td>
-            <td><?php echo formatarNumero($char['fame']) ?></td>
-            <td><?php echo $char['base_level'] ?></td>
-            <td><?php echo $char['job_level'] ?></td>
-            <td><?php echo RECLASSIC::getGuildName($char['guild_id']); ?></td>
-         </tr>
-         <?php endforeach; ?>
-</table>
-<?php else: ?>
-  <br><br>
-  <p style="text-shadow: none;">Nenhum ferreiro encontrado. <a href="./">Voltar ao início.</a></p>
-<?php endif; ?>
-
-<?php endif?>
-
+    </div>
 </div>
 
-
-
 <script>
-// Função para obter o valor de um parâmetro da URL
-function getUrlParam(param) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(param);
-}
+// Função para navegação AJAX dos rankings
+document.addEventListener('DOMContentLoaded', function() {
+    const tabs = document.querySelectorAll('.ranking-tab');
 
-// Função para aplicar a classe 'disabled' ao link ativo
-function applyActiveLink() {
-    const type = getUrlParam('type'); // Obtém o parâmetro 'type' da URL
-    document.querySelectorAll('#filter_ranking a').forEach(link => {
-        const linkType = new URL(link.href).searchParams.get('type'); // Obtém o 'type' de cada link
-        if (linkType === type) {
-            link.classList.add('disabled'); // Adiciona a classe 'disabled' ao link ativo
-        } else {
-            link.classList.remove('disabled'); // Remove a classe dos outros links
-        }
-    });
-}
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function(e) {
+            e.preventDefault();
+            const url = this.href;
 
-// Função para enviar a requisição e atualizar a classe 'infoblocks'
-function submitFilter(link) {
-    const newUrl = link.href;
+            // Atualiza URL no navegador
+            window.history.pushState(null, '', url);
 
-    // Atualiza o histórico da URL no navegador
-    window.history.pushState(null, '', newUrl);
+            // Requisição AJAX
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(data, 'text/html');
+                    const newContent = doc.querySelector('.ranking-page');
+                    const currentContent = document.querySelector('.ranking-page');
 
-    // Realiza a requisição para o servidor
-    fetch(newUrl)
-        .then(response => response.text())
-        .then(data => {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(data, 'text/html');
-
-            // Atualiza a classe infoblocks
-            const updatedContent = doc.querySelector('.infoblocks');
-            const currentContent = document.querySelector('.infoblocks');
-            if (currentContent && updatedContent) {
-                currentContent.innerHTML = updatedContent.innerHTML;
-
-                // Atualiza os links ativos
-                applyActiveLink();
-                applyFilterEvents();
-            }
-        })
-        .catch(error => console.error('Erro ao buscar o conteúdo:', error));
-}
-
-// Adiciona eventos de clique aos links do filtro
-function applyFilterEvents() {
-    document.querySelectorAll('#filter_ranking a').forEach(link => {
-        link.addEventListener('click', event => {
-            event.preventDefault(); // Evita o comportamento padrão do link
-            submitFilter(link); // Chama a função para atualização dinâmica
+                    if (currentContent && newContent) {
+                        currentContent.innerHTML = newContent.innerHTML;
+                        // Reaplica eventos aos novos tabs
+                        initTabs();
+                    }
+                })
+                .catch(error => console.error('Erro:', error));
         });
     });
-}
-function applyFilterEvents() {
-    // Adiciona o evento de clique aos links do filtro
-    const filterLinks = document.querySelectorAll('#filter_ranking a');
-    filterLinks.forEach(link => {
-        link.addEventListener('click', event => {
-            event.preventDefault(); // Evita o comportamento padrão do link
-            submitFilter(link); // Chama a função de atualização
-        });
-    });
-}
 
-// Inicializa o comportamento ao carregar a página
-document.addEventListener('DOMContentLoaded', () => {
-    applyActiveLink(); // Aplica a classe 'disabled' ao link ativo com base na URL atual
-    applyFilterEvents(); // Adiciona os eventos de clique
+    function initTabs() {
+        const newTabs = document.querySelectorAll('.ranking-tab');
+        newTabs.forEach(tab => {
+            tab.addEventListener('click', function(e) {
+                e.preventDefault();
+                const url = this.href;
+                window.history.pushState(null, '', url);
+
+                fetch(url)
+                    .then(response => response.text())
+                    .then(data => {
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(data, 'text/html');
+                        const newContent = doc.querySelector('.ranking-page');
+                        const currentContent = document.querySelector('.ranking-page');
+
+                        if (currentContent && newContent) {
+                            currentContent.innerHTML = newContent.innerHTML;
+                            initTabs();
+                        }
+                    })
+                    .catch(error => console.error('Erro:', error));
+            });
+        });
+    }
 });
-
 </script>

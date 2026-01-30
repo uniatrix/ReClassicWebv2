@@ -1,99 +1,74 @@
+<!-- ==================  NEWS - MODERN LAYOUT ================ -->
 
-    <div class="main-content">
-        <div class="news-events">
-            <table  border="0" cellspacing="0" cellpadding="0">
-                <tbody>
-                    <tr>
-                        <td>
-                            <img src="https://reclassicro.com/assets/notice_title.gif" width="344" height="21">
-                            <br>
-                            <font color="#000000" class="arial8">Ragnarok Reclassic informa aos usuários.</font> 
-                        </td>
-                    </tr>
-                    <tr> 
-                        <td> 
-                            <table width="100%" border="0" cellspacing="0" cellpadding="0" height="28" background="https://reclassicro.com/assets/news_t_t.gif">
-                                <tbody>
-                                    <tr> 
-                                        <td width="10%" class="arial8"> 
-                                            <div align="center"><font color="#000000">Num</font></div>
-                                        </td>
-                                        <td width="65%" class="arial8"> 
-                                            <div align="center"><font color="#000000">Assunto</font></div>
-                                        </td>
-                                        <td width="15%" class="arial8"> 
-                                            <div align="center"><font color="#000000">Data</font></div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                <tbody align="center">
-                                    <tr bgcolor="#F4F4F5"> 
-                                        <td width="10%" height="31"><div align="center">3</div></td>
-                                        <td width="65%">Faça parte da equipe do Ragnarok ReClassic.</td>
-                                        <td width="15%"><div align="center">29/08/24</div></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                <tbody>
-                                    <tr> 
-                                        <td><img src="https://reclassicro.com/assets/gray_dot.gif" width="100%" height="1"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <br>
-                            <table width="100%" border="0" cellspacing="5" cellpadding="0">
-                                <tbody>
-                                    <tr> 
-                                        <td width="80" valign="top"><img src="https://reclassicro.com/assets/notice_npc.gif"></td>
-                                        <td valign="top">
-                                            Atenção, jogadores,<br><br>
-                                            Estamos atualmente buscando recrutar um novo SubGM para a equipe de GMs do <b>Ragnarok ReClassic Online</b>. Se você estiver interessado, por favor, acesse o link abaixo para se inscrever para o cargo.<br>
-                                            <center><br><a href="https://forms.gle/AuKb1AZ3bbSSYskv7" target="_blank">Formulário de Inscrição</a><br><br></center>
-                                            Responsabilidades do Cargo: <br>
-                                            1. Coletar informações sobre problemas, explorações e bugs do jogo. <br>
-                                            2. Familiaridade com o jogo, bem como profissionalismo. <br>
-                                            3. Educar os clientes sobre as regras e diretrizes de suporte existentes. <br><br>
-                                            Qualificações para o Cargo: <br>
-                                            1. Fortes habilidades de comunicação verbal e escrita. <br>
-                                            2. Experiência extensa em atendimento ao cliente. <br>
-                                            3. Compromisso inabalável com um atendimento ao cliente superior. <br>
-                                            4. Capacidade de lidar com situações de alto estresse. <br>
-                                            5. Capacidade de trabalhar de forma independente e em equipe. <br>
-                                            6. Flexibilidade de horário.<br>
-                                            7. Familiaridade com jogos de PC e MMORPGs. <br>
-                                            8. Fortes habilidades organizacionais e de gestão de tempo.<br>
-                                            9. Paixão por Jogos. <br><br>
-                                            Obrigado,<br>Equipe GM do Ragnarok ReClassic Online.<br>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                <tbody>
-                                    <tr> 
-                                        <td><img src="https://reclassicro.com/assets/gray_dot.gif" width="100%" height="1"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                <tbody>
-                                    <tr> 
-                                        <td height="70"> 
-                                            <div align="center">
-                                                <a href="./">
-                                                    <img src="https://reclassicro.com/assets/ver-button.webp">
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+<div class="news-page">
+    <!-- Header -->
+    <div class="news-header">
+        <span class="news-badge">NOTÍCIA</span>
+        <h1 class="news-page-title">Novidades do <span class="highlight">ReClassic</span></h1>
     </div>
+
+    <!-- Artigo -->
+    <article class="news-article">
+        <header class="article-header">
+            <div class="article-meta">
+                <span class="article-number">#3</span>
+                <span class="article-date"><i class="fas fa-calendar-alt"></i> 29/08/2024</span>
+            </div>
+            <h2 class="article-title">Faça parte da equipe do Ragnarok ReClassic</h2>
+        </header>
+
+        <div class="article-content">
+            <div class="article-npc">
+                <img src="https://reclassicro.com/assets/notice_npc.gif" alt="NPC">
+            </div>
+            <div class="article-text">
+                <p><strong>Atenção, jogadores!</strong></p>
+
+                <p>Estamos atualmente buscando recrutar um novo SubGM para a equipe de GMs do <strong>Ragnarok ReClassic Online</strong>. Se você estiver interessado, por favor, acesse o link abaixo para se inscrever para o cargo.</p>
+
+                <div class="article-cta">
+                    <a href="https://forms.gle/AuKb1AZ3bbSSYskv7" target="_blank" class="btn-article-action">
+                        <i class="fas fa-external-link-alt"></i>
+                        Formulário de Inscrição
+                    </a>
+                </div>
+
+                <div class="article-section">
+                    <h4><i class="fas fa-tasks"></i> Responsabilidades do Cargo:</h4>
+                    <ul>
+                        <li>Coletar informações sobre problemas, explorações e bugs do jogo.</li>
+                        <li>Familiaridade com o jogo, bem como profissionalismo.</li>
+                        <li>Educar os clientes sobre as regras e diretrizes de suporte existentes.</li>
+                    </ul>
+                </div>
+
+                <div class="article-section">
+                    <h4><i class="fas fa-user-check"></i> Qualificações para o Cargo:</h4>
+                    <ul>
+                        <li>Fortes habilidades de comunicação verbal e escrita.</li>
+                        <li>Experiência extensa em atendimento ao cliente.</li>
+                        <li>Compromisso inabalável com um atendimento ao cliente superior.</li>
+                        <li>Capacidade de lidar com situações de alto estresse.</li>
+                        <li>Capacidade de trabalhar de forma independente e em equipe.</li>
+                        <li>Flexibilidade de horário.</li>
+                        <li>Familiaridade com jogos de PC e MMORPGs.</li>
+                        <li>Fortes habilidades organizacionais e de gestão de tempo.</li>
+                        <li>Paixão por Jogos.</li>
+                    </ul>
+                </div>
+
+                <p class="article-signature">
+                    Obrigado,<br>
+                    <strong>Equipe GM do Ragnarok ReClassic Online</strong>
+                </p>
+            </div>
+        </div>
+
+        <footer class="article-footer">
+            <a href="./" class="btn-back-home">
+                <i class="fas fa-arrow-left"></i>
+                <span>Voltar ao Início</span>
+            </a>
+        </footer>
+    </article>
+</div>
